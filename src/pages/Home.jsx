@@ -599,7 +599,9 @@ const MineGuard360Website = () => {
                 expertise: "Backend & AI Development",
                 id: "23211055004",
                 focus: "System architecture and AI model development",
-                skills: ["YOLOv11", "Machine Learning", "Python", "Backend Systems"]
+
+                skills: ["YOLOv11", "Machine Learning", "Python", "Backend Systems"],
+                image: "/josh.png"
               },
               {
                 name: "Bwalya Musunka Lampi", 
@@ -607,7 +609,8 @@ const MineGuard360Website = () => {
                 expertise: "Frontend & Mobile App Development",
                 id: "23211055011",
                 focus: "Dashboard design and user experience",
-                skills: ["React", "UI/UX Design", "Mobile Development", "Data Visualization"]
+                skills: ["React", "UI/UX Design", "Mobile Development", "Data Visualization"],
+                image: "/bwalya.png"
               },
               {
                 name: "Steward Changala",
@@ -615,7 +618,8 @@ const MineGuard360Website = () => {
                 expertise: "IoT & Embedded Systems",
                 id: "24213055038",
                 focus: "Sensor networks and hardware integration",
-                skills: ["ESP32", "MicroPython", "IoT Sensors", "Hardware Design"]
+                skills: ["ESP32", "MicroPython", "IoT Sensors", "Hardware Design"],
+                image: "/steward.png"
               }
             ].map((member, index) => (
               <motion.div
@@ -626,8 +630,12 @@ const MineGuard360Website = () => {
                 whileHover={{ y: -10 }}
                 className="bg-gradient-to-br from-slate-800 to-slate-700 p-8 rounded-xl border border-white/10 shadow-xl"
               >
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <Users size={32} className="text-white" />
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden">
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-xl font-bold text-white text-center mb-2">{member.name}</h3>
                 <p className="text-blue-400 text-center mb-2">{member.role}</p>
