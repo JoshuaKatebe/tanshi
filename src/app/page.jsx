@@ -327,7 +327,7 @@ const TanshiHomepage = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex items-center">
+      <section className="relative z-10 min-h-screen flex items-center pt-20">
         <div className="container mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
