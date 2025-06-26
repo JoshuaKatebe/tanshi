@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Rocket } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -59,10 +60,17 @@ const Navigation = () => {
                   whileHover={{ rotate: 180 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <Rocket size={24} className="text-white" />
+                  <Image
+                    src="/TanshiLogo.png"
+                    alt="Tanshi Logo"
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                    priority
+                  />
                 </motion.div>
                 <span className="text-xl font-bold text-white hidden sm:block">
-                  Tanshi Digital
+                  Tanshi Digital Solution
                 </span>
               </Link>
             </motion.div>

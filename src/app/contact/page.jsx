@@ -94,7 +94,7 @@ const ContactPage = () => {
       icon: Phone,
       title: "Call or WhatsApp",
       primary: "+260 761 583 901",
-      secondary: "Available Mon-Fri, 8AM-6PM WAT",
+      secondary: "Available Mon-Fri, 8AM-6PM CAT",
       action: "https://wa.me/260761583901",
       color: "from-green-600 to-emerald-600"
     },
