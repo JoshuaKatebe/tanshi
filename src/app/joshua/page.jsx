@@ -578,37 +578,7 @@ const Portfolio = () => {
                   </div>
                 </motion.div>
                 
-                {/* Floating tech icons */}
-                {[
-                  { icon: Brain, angle: 0, radius: 160, color: "text-purple-400" },
-                  { icon: Cpu, angle: 60, radius: 160, color: "text-green-400" },
-                  { icon: Smartphone, angle: 120, radius: 160, color: "text-blue-400" },
-                  { icon: Globe, angle: 180, radius: 160, color: "text-cyan-400" },
-                  { icon: Shield, angle: 240, radius: 160, color: "text-red-400" },
-                  { icon: Zap, angle: 300, radius: 160, color: "text-yellow-400" }
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="absolute"
-                    style={{
-                      left: '50%',
-                      top: '50%',
-                      transform: `translate(-50%, -50%) rotate(${item.angle}deg) translateY(-${item.radius}px) rotate(-${item.angle}deg)`
-                    }}
-                    animate={{
-                      rotate: [0, 360],
-                      scale: [1, 1.2, 1]
-                    }}
-                    transition={{
-                      rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                      scale: { duration: 2, repeat: Infinity, delay: index * 0.3 }
-                    }}
-                  >
-                    <div className={`p-3 bg-slate-800/80 rounded-full border border-blue-500/30 ${item.color}`}>
-                      <item.icon size={24} />
-                    </div>
-                  </motion.div>
-                ))}
+                
               </div>
             </motion.div>
           </div>
