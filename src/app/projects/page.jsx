@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Shield, 
+  Shield,
+  Building, 
   Bot, 
   Eye, 
   Home, 
