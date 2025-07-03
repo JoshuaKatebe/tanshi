@@ -25,6 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head><meta name="msvalidate.01" content="ED7E4347C3F3DED1AAD5A62422217488" /></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
