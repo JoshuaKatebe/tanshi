@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -114,7 +115,7 @@ const WebDevelopmentPage = () => {
       description: 'Perfect for Getting Started', 
       domain: 'Subdomain included', 
       hosting: 'Free (Static)', 
-      time: '3-5 days',
+      time: '1 day',
       color: 'from-blue-500 to-cyan-500',
       popular: false,
       features: [
@@ -141,7 +142,7 @@ const WebDevelopmentPage = () => {
       description: 'Essential Business Presence', 
       domain: 'Domain included (up to K120)', 
       hosting: 'Free (Static)', 
-      time: '1-2 weeks',
+      time: '3-5 days',
       color: 'from-green-500 to-emerald-500',
       popular: false,
       features: [
@@ -171,7 +172,7 @@ const WebDevelopmentPage = () => {
       description: 'Complete Professional Website', 
       domain: 'Domain included (up to K264)', 
       hosting: 'Free (Static)', 
-      time: '2-3 weeks',
+      time: '1-2 weeks',
       color: 'from-purple-500 to-pink-500',
       popular: true,
       features: [
@@ -202,7 +203,7 @@ const WebDevelopmentPage = () => {
       description: 'Advanced Functionality', 
       domain: '.com domain included', 
       hosting: 'Client Paid', 
-      time: '3-4 weeks',
+      time: '1-3 weeks',
       color: 'from-orange-500 to-red-500',
       popular: false,
       features: [
@@ -233,7 +234,7 @@ const WebDevelopmentPage = () => {
       description: 'Custom Solutions', 
       domain: 'Any domain', 
       hosting: 'Negotiable', 
-      time: '4-8 weeks',
+      time: '2-4 weeks',
       color: 'from-indigo-500 to-purple-500',
       popular: false,
       features: [
@@ -500,5 +501,580 @@ const WebDevelopmentPage = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white overflow-hidden">
+      {/* Background Effects */}
+      <div className="fixed inset-0 z-0">
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+          style={{ left: '10%', top: '20%' }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ duration: 20, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl"
+          style={{ right: '10%', top: '60%' }}
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 50, 0],
+            scale: [1.2, 1, 1.2]
+          }}
+          transition={{ duration: 25, repeat: Infinity }}
+        />
+      </div>
+  
+      {/* Hero Section */}
+      <section className="relative z-10 pt-32 pb-20 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="inline-flex items-center gap-3 bg-blue-500/20 backdrop-blur-xl px-6 py-3 rounded-full text-blue-300 mb-8 border border-blue-500/30"
+            >
+              <Calculator size={20} />
+              <span className="font-semibold">Web Development Solutions</span>
+            </motion.div>
+  
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-5xl md:text-7xl font-bold mb-8 leading-tight"
+            >
+              Build Your Dream
+              <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+                Digital Presence
+              </span>
+            </motion.h1>
+  
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="text-xl md:text-2xl text-blue-100/80 mb-12 max-w-4xl mx-auto leading-relaxed"
+            >
+              Explore our range of customizable web development packages. Compare features, calculate costs, and find the perfect solution for your business.
+            </motion.p>
+
+            {/* Quick Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12"
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20">
+                <Target className="mx-auto mb-2 text-blue-400" size={24} />
+                <div className="text-xl font-bold text-white">20+</div>
+                <div className="text-sm text-slate-300">Projects</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20">
+                <Clock className="mx-auto mb-2 text-blue-400" size={24} />
+                <div className="text-xl font-bold text-white">3-5 days</div>
+                <div className="text-sm text-slate-300">Delivery</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20">
+                <Users className="mx-auto mb-2 text-blue-400" size={24} />
+                <div className="text-xl font-bold text-white">98%</div>
+                <div className="text-sm text-slate-300">Satisfaction</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20">
+                <Shield className="mx-auto mb-2 text-blue-400" size={24} />
+                <div className="text-xl font-bold text-white">24/7</div>
+                <div className="text-sm text-slate-300">Support</div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+  
+      {/* Packages Section */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Choose Your <span className="text-blue-400">Package</span>
+            </h2>
+            <p className="text-xl text-blue-100/70 max-w-3xl mx-auto">
+              Select the perfect package for your business needs and see the full breakdown
+            </p>
+          </motion.div>
+  
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {packages.map((pkg, index) => (
+              <motion.div
+                key={pkg.name}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                onClick={() => setSelectedPackage(pkg.price)}
+                className={`relative cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
+                  selectedPackage === pkg.price
+                    ? 'border-blue-400 bg-gradient-to-br from-blue-900/60 to-blue-800/40'
+                    : 'border-blue-500/20 bg-gradient-to-br from-blue-900/20 to-blue-800/10 hover:border-blue-500/40'
+                } backdrop-blur-xl group`}
+              >
+                {pkg.popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 px-3 py-1 rounded-full text-xs font-bold">
+                      MOST POPULAR
+                    </span>
+                  </div>
+                )}
+                
+                <div className="text-center">
+                  <h3 className="text-xl font-bold mb-2">{pkg.name}</h3>
+                  <div className={`text-3xl font-bold mb-2 bg-gradient-to-r ${pkg.color} bg-clip-text text-transparent`}>
+                    K{pkg.price.toLocaleString()}
+                  </div>
+                  <p className="text-sm text-slate-300 mb-4">{pkg.description}</p>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-400">Pages:</span>
+                      <span className="text-white font-semibold">{pkg.pages}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-400">Timeline:</span>
+                      <span className="text-white font-semibold">{pkg.time}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-400">Domain:</span>
+                      <span className="text-white font-semibold text-xs">{pkg.domain}</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-1">
+                    {pkg.features.slice(0, 3).map((feature, i) => (
+                      <div key={i} className="flex items-center text-xs text-slate-300">
+                        <CheckCircle size={12} className="text-green-400 mr-1" />
+                        <span className="truncate">{feature}</span>
+                      </div>
+                    ))}
+                    {pkg.features.length > 3 && (
+                      <p className="text-xs text-blue-400">+{pkg.features.length - 3} more features</p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Calculator */}
+      {selectedPackage > 0 && (
+        <section className="relative z-10 py-20 px-6">
+          <div className="container mx-auto max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 p-8 rounded-3xl shadow-2xl border border-blue-500/20 backdrop-blur-xl"
+            >
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-4">
+                  Customize Your <span className="text-blue-400">Solution</span>
+                </h2>
+                <p className="text-blue-100/80">Add extra features and pages to perfect your package</p>
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Left Column - Package Details */}
+                <div>
+                  <div className="bg-slate-800/40 p-6 rounded-xl border border-slate-600 mb-6">
+                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Package size={20} className="text-blue-400" />
+                      Selected Package
+                    </h3>
+                    {packages.find(p => p.price === selectedPackage) && (
+                      <div>
+                        <h4 className="text-xl font-bold text-blue-400 mb-2">
+                          {packages.find(p => p.price === selectedPackage).name} Package
+                        </h4>
+                        <p className="text-slate-300 mb-4">
+                          {packages.find(p => p.price === selectedPackage).description}
+                        </p>
+                        <div className="space-y-2">
+                          {packages.find(p => p.price === selectedPackage).features.map((feature, i) => (
+                            <div key={i} className="flex items-center text-sm text-slate-300">
+                              <CheckCircle size={14} className="text-green-400 mr-2" />
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Extra Pages */}
+                  <div className="mb-6">
+                    <label className="block text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Plus size={20} className="text-blue-400" />
+                      Additional Pages
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <input 
+                        type="range"
+                        value={extraPages}
+                        onChange={(e) => setExtraPages(parseInt(e.target.value))}
+                        min="0" 
+                        max="20"
+                        className="flex-1 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
+                      />
+                      <div className="bg-slate-700 px-4 py-2 rounded-lg min-w-[100px] text-center">
+                        {extraPages} pages
+                      </div>
+                    </div>
+                    <p className="text-sm text-slate-400 mt-2">K100 per additional page</p>
+                  </div>
+                </div>
+
+                {/* Right Column - Features */}
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                    <Sparkles size={20} className="text-blue-400" />
+                    Additional Features
+                  </h3>
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+                    {features.map((feature) => {
+                      const isFree = (
+                        (feature.id === 'whatsapp' && selectedPackage >= 600) ||
+                        (feature.id === 'ecommerce' && selectedPackage >= 2500) ||
+                        (feature.id === 'blog' && selectedPackage >= 600) ||
+                        (feature.id === 'payment' && selectedPackage >= 2500)
+                      );
+                      
+                      return (
+                        <motion.div
+                          key={feature.id}
+                          whileHover={{ scale: 1.02 }}
+                          className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                            selectedFeatures[feature.id]
+                              ? 'border-blue-400 bg-blue-900/40'
+                              : 'border-slate-600 bg-slate-800/40 hover:border-blue-500/50'
+                          }`}
+                          onClick={() => handleFeatureChange(feature.id)}
+                        >
+                          <div className="flex items-center gap-3">
+                            <feature.icon size={20} className="text-blue-400" />
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-white">{feature.name}</h4>
+                              <p className="text-xs text-slate-400">{feature.description}</p>
+                            </div>
+                            <div className="text-right">
+                              {isFree ? (
+                                <span className="text-green-400 font-bold text-sm">FREE</span>
+                              ) : (
+                                <span className="text-blue-400 font-bold">
+                                  K{feature.price}{feature.monthly ? '/mo' : ''}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Maintenance Plans */}
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Shield size={20} className="text-blue-400" />
+                  Maintenance Plan (Optional)
+                </h3>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {maintenancePlans.map((plan) => (
+                    <motion.div
+                      key={plan.name}
+                      whileHover={{ scale: 1.02 }}
+                      onClick={() => setMaintenance(maintenance === plan.price ? 0 : plan.price)}
+                      className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                        maintenance === plan.price
+                          ? 'border-blue-400 bg-blue-900/40'
+                          : 'border-slate-600 bg-slate-800/40 hover:border-blue-500/50'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <plan.icon size={24} className="text-blue-400 mx-auto mb-2" />
+                        <h4 className="font-semibold text-white mb-2">{plan.name}</h4>
+                        <div className={`text-xl font-bold mb-3 bg-gradient-to-r ${plan.color} bg-clip-text text-transparent`}>
+                          K{plan.price}/month
+                        </div>
+                        <ul className="text-xs text-slate-400 space-y-1">
+                          {plan.features.slice(0, 3).map((feature, i) => (
+                            <li key={i} className="flex items-center gap-1">
+                              <CheckCircle size={10} className="text-green-400" />
+                              <span className="truncate">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Calculate Button */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={calculatePrice}
+                className="w-full mt-8 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 shadow-lg"
+              >
+                <Calculator size={24} />
+                Calculate Total Cost
+              </motion.button>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Results Section */}
+      {showResults && (
+        <section className="relative z-10 py-20 px-6">
+          <div className="container mx-auto max-w-4xl">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 p-8 rounded-3xl shadow-2xl border border-green-500/30 backdrop-blur-xl"
+            >
+              <div className="text-center mb-8">
+                <h2 className="text-4xl font-bold mb-4">
+                  Your Investment
+                </h2>
+                <div className="text-5xl font-bold text-green-400 mb-2">
+                  K{totalPrice.toLocaleString()}
+                </div>
+                <p className="text-blue-100/80">One-time project cost</p>
+                {maintenance > 0 && (
+                  <p className="text-blue-300 mt-2">
+                    + K{maintenance}/month for maintenance
+                  </p>
+                )}
+              </div>
+
+              <div className="bg-slate-800/40 p-6 rounded-xl border border-slate-600">
+                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <TrendingUp size={20} className="text-blue-400" />
+                  Cost Breakdown
+                </h4>
+                <div className="space-y-2">
+                  {breakdown.map((item, index) => (
+                    <div key={index} className="flex justify-between py-2 text-slate-300 border-b border-slate-700 last:border-0">
+                      <span>{item.name}</span>
+                      <span className="font-semibold">K{item.price.toLocaleString()}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between py-2 text-white font-bold text-lg pt-4 border-t border-slate-600">
+                    <span>Total</span>
+                    <span>K{totalPrice.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-col sm:flex-row gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
+                >
+                  <Phone size={20} />
+                  Contact Sales
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex-1 border-2 border-blue-400/50 text-blue-200 py-3 rounded-xl font-semibold flex items-center justify-center gap-2"
+                >
+                  <Mail size={20} />
+                  Email Quote
+                </motion.button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Feature Comparison Table */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Compare <span className="text-blue-400">Features</span>
+            </h2>
+            <p className="text-xl text-blue-100/70 max-w-3xl mx-auto">
+              Detailed comparison of what's included in each package
+            </p>
+          </motion.div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full bg-slate-900/50 rounded-2xl overflow-hidden">
+              <thead>
+                <tr className="bg-slate-800/50">
+                  <th className="text-left p-4 text-blue-300">Features</th>
+                  {packages.map(pkg => (
+                    <th key={pkg.name} className="text-center p-4">
+                      <div className="text-white font-bold">{pkg.name}</div>
+                      <div className="text-blue-400 text-sm">K{pkg.price}</div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: 'Number of Pages', values: packages.map(p => p.pages) },
+                  { feature: 'Responsive Design', values: ['✓', '✓', '✓', '✓', '✓'] },
+                  { feature: 'SEO Optimization', values: ['Basic', 'Basic', 'Advanced', 'Advanced', 'Premium'] },
+                  { feature: 'Custom Domain', values: ['Subdomain', '✓', '✓', '✓', '✓'] },
+                  { feature: 'SSL Certificate', values: ['✓', '✓', '✓', '✓', '✓'] },
+                  { feature: 'Admin Panel', values: ['−', '✓', '✓', '✓', '✓'] },
+                  { feature: 'E-commerce', values: ['−', '−', 'Add-on', '✓', '✓'] },
+                  { feature: 'Support Period', values: ['1 month', '2 months', '3 months', '6 months', '12 months'] },
+                ].map((row, index) => (
+                  <tr key={index} className="border-t border-slate-700">
+                    <td className="p-4 text-slate-300">{row.feature}</td>
+                    {row.values.map((value, i) => (
+                      <td key={i} className="p-4 text-center">
+                        {value === '✓' ? (
+                          <CheckCircle size={20} className="text-green-400 mx-auto" />
+                        ) : value === '−' ? (
+                          <span className="text-slate-500">−</span>
+                        ) : (
+                          <span className="text-white">{value}</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="container mx-auto max-w-4xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-br from-slate-800/80 to-slate-900/60 p-12 rounded-3xl border border-blue-500/20 backdrop-blur-xl"
+          >
+            <h2 className="text-4xl font-bold mb-6">
+              Ready to Get <span className="text-blue-400">Started?</span>
+            </h2>
+            <p className="text-xl text-blue-100/80 mb-8 max-w-2xl mx-auto">
+              Contact us today for a free consultation and let's bring your digital vision to life
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-blue-300">Contact Information</h3>
+                <div className="space-y-3 text-slate-300">
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <Mail size={20} className="text-blue-400" />
+                    <span>info@tanshidigitalsolutions.site</span>
+                  </div>
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <Phone size={20} className="text-blue-400" />
+                    <span>+260 761 583 901</span>
+                  </div>
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <Globe size={20} className="text-blue-400" />
+                    <span>tanshidigitalsolutions.site</span>
+                  </div>
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <MapPin size={20} className="text-blue-400" />
+                    <span>Lusaka, Zambia</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-blue-300">Why Choose Tanshi?</h3>
+                <div className="grid grid-cols-2 gap-2 text-sm text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span>Local Expertise</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span>Affordable Pricing</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span>Modern Technology</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span>Fast Delivery</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span>Ongoing Support</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span>Quality Guarantee</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-2xl border border-blue-500/30 mx-auto"
+            >
+              <Target size={24} />
+              Get Free Consultation
+              <ArrowRight size={20} />
+            </motion.button>
+
+            <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+              <p className="text-yellow-200 text-sm">
+                <strong>Note:</strong> All prices are in Zambian Kwacha (ZMW). Current exchange rate: $1 = K24. 
+                Free consultation available!
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
 }
+
+export default WebDevelopmentPage;
 

@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { 
   Code, 
@@ -374,7 +375,8 @@ const TanshiHomepage = () => {
               transition={{ delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <motion.button
+              <Link href="/web-development" passHref legacyBehavior>
+  <motion.a
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-5 rounded-2xl font-bold text-lg flex items-center gap-3 shadow-2xl border border-blue-500/30"
@@ -382,15 +384,18 @@ const TanshiHomepage = () => {
                 <Play size={24} />
                 Start Your Project
                 <ArrowRight size={20} />
-              </motion.button>
-              <motion.button
+              </motion.a>
+</Link>
+              <Link href="/contact" passHref legacyBehavior>
+  <motion.a
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.1)" }}
                 whileTap={{ scale: 0.95 }}
                 className="border-2 border-blue-400/50 text-blue-200 px-10 py-5 rounded-2xl font-bold text-lg flex items-center gap-3 backdrop-blur-xl hover:border-blue-400 transition-colors"
               >
                 <MessageSquare size={24} />
                 Get in Touch
-              </motion.button>
+              </motion.a>
+</Link>
             </motion.div>
           </motion.div>
         </div>
@@ -604,7 +609,8 @@ const TanshiHomepage = () => {
               transition={{ duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-6 justify-center"
             >
-              <motion.button
+              <Link href="/web-development" passHref legacyBehavior>
+  <motion.a
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)" }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-12 py-5 rounded-2xl font-bold text-xl shadow-2xl flex items-center justify-center gap-3 border border-blue-500/30"
@@ -612,15 +618,19 @@ const TanshiHomepage = () => {
                 <Mail size={24} />
                 Get Your Quote
                 <ArrowRight size={20} />
-              </motion.button>
-              <motion.button
+              </motion.a>
+</Link>
+              <Link href="/projects" passHref legacyBehavior>
+  <motion.a
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.1)" }}
                 whileTap={{ scale: 0.95 }}
                 className="border-2 border-blue-400/50 text-blue-200 px-12 py-5 rounded-2xl font-bold text-xl backdrop-blur-xl hover:border-blue-400 transition-colors flex items-center justify-center gap-3"
               >
                 <ExternalLink size={24} />
                 View Portfolio
-              </motion.button>
+              </motion.a>
+</Link>
+              
             </motion.div>
           </motion.div>
         </div>

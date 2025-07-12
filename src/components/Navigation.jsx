@@ -111,7 +111,7 @@ const Navigation = () => {
               transition={{ delay: 0.5 }}
               className="hidden md:block"
             >
-              <Link href="/contact">
+              <Link href="/web-development">
                 <motion.button
                   whileHover={{ 
                     scale: 1.05, 

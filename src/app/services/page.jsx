@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
@@ -350,14 +351,16 @@ const ServicesPage = () => {
                     </div>
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
-                  >
-                    Get Started
-                    <ArrowRight size={16} />
-                  </motion.button>
+                  <Link href="/web-development" passHref legacyBehavior>
+  <motion.a
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
+  >
+    Get Started
+    <ArrowRight size={16} />
+  </motion.a>
+</Link>
                 </div>
               </motion.div>
             ))}
