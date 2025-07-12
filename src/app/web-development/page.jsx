@@ -1,6 +1,7 @@
 
 'use client';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Calculator, 
@@ -53,7 +54,8 @@ import {
   ChevronDown,
   ChevronUp,
   Info,
-  X
+  X,
+  Download
 } from 'lucide-react';
 
 const WebDevelopmentPage = () => {
@@ -501,6 +503,124 @@ const WebDevelopmentPage = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const generateQuoteText = () => {
+    const selectedPkg = packages.find(p => p.price === selectedPackage);
+    let text = `TANSHI DIGITAL SOLUTIONS - WEB DEVELOPMENT QUOTE\n\n`;
+    text += `Date: ${new Date().toLocaleDateString()}\n\n`;
+    text += `SELECTED PACKAGE: ${selectedPkg?.name || 'None'}\n`;
+    text += `Package Price: K${selectedPackage.toLocaleString()}\n\n`;
+    
+    text += `BREAKDOWN:\n`;
+    breakdown.forEach(item => {
+      text += `- ${item.name}: K${item.price.toLocaleString()}\n`;
+    });
+    
+    text += `\nTOTAL COST: K${totalPrice.toLocaleString()}\n`;
+    
+    if (maintenance > 0) {
+      text += `\nMAINTENANCE: K${maintenance}/month\n`;
+    }
+    
+    text += `\n\nContact Information:\n`;
+    text += `Email: info@tanshidigitalsolutions.site\n`;
+    text += `Phone: +260 761 583 901\n`;
+    text += `Website: tanshidigitalsolutions.site\n`;
+    
+    return text;
+  };
+
+  const downloadCSV = () => {
+    const selectedPkg = packages.find(p => p.price === selectedPackage);
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Item,Price (ZMW)\n";
+    csvContent += `"${selectedPkg?.name || ''} Package",${selectedPackage}\n`;
+    
+    breakdown.forEach(item => {
+      csvContent += `"${item.name}",${item.price}\n`;
+    });
+    
+    csvContent += `"Total",${totalPrice}\n`;
+    
+    if (maintenance > 0) {
+      csvContent += `"Monthly Maintenance",${maintenance}\n`;
+    }
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `tanshi_quote_${new Date().getTime()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const downloadPDF = () => {
+    // Create a simple PDF using browser print functionality
+    const quoteText = generateQuoteText();
+    const printWindow = window.open('', '', 'height=600,width=800');
+    
+    printWindow.document.write('<html><head><title>Tanshi Digital Solutions Quote</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: Arial, sans-serif; padding: 40px; }');
+    printWindow.document.write('h1 { color: #1e40af; }');
+    printWindow.document.write('pre { white-space: pre-wrap; font-family: Arial, sans-serif; }');
+    printWindow.document.write('</style></head><body>');
+    printWindow.document.write('<h1>Web Development Quote</h1>');
+    printWindow.document.write('<pre>' + quoteText + '</pre>');
+    printWindow.document.write('</body></html>');
+    
+    printWindow.document.close();
+    printWindow.print();
+  };
+
+  const handleDownloadQuote = () => {
+    // Show options for PDF or CSV
+    const choice = window.confirm('Click OK to download as PDF, Cancel for CSV format');
+    if (choice) {
+      downloadPDF();
+    } else {
+      downloadCSV();
+    }
+  };
+
+  const handleWhatsAppContact = () => {
+    const selectedPkg = packages.find(p => p.price === selectedPackage);
+    const phoneNumber = '260761583901'; // Remove + and spaces
+    
+    let message = `Hi Tanshi Digital Solutions! 👋\n\n`;
+    message += `I'm interested in your web development services.\n\n`;
+    message += `📋 *My Quote Details:*\n`;
+    message += `Package: *${selectedPkg?.name || 'None'}*\n`;
+    message += `Total Cost: *K${totalPrice.toLocaleString()}*\n`;
+    
+    if (extraPages > 0) {
+      message += `Extra Pages: ${extraPages}\n`;
+    }
+    
+    const selectedFeaturesList = Object.entries(selectedFeatures)
+      .filter(([_, isSelected]) => isSelected)
+      .map(([featureId]) => features.find(f => f.id === featureId)?.name)
+      .filter(Boolean);
+    
+    if (selectedFeaturesList.length > 0) {
+      message += `\nSelected Add-ons:\n`;
+      selectedFeaturesList.forEach(feature => {
+        message += `• ${feature}\n`;
+      });
+    }
+    
+    if (maintenance > 0) {
+      message += `\nMaintenance: K${maintenance}/month\n`;
+    }
+    
+    message += `\nPlease send me more information about this quote. Thank you!`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white overflow-hidden">
       {/* Background Effects */}
@@ -900,18 +1020,20 @@ const WebDevelopmentPage = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
+                  onClick={handleWhatsAppContact}
+                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
                 >
                   <Phone size={20} />
-                  Contact Sales
+                  Contact via WhatsApp
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={handleDownloadQuote}
                   className="flex-1 border-2 border-blue-400/50 text-blue-200 py-3 rounded-xl font-semibold flex items-center justify-center gap-2"
                 >
-                  <Mail size={20} />
-                  Email Quote
+                  <Download size={20} />
+                  Download Quote
                 </motion.button>
               </div>
             </motion.div>
@@ -1052,8 +1174,8 @@ const WebDevelopmentPage = () => {
                 </div>
               </div>
             </div>
-
-            <motion.button
+            <Link href="/contact" passHref legacyBehavior>
+  <motion.a
               whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-2xl border border-blue-500/30 mx-auto"
@@ -1061,7 +1183,9 @@ const WebDevelopmentPage = () => {
               <Target size={24} />
               Get Free Consultation
               <ArrowRight size={20} />
-            </motion.button>
+            </motion.a>
+</Link>
+            
 
             <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
               <p className="text-yellow-200 text-sm">

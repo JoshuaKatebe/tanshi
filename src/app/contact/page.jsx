@@ -128,20 +128,22 @@ const ContactPage = () => {
   ];
 
   const budgets = [
-    "Under $1,000",
-    "$1,000 - $5,000",
-    "$5,000 - $10,000",
-    "$10,000 - $25,000",
-    "$25,000+",
+    "Under K200",
+    "K500 - K1000",
+    "K1,500 - K2,500",
+    "K3000 - $K5,000",
+    "K5,000+",
     "Let's Discuss"
   ];
 
   const timelines = [
     "ASAP",
-    "Within 1 month",
-    "1-3 months",
-    "3-6 months",
-    "6+ months",
+    "Within 2 days",
+    "2-5 days",
+    "1 week",
+    "1-3 weeks",
+    "1 month",
+    "2 months",
     "Not sure"
   ];
 
