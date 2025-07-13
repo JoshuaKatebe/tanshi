@@ -1,8 +1,6 @@
 import emailjs from '@emailjs/browser';
 
-// Initialize EmailJS with your public key
-// You'll need to set this in your environment variables
-emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'HA8hwtBcSWVYyEYkY');
+// EmailJS initialization is handled in the EmailJSInit component
 
 interface EmailData {
   orderID: string;

@@ -74,20 +74,21 @@ export async function POST(request: Request) {
     }
 
 // Send email notification with order_id
-    await sendQuoteConfirmationEmail({
-      orderID: order_id,
-      clientName: contact.name,
-      clientEmail: contact.email,
-      packageName: package_name,
-      totalPrice: total_price,
-      extraPages: extra_pages,
-      addons: addons.map((addon: any) => addon.name),
-      maintenance,
-      businessSummary: quote_details?.business_summary,
-      projectGoals: quote_details?.project_goals,
-      contactMethod: contact.contact_method,
-      referrerName: referral?.referrer_name,
-    });
+// Removed server-side email sending. Handled client-side.
+    // await sendQuoteConfirmationEmail({
+    //   orderID: order_id,
+    //   clientName: contact.name,
+    //   clientEmail: contact.email,
+    //   packageName: package_name,
+    //   totalPrice: total_price,
+    //   extraPages: extra_pages,
+    //   addons: addons.map((addon: any) => addon.name),
+    //   maintenance,
+    //   businessSummary: quote_details?.business_summary,
+    //   projectGoals: quote_details?.project_goals,
+    //   contactMethod: contact.contact_method,
+    //   referrerName: referral?.referrer_name,
+    // });
 
     return NextResponse.json({ 
       success: true, 

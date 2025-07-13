@@ -15,6 +15,7 @@ import {
   Users,
   MessageCircle
 } from 'lucide-react';
+import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from '@/lib/email';
 
 interface QuoteFormProps {
   packageData: {
@@ -118,6 +119,54 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ packageData }) => {
           message: 'Quote submitted successfully!',
           orderId: result.order_id,
         });
+        
+        // Prevent duplicate email sends in development (React StrictMode)
+        const emailSentKey = `email_sent_${result.order_id}`;
+        if (typeof window !== 'undefined' && sessionStorage.getItem(emailSentKey)) {
+          console.log('[QuoteForm] Emails already sent for this order, skipping...');
+          return;
+        }
+        
+        // Send email notifications
+        console.log('[QuoteForm] Sending email notifications...');
+        
+        const emailData = {
+          orderID: result.order_id,
+          clientName: formData.name,
+          clientEmail: formData.email,
+          packageName: packageData.name,
+          totalPrice: packageData.totalPrice,
+          extraPages: packageData.extraPages,
+          addons: packageData.addons.map((addon: any) => addon.name),
+          maintenance: packageData.maintenance,
+          businessSummary: formData.businessSummary,
+          projectGoals: formData.projectGoals,
+          contactMethod: formData.contactMethod,
+          referrerName: formData.referrerName,
+        };
+        
+        // Send client confirmation email
+        try {
+          console.log('[QuoteForm] Sending client confirmation email...');
+          const clientEmailResult = await sendQuoteConfirmationEmail(emailData);
+          console.log('[QuoteForm] Client email result:', clientEmailResult);
+        } catch (error) {
+          console.error('[QuoteForm] Failed to send client email:', error);
+        }
+        
+        // Send admin notification email
+        try {
+          console.log('[QuoteForm] Sending admin notification email...');
+          const adminEmailResult = await sendAdminNotificationEmail(emailData);
+          console.log('[QuoteForm] Admin email result:', adminEmailResult);
+        } catch (error) {
+          console.error('[QuoteForm] Failed to send admin email:', error);
+        }
+        
+        // Mark emails as sent
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem(emailSentKey, 'true');
+        }
         
         // Reset form
         setFormData({

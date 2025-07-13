@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import QuoteForm from '@/components/QuoteForm';
+import QuoteForm from '../../components/QuoteForm';
+import EmailJSInit from '../../components/EmailJSInit';
 import { 
   Calculator, 
   CheckCircle, 
