@@ -33,7 +33,9 @@ import {
   MessageSquare,
   Sparkles,
   Layers,
-  TrendingUp
+  TrendingUp,
+  Package2,
+  Search
 } from 'lucide-react';
 
 const AnimatedCounter = ({ end, duration = 2, suffix = "" }) => {
@@ -386,14 +388,14 @@ const TanshiHomepage = () => {
                 <ArrowRight size={20} />
               </motion.a>
 </Link>
-              <Link href="/contact" passHref legacyBehavior>
+              <Link href="/track-order" passHref legacyBehavior>
   <motion.a
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.1)" }}
                 whileTap={{ scale: 0.95 }}
                 className="border-2 border-blue-400/50 text-blue-200 px-10 py-5 rounded-2xl font-bold text-lg flex items-center gap-3 backdrop-blur-xl hover:border-blue-400 transition-colors"
               >
-                <MessageSquare size={24} />
-                Get in Touch
+                <Package2 size={24} />
+                Track Your Order
               </motion.a>
 </Link>
             </motion.div>
@@ -635,6 +637,8 @@ const TanshiHomepage = () => {
           </motion.div>
         </div>
       </section>
+
+      
 
       {/* Footer */}
       <footer className="relative z-10 py-16 bg-gradient-to-r from-slate-950/80 to-blue-950/60 backdrop-blur-sm">

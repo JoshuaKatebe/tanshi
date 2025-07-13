@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import Navigation from "../components/Navigation";
 
 const geistSans = Geist({
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   description: "Tanshi Digital Solutions is a software development company that specializes in creating innovative and efficient digital solutions for businesses.",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,6 +34,33 @@ export default function RootLayout({
         <Navigation />
         {children}
       </body>
+              <Script id="chatbase-init" strategy="afterInteractive">
+          {`
+            (function(){
+              if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+                window.chatbase=(...arguments)=>{
+                  if(!window.chatbase.q){window.chatbase.q=[]}
+                  window.chatbase.q.push(arguments)
+                };
+                window.chatbase=new Proxy(window.chatbase,{
+                  get(target,prop){
+                    if(prop==="q"){return target.q}
+                    return(...args)=>target(prop,...args)
+                  }
+                })
+              }
+              const onLoad=function(){
+                const script=document.createElement("script");
+                script.src="https://www.chatbase.co/embed.min.js";
+                script.id="ZbQ41oPAMPDkkU034F-KP";
+                script.domain="www.chatbase.co";
+                document.body.appendChild(script)
+              };
+              if(document.readyState==="complete"){onLoad()}
+              else{window.addEventListener("load",onLoad)}
+            })();
+          `}
+        </Script>
     </html>
   );
   

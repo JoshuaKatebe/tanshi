@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import QuoteForm from '@/components/QuoteForm';
 import { 
   Calculator, 
   CheckCircle, 
@@ -69,6 +70,7 @@ const WebDevelopmentPage = () => {
   const [showBenefits, setShowBenefits] = useState(false);
   const [showFeatureDetails, setShowFeatureDetails] = useState({});
   const [activeSection, setActiveSection] = useState('packages');
+  const [showQuoteForm, setShowQuoteForm] = useState(false);
 
   const websiteBenefits = [
     {
@@ -973,7 +975,7 @@ const WebDevelopmentPage = () => {
       )}
 
       {/* Results Section */}
-      {showResults && (
+{showResults && (
         <section className="relative z-10 py-20 px-6">
           <div className="container mx-auto max-w-4xl">
             <motion.div
@@ -1035,8 +1037,33 @@ const WebDevelopmentPage = () => {
                   <Download size={20} />
                   Download Quote
                 </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowQuoteForm(true)}
+                  className="flex-1 bg-blue-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
+                >
+                  <Mail size={20} />
+                  Get a Quote
+                </motion.button>
               </div>
             </motion.div>
+          </div>
+        </section>
+      )}
+
+      {showQuoteForm && (
+        <section className="relative z-10 py-20 px-6">
+          <div className="container mx-auto max-w-4xl">
+            <QuoteForm packageData={{
+              name: packages.find(p => p.price === selectedPackage)?.name || 'Custom',
+              price: selectedPackage,
+              extraPages,
+              addons: breakdown,
+              maintenance,
+              totalPrice,
+              breakdown,
+            }} />
           </div>
         </section>
       )}
