@@ -23,6 +23,11 @@ export async function sendQuoteConfirmationEmail(data: EmailData) {
   try {
     // Prepare the email template parameters
     const templateParams = {
+      // Required EmailJS fields
+      from_email: data.clientEmail,
+      from_name: data.clientName,
+      
+      // Template-specific fields
       to_email: data.clientEmail,
       to_name: data.clientName,
       order_id: data.orderID,
@@ -50,10 +55,10 @@ export async function sendQuoteConfirmationEmail(data: EmailData) {
       })
     };
 
-    // Send email using EmailJS
+    // Send email using EmailJS (using the auto-reply template for client confirmation)
     const response = await emailjs.send(
       process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_nmjkn79',
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_ha0atla',
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_jy6xtqc',
       templateParams
     );
 
@@ -69,6 +74,11 @@ export async function sendQuoteConfirmationEmail(data: EmailData) {
 export async function sendAdminNotificationEmail(data: EmailData) {
   try {
     const templateParams = {
+      // Required EmailJS fields
+      from_name: data.clientName,
+      from_email: data.clientEmail,
+      
+      // Template-specific fields
       order_id: data.orderID,
       client_name: data.clientName,
       client_email: data.clientEmail,
@@ -79,7 +89,7 @@ export async function sendAdminNotificationEmail(data: EmailData) {
       referrer: data.referrerName || 'Direct',
       
       // Admin email
-      to_email: process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'tanshidigitalsolutions@gmail.com',
+      to_email: process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'mineboyobf@gmail.com',
       
       // Date and time
       submission_date: new Date().toLocaleString('en-ZM')
@@ -87,7 +97,7 @@ export async function sendAdminNotificationEmail(data: EmailData) {
 
     const response = await emailjs.send(
       process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_nmjkn79',
-      process.env.NEXT_PUBLIC_EMAILJS_ADMIN_TEMPLATE_ID || 'template_jy6xtqc',
+      process.env.NEXT_PUBLIC_EMAILJS_ADMIN_TEMPLATE_ID || 'template_ha0atla',
       templateParams
     );
 
