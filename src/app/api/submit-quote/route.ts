@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     } = body;
 
     // Generate a unique order ID
-    const order_id = generateOrderId();
+    const order_id = await generateOrderId();
 
     // Insert new quote into the database
     const { data: quote, error: quoteError } = await supabase

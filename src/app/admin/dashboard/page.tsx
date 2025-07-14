@@ -80,7 +80,7 @@ const StatusBadge = ({ status }: { status: string }) => {
         return 'bg-green-500/20 text-green-300 border-green-500/30';
       case 'in_progress':
         return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-      case 'pending':
+      case 'submitted':
         return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
       case 'cancelled':
         return 'bg-red-500/20 text-red-300 border-red-500/30';
@@ -246,7 +246,7 @@ const AdminDashboardPage = () => {
     quotes.forEach(({ total_price, status }) => {
       if (status === 'completed') {
         revenue += total_price;
-      } else if (status === 'in_progress' || status === 'pending') {
+      } else if (status === 'in_progress' || status === 'submitted') {
         revenue += total_price / 2;
       }
     });
@@ -321,6 +321,18 @@ const AdminDashboardPage = () => {
       return;
     }
 
+    // Log the data being sent
+    const requestData = {
+      quote_id: selectedQuote.id,
+      message: progressMessage,
+      status: progressStatus,
+      update_quote_status: updateQuoteStatus ? newQuoteStatus : null
+    };
+    
+    console.log('[Admin Dashboard] Submitting progress update:', requestData);
+    console.log('[Admin Dashboard] Update quote status?', updateQuoteStatus);
+    console.log('[Admin Dashboard] New quote status:', newQuoteStatus);
+
     try {
       const response = await fetch('/api/admin/progress', {
         method: 'POST',
@@ -328,12 +340,7 @@ const AdminDashboardPage = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          quote_id: selectedQuote.id,
-          message: progressMessage,
-          status: progressStatus,
-          update_quote_status: updateQuoteStatus ? newQuoteStatus : null
-        })
+        body: JSON.stringify(requestData)
       });
 
       if (!response.ok) {
@@ -341,15 +348,23 @@ const AdminDashboardPage = () => {
       }
 
       const data = await response.json();
+      
+      console.log('[Admin Dashboard] Response:', data);
+      
       if (data.success) {
         setShowProgressModal(false);
         fetchQuotes(); // Refresh the quotes
+        setError(''); // Clear any previous errors
       } else {
         throw new Error(data.message || 'Failed to update progress');
       }
     } catch (err) {
-      console.error('Error updating progress:', err);
-      setError('Failed to update progress. Please try again.');
+      console.error('[Admin Dashboard] Error updating progress:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update progress';
+      setError(`Error: ${errorMessage}. Please check console for details.`);
+      
+      // Don't close the modal on error so user can see what happened
+      // setShowProgressModal(false);
     }
   };
 
@@ -485,7 +500,7 @@ const AdminDashboardPage = () => {
                   className="px-4 py-2 bg-slate-800/50 text-white rounded-lg border border-blue-500/30 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
                   <option value="all">All Status</option>
-                  <option value="pending">Pending</option>
+                  <option value="submitted">Submitted</option>
                   <option value="in_progress">In Progress</option>
                   <option value="completed">Completed</option>
                   <option value="cancelled">Cancelled</option>

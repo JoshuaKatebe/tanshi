@@ -9,13 +9,23 @@ export async function POST(request: Request) {
     const token = authHeader?.replace('Bearer ', '');
     
     if (!token || !validateAuthToken(token)) {
+      console.log('[Admin Progress API] Authentication failed');
       return NextResponse.json(
         { success: false, message: 'Unauthorized' },
         { status: 401 }
       );
     }
 
-    const { quote_id, message, status, update_quote_status } = await request.json();
+    const requestBody = await request.json();
+    const { quote_id, message, status, update_quote_status } = requestBody;
+    
+    console.log('[Admin Progress API] Request received:', {
+      quote_id,
+      message,
+      status,
+      update_quote_status,
+      requestBody
+    });
 
     if (!quote_id || !message || !status) {
       return NextResponse.json(
@@ -42,15 +52,29 @@ export async function POST(request: Request) {
 
     // Update quote status if requested
     if (update_quote_status) {
-      const { error: updateError } = await supabase
+      console.log('[Admin Progress API] Updating quote status to:', update_quote_status);
+      console.log('[Admin Progress API] Valid statuses: submitted, in_progress, completed, cancelled');
+      
+      // Validate the status value
+      const validStatuses = ['submitted', 'in_progress', 'completed', 'cancelled'];
+      if (!validStatuses.includes(update_quote_status)) {
+        console.error('[Admin Progress API] Invalid status value:', update_quote_status);
+        throw new Error(`Invalid status value: ${update_quote_status}. Must be one of: ${validStatuses.join(', ')}`);
+      }
+      
+      const { data: updateData, error: updateError } = await supabase
         .from('quotes')
         .update({ 
           status: update_quote_status,
           updated_at: new Date().toISOString()
         })
-        .eq('id', quote_id);
+        .eq('id', quote_id)
+        .select();
+
+      console.log('[Admin Progress API] Update result:', { updateData, updateError });
 
       if (updateError) {
+        console.error('[Admin Progress API] Database update error:', updateError);
         throw updateError;
       }
     }
@@ -76,6 +100,12 @@ export async function POST(request: Request) {
     } else if (errorMessage.includes('row-level security policy')) {
       userMessage = 'Database permission error. Please check RLS policies.';
       statusCode = 403;
+    } else if (errorMessage.includes('violates check constraint "quotes_status_check"')) {
+      userMessage = 'Invalid status value. Valid values are: submitted, in_progress, completed, cancelled';
+      statusCode = 400;
+    } else if (errorMessage.includes('Invalid status value')) {
+      userMessage = errorMessage; // Use our custom validation message
+      statusCode = 400;
     }
     
     return NextResponse.json(

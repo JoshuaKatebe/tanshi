@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { 
+import { useSearchParams } from 'next/navigation';
+import {
   Search, 
   Package, 
   CheckCircle, 
@@ -143,14 +144,29 @@ const FloatingOrb = ({ size, color, delay, duration, x, y }: {
 );
 
 const TrackOrderPage = () => {
+  const searchParams = useSearchParams();
   const [orderId, setOrderId] = useState('');
   const [trackingInfo, setTrackingInfo] = useState<TrackingInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [hasCheckedUrl, setHasCheckedUrl] = useState(false);
 
-  const handleTrackOrder = async () => {
-    if (!orderId.trim()) {
+  // Check for orderId in URL on component mount
+  useEffect(() => {
+    const urlOrderId = searchParams.get('orderId');
+    if (urlOrderId && !hasCheckedUrl) {
+      setOrderId(urlOrderId);
+      setHasCheckedUrl(true);
+      // Automatically fetch the order
+      handleTrackOrder(urlOrderId);
+    }
+  }, [searchParams, hasCheckedUrl]);
+
+  const handleTrackOrder = async (orderIdToTrack?: string) => {
+    const idToUse = orderIdToTrack || orderId;
+    
+    if (!idToUse.trim()) {
       setError('Please enter an order ID');
       return;
     }
@@ -159,7 +175,7 @@ const TrackOrderPage = () => {
     setError(null);
     
     try {
-      const response = await fetch(`/api/track-order?orderId=${orderId}`);
+      const response = await fetch(`/api/track-order?orderId=${idToUse}`);
       const data = await response.json();
 
       if (!data.success) {
@@ -343,7 +359,7 @@ const TrackOrderPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={handleTrackOrder}
+                onClick={() => handleTrackOrder()}
                 disabled={isLoading}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >

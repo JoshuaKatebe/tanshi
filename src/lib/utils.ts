@@ -1,13 +1,28 @@
-export function generateOrderId(): string {
+import { supabase } from './supabase'
+
+export async function generateOrderId(): Promise<string> {
   const date = new Date()
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
   
-  // Generate a random 4-digit number
-  const random = Math.floor(1000 + Math.random() * 9000)
-  
-  return `TDS-QT-${year}${month}${day}-${random}`
+  try {
+    // Get next sequential number from database
+    const { data, error } = await supabase
+      .rpc('get_next_order_number')
+    
+    if (error) throw error
+    
+    // Format the sequential number as 5 digits (00001-99999)
+    const sequentialNumber = String(data).padStart(5, '0')
+    
+    return `TDS-QT-${year}${month}${day}-${sequentialNumber}`
+  } catch (error) {
+    console.error('Error generating order ID:', error)
+    // Fallback to random number if database call fails
+    const random = Math.floor(10000 + Math.random() * 90000)
+    return `TDS-QT-${year}${month}${day}-${random}`
+  }
 }
 
 export function formatDate(dateString: string): string {
