@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -143,7 +143,7 @@ const FloatingOrb = ({ size, color, delay, duration, x, y }: {
   />
 );
 
-const TrackOrderPage = () => {
+function TrackOrderPageContent() {
   const searchParams = useSearchParams();
   const [orderId, setOrderId] = useState('');
   const [trackingInfo, setTrackingInfo] = useState<TrackingInfo | null>(null);
@@ -783,4 +783,10 @@ const TrackOrderPage = () => {
   );
 };
 
-export default TrackOrderPage;
+export default function TrackOrderPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-12 text-blue-300">Loading...</div>}>
+      <TrackOrderPageContent />
+    </Suspense>
+  );
+}
