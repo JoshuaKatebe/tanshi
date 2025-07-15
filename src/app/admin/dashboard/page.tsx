@@ -27,21 +27,49 @@ import {
   Trash2,
   Filter,
   Search,
-  MoreHorizontal
+  MoreHorizontal,
+  FileText,
+  Target,
+  Briefcase,
+  Download,
+  Mail,
+  Phone,
+  MessageSquare,
+  UserCheck
 } from 'lucide-react';
 
 interface Quote {
   id: string;
   order_id: string;
   package_name: string;
+  package_price: number;
+  extra_pages: number;
+  addons: any[];
+  maintenance: number;
   total_price: number;
   status: string;
   created_at: string;
+  updated_at: string;
   progress_messages?: Array<{
     id: string;
     message: string;
     status: string;
     created_at: string;
+  }>;
+  quote_details?: Array<{
+    business_summary: string;
+    project_goals: string;
+    file_url: string;
+  }>;
+  contacts?: Array<{
+    name: string;
+    email: string;
+    phone: string;
+    contact_method: string;
+  }>;
+  referrals?: Array<{
+    referrer_name: string;
+    code: string;
   }>;
 }
 
@@ -125,10 +153,11 @@ const StatsCard = ({ title, value, icon: Icon, trend, trendValue }: {
 );
 
 // Quote card component
-const QuoteCard = ({ quote, index, onUpdateProgress }: {
+const QuoteCard = ({ quote, index, onUpdateProgress, onViewDetails }: {
   quote: Quote;
   index: number;
   onUpdateProgress: (quote: Quote) => void;
+  onViewDetails: (quote: Quote) => void;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -217,6 +246,7 @@ const QuoteCard = ({ quote, index, onUpdateProgress }: {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => onViewDetails(quote)}
           className="px-4 py-2 border border-blue-500/30 text-blue-300 rounded-lg font-medium text-sm hover:bg-blue-500/10 transition-colors"
         >
           <Eye size={16} />
@@ -239,6 +269,8 @@ const AdminDashboardPage = () => {
   const [progressStatus, setProgressStatus] = useState('info');
   const [updateQuoteStatus, setUpdateQuoteStatus] = useState(false);
   const [newQuoteStatus, setNewQuoteStatus] = useState('');
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedQuoteDetails, setSelectedQuoteDetails] = useState<Quote | null>(null);
   
 // Helper function to calculate revenue
   const calculateRevenue = (quotes: Quote[]) => {
@@ -310,6 +342,11 @@ const AdminDashboardPage = () => {
     setProgressStatus('info');
     setUpdateQuoteStatus(false);
     setNewQuoteStatus(quote.status);
+  };
+
+  const handleViewDetails = (quote: Quote) => {
+    setSelectedQuoteDetails(quote);
+    setShowDetailsModal(true);
   };
 
   const submitProgressUpdate = async () => {
@@ -517,7 +554,13 @@ const AdminDashboardPage = () => {
           {/* Orders grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredQuotes.map((quote, index) => (
-              <QuoteCard key={quote.id} quote={quote} index={index} onUpdateProgress={handleUpdateProgress} />
+              <QuoteCard 
+                key={quote.id} 
+                quote={quote} 
+                index={index} 
+                onUpdateProgress={handleUpdateProgress}
+                onViewDetails={handleViewDetails}
+              />
             ))}
           </div>
 
@@ -648,6 +691,250 @@ const AdminDashboardPage = () => {
               >
                 Update Progress
               </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Order Details Modal */}
+      {showDetailsModal && selectedQuoteDetails && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setShowDetailsModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-blue-500/20 max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6 sticky top-0 bg-gradient-to-br from-slate-800 to-slate-900 pb-4 border-b border-blue-500/20">
+              <div>
+                <h3 className="text-2xl font-bold text-white">Order Details</h3>
+                <p className="text-blue-200/70">Order #{selectedQuoteDetails.order_id}</p>
+              </div>
+              <button
+                onClick={() => setShowDetailsModal(false)}
+                className="p-2 text-gray-400 hover:text-white transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {/* Order Summary */}
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Package size={20} className="text-blue-400" />
+                  Order Summary
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-blue-200/70 text-sm">Package</p>
+                    <p className="text-white font-medium">{selectedQuoteDetails.package_name}</p>
+                  </div>
+                  <div>
+                    <p className="text-blue-200/70 text-sm">Status</p>
+                    <StatusBadge status={selectedQuoteDetails.status} />
+                  </div>
+                  <div>
+                    <p className="text-blue-200/70 text-sm">Total Price</p>
+                    <p className="text-white font-medium">K{selectedQuoteDetails.total_price.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-blue-200/70 text-sm">Order Date</p>
+                    <p className="text-white font-medium">{new Date(selectedQuoteDetails.created_at).toLocaleDateString()}</p>
+                  </div>
+                </div>
+                
+                {/* Price Breakdown */}
+                <div className="mt-4 pt-4 border-t border-blue-500/10">
+                  <p className="text-blue-200/70 text-sm mb-2">Price Breakdown</p>
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-blue-200/80">Base Package</span>
+                      <span className="text-white">K{selectedQuoteDetails.package_price.toLocaleString()}</span>
+                    </div>
+                    {selectedQuoteDetails.extra_pages > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-blue-200/80">Extra Pages ({selectedQuoteDetails.extra_pages})</span>
+                        <span className="text-white">K{(selectedQuoteDetails.extra_pages * 200).toLocaleString()}</span>
+                      </div>
+                    )}
+                    {selectedQuoteDetails.maintenance > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-blue-200/80">Maintenance</span>
+                        <span className="text-white">K{selectedQuoteDetails.maintenance.toLocaleString()}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Information */}
+              {selectedQuoteDetails.contacts && selectedQuoteDetails.contacts[0] && (
+                <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                    <UserCheck size={20} className="text-blue-400" />
+                    Contact Information
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-blue-200/70 text-sm">Name</p>
+                      <p className="text-white font-medium">{selectedQuoteDetails.contacts[0].name}</p>
+                    </div>
+                    <div>
+                      <p className="text-blue-200/70 text-sm">Email</p>
+                      <a href={`mailto:${selectedQuoteDetails.contacts[0].email}`} className="text-blue-400 hover:text-blue-300 font-medium">
+                        {selectedQuoteDetails.contacts[0].email}
+                      </a>
+                    </div>
+                    {selectedQuoteDetails.contacts[0].phone && (
+                      <div>
+                        <p className="text-blue-200/70 text-sm">Phone</p>
+                        <p className="text-white font-medium">{selectedQuoteDetails.contacts[0].phone}</p>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-blue-200/70 text-sm">Preferred Contact Method</p>
+                      <p className="text-white font-medium capitalize">{selectedQuoteDetails.contacts[0].contact_method}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Business Summary & Project Goals */}
+              {selectedQuoteDetails.quote_details && selectedQuoteDetails.quote_details[0] && (
+                <>
+                  {selectedQuoteDetails.quote_details[0].business_summary && (
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <Briefcase size={20} className="text-blue-400" />
+                        Business Summary
+                      </h4>
+                      <p className="text-blue-100/90 whitespace-pre-wrap">
+                        {selectedQuoteDetails.quote_details[0].business_summary}
+                      </p>
+                    </div>
+                  )}
+
+                  {selectedQuoteDetails.quote_details[0].project_goals && (
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <Target size={20} className="text-blue-400" />
+                        Project Goals
+                      </h4>
+                      <p className="text-blue-100/90 whitespace-pre-wrap">
+                        {selectedQuoteDetails.quote_details[0].project_goals}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Uploaded Documents */}
+                  {selectedQuoteDetails.quote_details[0].file_url && (
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <FileText size={20} className="text-blue-400" />
+                        Uploaded Documents
+                      </h4>
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-blue-500/10 rounded-lg">
+                          <FileText size={24} className="text-blue-400" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-white font-medium">Project Requirements</p>
+                          <p className="text-blue-200/70 text-sm">Uploaded document</p>
+                        </div>
+                        <motion.a
+                          href={selectedQuoteDetails.quote_details[0].file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors"
+                        >
+                          <Download size={16} />
+                          Download
+                        </motion.a>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Referral Information */}
+              {selectedQuoteDetails.referrals && selectedQuoteDetails.referrals[0] && selectedQuoteDetails.referrals[0].referrer_name && (
+                <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                    <UserCheck size={20} className="text-blue-400" />
+                    Referral Information
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-blue-200/70 text-sm">Referrer Name</p>
+                      <p className="text-white font-medium">{selectedQuoteDetails.referrals[0].referrer_name}</p>
+                    </div>
+                    {selectedQuoteDetails.referrals[0].code && (
+                      <div>
+                        <p className="text-blue-200/70 text-sm">Referral Code</p>
+                        <p className="text-white font-medium">{selectedQuoteDetails.referrals[0].code}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Progress Updates */}
+              {selectedQuoteDetails.progress_messages && selectedQuoteDetails.progress_messages.length > 0 && (
+                <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/10">
+                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                    <Clock size={20} className="text-blue-400" />
+                    Progress Updates
+                  </h4>
+                  <div className="space-y-3">
+                    {selectedQuoteDetails.progress_messages.map((message) => (
+                      <div key={message.id} className="flex items-start gap-3 p-3 bg-blue-900/20 rounded-lg">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0" />
+                        <div className="flex-1">
+                          <p className="text-blue-100/90">{message.message}</p>
+                          <p className="text-blue-300/60 text-xs mt-1">
+                            {new Date(message.created_at).toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 mt-6 pt-6 border-t border-blue-500/20">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  setShowDetailsModal(false);
+                  handleUpdateProgress(selectedQuoteDetails);
+                }}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-2 px-4 rounded-lg font-medium flex items-center justify-center gap-2"
+              >
+                <PlusCircle size={18} />
+                Update Progress
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowDetailsModal(false)}
+                className="px-6 py-2 border border-blue-500/30 text-blue-300 rounded-lg font-medium hover:bg-blue-500/10 transition-colors"
+              >
+                Close
+              </motion.button>
             </div>
           </motion.div>
         </motion.div>

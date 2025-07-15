@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test File Upload</title>
+</head>
+<body>
+    <h1>Test Supabase File Upload</h1>
+    <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+    <button onclick="testUpload()">Upload File</button>
+    <div id="result"></div>
+
+    <script>
+        async function testUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const resultDiv = document.getElementById('result');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                resultDiv.innerHTML = '<p style="color: red;">Please select a file first</p>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<p>Uploading...</p>';
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const response = await fetch('/api/upload-file', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p style="color: green;">Upload successful!</p>
+                        <p>File URL: <a href="${data.url}" target="_blank">${data.url}</a></p>
+                        <p>File Path: ${data.filePath}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { uploadFileDirectly, validateFile } from '@/lib/client-storage';
 import { motion } from 'framer-motion';
 import { 
   User, 
@@ -74,11 +75,17 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ packageData }) => {
     setSubmitResult(null);
 
     try {
-      // TODO: Handle file upload to Supabase Storage if file exists
+      // Handle file upload to Supabase Storage if file exists
       let fileUrl = null;
       if (file) {
-        // This would be implemented with Supabase Storage
-        // fileUrl = await uploadFile(file);
+        // Validate file
+        const validationError = validateFile(file);
+        if (validationError) {
+          throw new Error(validationError);
+        }
+
+        // Upload file directly to Supabase from client
+        fileUrl = await uploadFileDirectly(file);
       }
 
       const response = await fetch('/api/submit-quote', {

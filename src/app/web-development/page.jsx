@@ -159,7 +159,8 @@ const WebDevelopmentPage = () => {
         'Google Maps integration',
         'Image gallery',
         'WhatsApp integration (FREE)',
-        'Blog system (FREE)'
+        'Blog system (FREE)',
+        'Blog admin dashboard (FREE)'
       ],
       useCases: [
         'Business websites',
@@ -181,6 +182,7 @@ const WebDevelopmentPage = () => {
       color: 'from-purple-500 to-pink-500',
       popular: true,
       features: [
+        'Everything in STARTER',
         'Up to 10 pages',
         'Advanced contact forms',
         'Image gallery/portfolio',
@@ -212,6 +214,7 @@ const WebDevelopmentPage = () => {
       color: 'from-orange-500 to-red-500',
       popular: false,
       features: [
+        'Everything in PRO',
         'Up to 20 pages',
         'Backend functionality',
         'User login & dashboard',
@@ -243,6 +246,7 @@ const WebDevelopmentPage = () => {
       color: 'from-indigo-500 to-purple-500',
       popular: false,
       features: [
+        'Everything in BUSINESS',
         'Unlimited pages',
         'Full-scale systems (POS, ERP, Inventory, CRM)',
         'Custom dashboards',
@@ -391,7 +395,7 @@ const WebDevelopmentPage = () => {
       description: 'Domains exceeding package allowance', 
       icon: Award,
       details: {
-        whatItIs: 'Premium domain names (.com, .org, etc.)',
+        whatItIs: 'Premium domain names (.com, .org, .net, .co, etc.)',
         whyNeedIt: 'Better branding and easier to remember',
         howItWorks: 'We help you choose and register the perfect domain',
         benefits: ['Better branding', 'Easier to remember', 'Professional appearance', 'Better SEO']
