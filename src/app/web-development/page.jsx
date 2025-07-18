@@ -57,7 +57,9 @@ import {
   ChevronUp,
   Info,
   X,
-  Download
+  Download,
+  ArrowDown,
+  Pointer
 } from 'lucide-react';
 
 const WebDevelopmentPage = () => {
@@ -72,6 +74,13 @@ const WebDevelopmentPage = () => {
   const [showFeatureDetails, setShowFeatureDetails] = useState({});
   const [activeSection, setActiveSection] = useState('packages');
   const [showQuoteForm, setShowQuoteForm] = useState(false);
+  const [showInitialGuide, setShowInitialGuide] = useState(true);
+  const [showCustomizationGuide, setShowCustomizationGuide] = useState(false);
+  const [showQuoteGuide, setShowQuoteGuide] = useState(false);
+  const [showFormGuide, setShowFormGuide] = useState(false);
+  const [showConfirmationGuide, setShowConfirmationGuide] = useState(false);
+  const [guideStep, setGuideStep] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const websiteBenefits = [
     {
@@ -507,9 +516,90 @@ const WebDevelopmentPage = () => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const yOffset = -100; // Offset for fixed header
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
+
+  const handlePackageSelect = (packagePrice) => {
+    setSelectedPackage(packagePrice);
+    setShowInitialGuide(false);
+    setShowCustomizationGuide(true);
+    setTimeout(() => {
+      scrollToSection('customization');
+    }, 300);
+  };
+
+  const handleCalculatePrice = () => {
+    calculatePrice();
+    setShowCustomizationGuide(false);
+    setShowQuoteGuide(true);
+    setTimeout(() => {
+      scrollToSection('results');
+    }, 300);
+  };
+
+  const handleGetQuote = () => {
+    setShowQuoteForm(true);
+    setShowQuoteGuide(false);
+    setShowFormGuide(true);
+    setTimeout(() => {
+      scrollToSection('quote-form');
+    }, 300);
+  };
+
+  useEffect(() => {
+    // Check if mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Add snap scroll styles and tutorial animations
+    const style = document.createElement('style');
+    style.textContent = `
+      html {
+        scroll-behavior: smooth;
+      }
+      .snap-section {
+        scroll-snap-align: start;
+        min-height: 100vh;
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .floating-guide {
+        animation: float 3s ease-in-out infinite;
+      }
+      .bounce-arrow {
+        animation: bounce 2s ease-in-out infinite;
+      }
+      .pulse-highlight {
+        animation: pulse 2s ease-in-out infinite;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   const generateQuoteText = () => {
     const selectedPkg = packages.find(p => p.price === selectedPackage);
@@ -628,8 +718,182 @@ const WebDevelopmentPage = () => {
     
     window.open(whatsappUrl, '_blank');
   };
+  // Tutorial Guide Component
+  const TutorialGuide = ({ show, position, children, onDismiss }) => {
+    if (!show) return null;
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        className={`fixed z-50 ${position} floating-guide`}
+      >
+        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-4 rounded-2xl shadow-2xl border-2 border-white/20 backdrop-blur-xl max-w-xs">
+          <button
+            onClick={onDismiss}
+            className="absolute -top-2 -right-2 bg-white/20 hover:bg-white/30 rounded-full p-1 transition-colors"
+          >
+            <X size={16} />
+          </button>
+          {children}
+        </div>
+      </motion.div>
+    );
+  };
+
+  // Floating Arrow Component
+  const FloatingArrow = ({ show, position, direction = 'down' }) => {
+    if (!show) return null;
+    
+    const rotations = {
+      down: 'rotate-0',
+      up: 'rotate-180',
+      left: 'rotate-90',
+      right: '-rotate-90'
+    };
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className={`fixed z-40 ${position} bounce-arrow`}
+      >
+        <div className={`text-blue-400 ${rotations[direction]}`}>
+          <ArrowDown size={48} strokeWidth={3} />
+        </div>
+      </motion.div>
+    );
+  };
+
+  // Highlight Overlay Component
+  const HighlightOverlay = ({ show, targetId }) => {
+    if (!show) return null;
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-30 pointer-events-none"
+      >
+        <div className="absolute inset-0 bg-black/50" />
+        <div 
+          id={`highlight-${targetId}`}
+          className="absolute pulse-highlight"
+          style={{
+            boxShadow: '0 0 0 2000px rgba(0, 0, 0, 0.5)',
+            borderRadius: '1rem',
+            border: '3px dashed #60A5FA'
+          }}
+        />
+      </motion.div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white overflow-hidden">
+      {/* Tutorial Guides */}
+      <AnimatePresence>
+        {/* Initial Package Selection Guide */}
+        <TutorialGuide
+          show={showInitialGuide}
+          position={isMobile ? "top-20 left-4 right-4" : "top-32 right-8"}
+          onDismiss={() => setShowInitialGuide(false)}
+        >
+          <div className="text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Pointer className="text-yellow-300" size={24} />
+              <h3 className="font-bold text-lg">Welcome! Let's get started</h3>
+            </div>
+            <p className="text-sm mb-3">
+              Select a package below to begin building your perfect website. Each package is tailored for different business needs.
+            </p>
+            <p className="text-xs text-blue-100">
+              Tip: Click on any package to see more details and customize it!
+            </p>
+          </div>
+        </TutorialGuide>
+
+        {/* Package Selection Arrow */}
+        <FloatingArrow
+          show={showInitialGuide}
+          position={isMobile ? "top-80 left-1/2 -translate-x-1/2" : "top-96 left-1/2 -translate-x-1/2"}
+          direction="down"
+        />
+
+        {/* Customization Guide */}
+        <TutorialGuide
+          show={showCustomizationGuide}
+          position={isMobile ? "top-20 left-4 right-4" : "top-32 left-8"}
+          onDismiss={() => setShowCustomizationGuide(false)}
+        >
+          <div className="text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Settings className="text-yellow-300" size={24} />
+              <h3 className="font-bold text-lg">Customize Your Package</h3>
+            </div>
+            <p className="text-sm mb-3">
+              Great choice! Now you can add extra pages and features to your package if needed or skip
+            </p>
+            <p className="text-xs text-blue-100">
+              Scroll down to see all available add-ons!
+            </p>
+          </div>
+        </TutorialGuide>
+
+        {/* Quote Button Guide */}
+        <TutorialGuide
+          show={showQuoteGuide}
+          position={isMobile ? "bottom-32 left-4 right-4" : "bottom-48 right-8"}
+          onDismiss={() => setShowQuoteGuide(false)}
+        >
+          <div className="text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <MousePointer className="text-yellow-300" size={24} />
+              <h3 className="font-bold text-lg">Ready for Your Quote?</h3>
+            </div>
+            <p className="text-sm mb-3">
+              Perfect! Your total is calculated. Click the "Get a Quote" button to request your personalized quote.
+            </p>
+            {isMobile && (
+              <p className="text-xs text-blue-100">
+                The button is highlighted below!
+              </p>
+            )}
+          </div>
+        </TutorialGuide>
+
+        {/* Quote Button Arrow for Mobile */}
+        {isMobile && (
+          <FloatingArrow
+            show={showQuoteGuide}
+            position="bottom-20 right-8"
+            direction="down"
+          />
+        )}
+
+        {/* Form Guide */}
+        <TutorialGuide
+          show={showFormGuide}
+          position={isMobile ? "top-20 left-4 right-4" : "top-32 right-8"}
+          onDismiss={() => setShowFormGuide(false)}
+        >
+          <div className="text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="text-yellow-300" size={24} />
+              <h3 className="font-bold text-lg">Almost There!</h3>
+            </div>
+            <p className="text-sm mb-3">
+              Fill in your contact details below and we'll send you a detailed quote.
+            </p>
+            <p className="text-xs text-blue-100">
+              We'll get back to you within 24 hours!
+            </p>
+          </div>
+        </TutorialGuide>
+      </AnimatePresence>
       {/* Background Effects */}
       <div className="fixed inset-0 z-0">
         {/* Animated gradient orbs */}
@@ -728,7 +992,7 @@ const WebDevelopmentPage = () => {
       </section>
   
       {/* Packages Section */}
-      <section className="relative z-10 py-20 px-6">
+      <section id="packages" className="relative z-10 py-20 px-6 snap-section">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -754,12 +1018,14 @@ const WebDevelopmentPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -10, scale: 1.02 }}
-                onClick={() => setSelectedPackage(pkg.price)}
+                onClick={() => handlePackageSelect(pkg.price)}
                 className={`relative cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
                   selectedPackage === pkg.price
                     ? 'border-blue-400 bg-gradient-to-br from-blue-900/60 to-blue-800/40'
                     : 'border-blue-500/20 bg-gradient-to-br from-blue-900/20 to-blue-800/10 hover:border-blue-500/40'
-                } backdrop-blur-xl group`}
+                } backdrop-blur-xl group ${
+                  showInitialGuide && index === 1 ? 'ring-4 ring-yellow-400 ring-offset-4 ring-offset-slate-900' : ''
+                }`}
               >
                 {pkg.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
@@ -811,7 +1077,7 @@ const WebDevelopmentPage = () => {
 
       {/* Interactive Calculator */}
       {selectedPackage > 0 && (
-        <section className="relative z-10 py-20 px-6">
+        <section id="customization" className="relative z-10 py-20 px-6 snap-section">
           <div className="container mx-auto max-w-5xl">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -968,7 +1234,7 @@ const WebDevelopmentPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={calculatePrice}
+                onClick={handleCalculatePrice}
                 className="w-full mt-8 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 shadow-lg"
               >
                 <Calculator size={24} />
@@ -981,7 +1247,7 @@ const WebDevelopmentPage = () => {
 
       {/* Results Section */}
 {showResults && (
-        <section className="relative z-10 py-20 px-6">
+        <section id="results" className="relative z-10 py-20 px-6 snap-section">
           <div className="container mx-auto max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -1045,8 +1311,10 @@ const WebDevelopmentPage = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setShowQuoteForm(true)}
-                  className="flex-1 bg-blue-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
+                  onClick={handleGetQuote}
+                  className={`flex-1 bg-blue-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg ${
+                    showQuoteGuide ? 'ring-4 ring-yellow-400 ring-offset-4 ring-offset-slate-900' : ''
+                  }`}
                 >
                   <Mail size={20} />
                   Get a Quote
@@ -1058,7 +1326,7 @@ const WebDevelopmentPage = () => {
       )}
 
       {showQuoteForm && (
-        <section className="relative z-10 py-20 px-6">
+        <section id="quote-form" className="relative z-10 py-20 px-6 snap-section">
           <div className="container mx-auto max-w-4xl">
             <QuoteForm packageData={{
               name: packages.find(p => p.price === selectedPackage)?.name || 'Custom',
