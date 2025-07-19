@@ -123,158 +123,180 @@ const WebDevelopmentPage = () => {
 
   const packages = [
     { 
-      name: 'LITE', 
-      price: 150, 
+      name: 'STARTER', 
+      price: 300, 
       pages: 1, 
-      description: 'Perfect for Getting Started', 
-      domain: 'Subdomain included', 
+      description: 'Perfect for Hustlers and Small Startups', 
+      domain: '.tanshidigitalsolutions.site subdomain', 
       hosting: 'Free (Static)', 
-      time: '1 day',
+      time: 'Same-day to 2 days',
       color: 'from-blue-500 to-cyan-500',
       popular: false,
       features: [
-        'Single scrolling page design',
-        'Mobile-responsive layout',
+        'Single-page website',
+        'Mobile responsive design',
+        'WhatsApp chat button',
+        'Tanshi Digital Solutions footer credit',
         'Basic contact information',
-        'Social media integration',
-        'Professional design',
-        'Basic SEO setup'
+        'Social media links'
       ],
       useCases: [
         'Personal portfolios',
-        'Event announcements',
-        'Digital business cards',
-        'Simple landing pages',
-        'Product launches'
+        'Small entrepreneurs',
+        'Students',
+        'Side hustlers',
+        'Quick online presence'
       ],
-      businesses: ['Freelancers', 'Artists', 'Small events', 'Personal brands']
+      businesses: ['Small entrepreneurs', 'Students', 'Side hustlers', 'Personal brands']
     },
     { 
-      name: 'STARTER', 
-      price: 600, 
-      pages: 5, 
-      description: 'Essential Business Presence', 
-      domain: 'Domain included (up to K120)', 
+      name: 'STARTER+', 
+      price: 700, 
+      pages: 1, 
+      description: 'Enhanced Starter with Blog', 
+      domain: '.tanshidigitalsolutions.site subdomain', 
       hosting: 'Free (Static)', 
-      time: '3-5 days',
+      time: 'Same-day to 2 days',
       color: 'from-green-500 to-emerald-500',
       popular: false,
       features: [
-        '5 professional pages',
-        'Mobile-optimized design',
-        'Basic contact form',
-        'Domain included',
-        'SEO-friendly structure',
-        'Google Maps integration',
-        'Image gallery',
-        'WhatsApp integration (FREE)',
-        'Blog system (FREE)',
-        'Blog admin dashboard (FREE)'
+        'All Starter features',
+        'JSON-based blog (easy self-updates)',
+        'Contact form',
+        'WhatsApp button',
+        'Business Gmail email guidance',
+        'Tanshi footer credit remains'
       ],
       useCases: [
-        'Business websites',
-        'Service showcases',
-        'Company profiles',
-        'Portfolio sites',
-        'Small business presence'
+        'Bloggers',
+        'Content creators',
+        'Small businesses',
+        'Freelancers',
+        'Service providers'
       ],
-      businesses: ['Small businesses', 'Freelancers', 'Startups', 'Consultants']
-    },
-    { 
-      name: 'PRO', 
-      price: 1500, 
-      pages: 10, 
-      description: 'Complete Professional Website', 
-      domain: 'Domain included (up to K264)', 
-      hosting: 'Free (Static)', 
-      time: '1-2 weeks',
-      color: 'from-purple-500 to-pink-500',
-      popular: true,
-      features: [
-        'Everything in STARTER',
-        'Up to 10 pages',
-        'Advanced contact forms',
-        'Image gallery/portfolio',
-        'Google Maps integration',
-        'Basic analytics setup',
-        'Professional email setup',
-        'Advanced SEO optimization',
-        'WhatsApp integration (FREE)',
-        'Blog system (FREE)',
-        'Social media feeds'
-      ],
-      useCases: [
-        'Professional services',
-        'E-commerce ready',
-        'Content marketing',
-        'Lead generation',
-        'Brand showcase'
-      ],
-      businesses: ['Established businesses', 'Service providers', 'Consultants', 'Agencies']
+      businesses: ['Content creators', 'Freelancers', 'Small service providers']
     },
     { 
       name: 'BUSINESS', 
-      price: 2500, 
-      pages: 20, 
-      description: 'Advanced Functionality', 
+      price: 1650, 
+      pages: 5, 
+      description: 'Branding & Functional Business Websites', 
       domain: '.com domain included', 
-      hosting: 'Client Paid', 
-      time: '1-3 weeks',
+      hosting: 'Free (Static)', 
+      time: '3-7 days',
+      color: 'from-purple-500 to-pink-500',
+      popular: true,
+      features: [
+        'Up to 5 pages',
+        'Custom design matching your brand',
+        'Smooth animations',
+        'Firebase-powered blog (likes/comments)',
+        'WhatsApp chat',
+        '.com domain included',
+        'No footer credit',
+        'Professional appearance',
+        'SEO optimization'
+      ],
+      useCases: [
+        'Startups',
+        'SMEs',
+        'Professional services',
+        'Brand showcase',
+        'Lead generation'
+      ],
+      businesses: ['Startups', 'SMEs', 'Professional services', 'Growing businesses']
+    },
+    { 
+      name: 'BUSINESS+', 
+      price: 2500, 
+      pages: 10, 
+      description: 'Advanced Features & Tracking', 
+      domain: '.com domain included', 
+      hosting: 'Free (Static)', 
+      time: '3-7 days',
       color: 'from-orange-500 to-red-500',
       popular: false,
       features: [
-        'Everything in PRO',
-        'Up to 20 pages',
-        'Backend functionality',
-        'User login & dashboard',
-        'Content management system',
-        'Basic e-commerce (FREE)',
-        'Email integration',
-        'Payment integration (FREE)',
-        'Advanced forms',
-        'Multi-user access',
-        'Analytics & reporting'
+        'Up to 10 pages',
+        'Advanced order tracking',
+        'Simple customer profiles',
+        'Dashboards',
+        'Business emails',
+        'Expanded Firebase blog with interactivity',
+        'Social media integration',
+        'Analytics setup',
+        'Contact forms'
       ],
       useCases: [
-        'Online stores',
-        'Membership sites',
-        'Service booking',
-        'Customer portals',
-        'Complex business needs'
+        'E-commerce ready',
+        'Service businesses',
+        'Customer management',
+        'Content marketing',
+        'Professional presence'
       ],
-      businesses: ['Growing businesses', 'Online stores', 'Service companies', 'Membership sites']
+      businesses: ['Service companies', 'E-commerce', 'Content businesses', 'Agencies']
     },
     { 
-      name: 'ENTERPRISE', 
+      name: 'PRO BUSINESS', 
       price: 5000, 
-      pages: 'Unlimited', 
-      description: 'Custom Solutions', 
-      domain: 'Any domain', 
-      hosting: 'Negotiable', 
-      time: '2-4 weeks',
+      pages: 20, 
+      description: 'Digital Business Operations', 
+      domain: '.com domain included', 
+      hosting: 'Client Paid', 
+      time: '7-14 days',
       color: 'from-indigo-500 to-purple-500',
       popular: false,
       features: [
-        'Everything in BUSINESS',
-        'Unlimited pages',
-        'Full-scale systems (POS, ERP, Inventory, CRM)',
-        'Custom dashboards',
-        'Advanced integrations',
-        'Multi-user access levels',
-        'Custom development',
-        'Priority support',
-        'Advanced security',
-        'Performance optimization',
+        'Up to 20 pages',
+        'Customer dashboards',
+        'CRM features',
+        'Order management',
+        'Basic ERP (staff management, basic payroll)',
+        'Social media integration (live feeds)',
+        'Payment integrations (MTN MoMo, Airtel, Payfast)',
+        'Automated email responders',
+        'Advanced analytics',
+        'Multi-user access'
+      ],
+      useCases: [
+        'Digital operations',
+        'Customer management',
+        'E-commerce',
+        'Service automation',
+        'Team collaboration'
+      ],
+      businesses: ['Established businesses', 'E-commerce', 'Service companies', 'Digital operations']
+    },
+    { 
+      name: 'ENTERPRISE', 
+      price: 10000, 
+      pages: 'Unlimited', 
+      description: 'Fully Custom Business Systems', 
+      domain: 'Any domain', 
+      hosting: 'Negotiable', 
+      time: 'From 2 weeks',
+      color: 'from-gradient-to-r from-yellow-500 to-orange-500',
+      popular: false,
+      features: [
+        'Tailored multi-page websites',
+        'Custom business systems',
+        'Advanced dashboards',
+        'AI chatbots',
+        'Progressive web apps (PWA)',
+        'Complex e-commerce systems',
+        'API integrations',
+        'Unlimited custom features',
+        'Dedicated support',
         'Custom training'
       ],
       useCases: [
-        'Enterprise systems',
-        'Complex workflows',
-        'Multi-location businesses',
-        'Custom integrations',
-        'Large-scale operations'
+        'Large organizations',
+        'Complex systems',
+        'Custom solutions',
+        'Enterprise operations',
+        'Multi-branch businesses'
       ],
-      businesses: ['Large businesses', 'Corporations', 'Complex requirements', 'Multi-branch operations']
+      businesses: ['Large businesses', 'Organizations', 'Enterprises', 'Custom requirements']
     }
   ];
 
