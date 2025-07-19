@@ -42,7 +42,82 @@ const ProjectsPage = () => {
 
   const projects = [
     {
+      id: 2,
+      title: "YouEngage Foundation",
+      description: "Youth empowerment organization website with leadership development programs and community initiatives.",
+      longDescription: "A modern, responsive website for a youth empowerment organization focused on leadership development and community engagement. Features program information, event management, and volunteer coordination.",
+      tech: ["React", "Next.js", "Tailwind CSS", "CMS", "Responsive Design"],
+      category: "Web",
+      icon: Users,
+      status: "Live",
+      year: "2024",
+      timeline: "8 weeks",
+      team: "3 members",
+      impact: "Digital presence for youth empowerment",
+      features: [
+        "Program showcase and registration",
+        "Event management system",
+        "Volunteer coordination",
+        "Blog and news section",
+        "Mobile-responsive design",
+        "SEO optimization"
+      ],
+      color: "from-green-600 to-emerald-600",
+      image: "🌟",
+      link: "https://www.youengagefoundation.org/"
+    },
+    {
       id: 1,
+      title: "HideAway Apartments",
+      description: "Premium serviced apartments website for US Embassy guests and corporate travelers in Lusaka & Kitwe.",
+      longDescription: "A luxury hospitality website featuring premium serviced apartments for diplomatic and corporate guests. Includes booking system, virtual tours, and comprehensive amenity information.",
+      tech: ["Next.js", "Tailwind CSS", "Booking System", "React", "Mobile Responsive"],
+      category: "Web",
+      icon: Building,
+      status: "Live",
+      year: "2024",
+      timeline: "10 weeks",
+      team: "3 members",
+      impact: "Premium hospitality digital presence",
+      features: [
+        "Online booking system",
+        "Virtual apartment tours",
+        "Multi-location support",
+        "Guest services portal",
+        "Corporate booking features",
+        "Luxury brand presentation"
+      ],
+      color: "from-purple-600 to-pink-600",
+      image: "🏢",
+      link: "https://hide-away-apartments.tanshidigitalsolutions.site/"
+    },
+    {
+      id: 3,
+      title: "Red Apple Travel & Tours",
+      description: "Travel agency website offering international flights, hotel bookings, and comprehensive travel services.",
+      longDescription: "A full-service travel agency platform providing flight bookings, hotel reservations, tour packages, and travel advisory services. Features integrated payment processing and customer management.",
+      tech: ["React", "Travel APIs", "Payment Gateway", "Responsive Design", "Node.js"],
+      category: "Web",
+      icon: Globe,
+      status: "Live",
+      year: "2024",
+      timeline: "12 weeks",
+      team: "4 members",
+      impact: "Complete travel service platform",
+      features: [
+        "Flight search and booking",
+        "Hotel reservation system",
+        "Tour package management",
+        "Customer portal",
+        "Payment processing",
+        "Travel documentation"
+      ],
+      color: "from-blue-600 to-cyan-600",
+      image: "✈️",
+      link: "https://redapple.tanshidigitalsolutions.site/"
+    },
+    {
+      id: 6,
       title: "MineGuard 360",
       description: "Complete AI + IoT intelligence platform for mining safety with helmet detection, gas sensors, and blockchain logging. Built for MineTech Hackathon.",
       longDescription: "MineGuard 360 is a comprehensive mining safety system that leverages computer vision, IoT sensors, and blockchain technology to create a smart safety monitoring ecosystem. The system automatically detects helmet usage, monitors air quality, and logs all data on blockchain for immutable compliance records.",
@@ -67,7 +142,7 @@ const ProjectsPage = () => {
       link: "/mineguard360"
     },
     {
-      id: 2,
+      id: 7,
       title: "Mona AI",
       description: "Offline AI assistant for PC with command recognition, face detection, voice feedback, and PC automation using local LLM.",
       longDescription: "Mona AI is a privacy-first, offline AI assistant that runs entirely on your local machine. It combines computer vision, voice recognition, and natural language processing to provide intelligent PC automation without sending any data to external servers.",
@@ -92,7 +167,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 3,
+      id: 8,
       title: "Smart Cane for the Blind",
       description: "Arduino-powered mobility tool with ultrasonic sensors, voice assistance, audiobooks, and tactile feedback.",
       longDescription: "An innovative assistive technology device that enhances mobility and independence for visually impaired individuals. The smart cane integrates multiple sensors, voice guidance, and connectivity features to provide comprehensive navigation support.",
@@ -166,81 +241,7 @@ const ProjectsPage = () => {
       image: "📦",
       link: "#"
     },
-    {
-      id: 6,
-      title: "YouEngage Foundation",
-      description: "Youth empowerment organization website with leadership development programs and community initiatives.",
-      longDescription: "A modern, responsive website for a youth empowerment organization focused on leadership development and community engagement. Features program information, event management, and volunteer coordination.",
-      tech: ["React", "Next.js", "Tailwind CSS", "CMS", "Responsive Design"],
-      category: "Web",
-      icon: Users,
-      status: "Live",
-      year: "2024",
-      timeline: "8 weeks",
-      team: "3 members",
-      impact: "Digital presence for youth empowerment",
-      features: [
-        "Program showcase and registration",
-        "Event management system",
-        "Volunteer coordination",
-        "Blog and news section",
-        "Mobile-responsive design",
-        "SEO optimization"
-      ],
-      color: "from-green-600 to-emerald-600",
-      image: "🌟",
-      link: "https://www.youengagefoundation.org/"
-    },
-    {
-      id: 7,
-      title: "HideAway Apartments",
-      description: "Premium serviced apartments website for US Embassy guests and corporate travelers in Lusaka & Kitwe.",
-      longDescription: "A luxury hospitality website featuring premium serviced apartments for diplomatic and corporate guests. Includes booking system, virtual tours, and comprehensive amenity information.",
-      tech: ["Next.js", "Tailwind CSS", "Booking System", "React", "Mobile Responsive"],
-      category: "Web",
-      icon: Building,
-      status: "Live",
-      year: "2024",
-      timeline: "10 weeks",
-      team: "3 members",
-      impact: "Premium hospitality digital presence",
-      features: [
-        "Online booking system",
-        "Virtual apartment tours",
-        "Multi-location support",
-        "Guest services portal",
-        "Corporate booking features",
-        "Luxury brand presentation"
-      ],
-      color: "from-purple-600 to-pink-600",
-      image: "🏢",
-      link: "https://hideaway-pi.vercel.app/"
-    },
-    {
-      id: 8,
-      title: "Red Apple Travel & Tours",
-      description: "Travel agency website offering international flights, hotel bookings, and comprehensive travel services.",
-      longDescription: "A full-service travel agency platform providing flight bookings, hotel reservations, tour packages, and travel advisory services. Features integrated payment processing and customer management.",
-      tech: ["React", "Travel APIs", "Payment Gateway", "Responsive Design", "Node.js"],
-      category: "Web",
-      icon: Globe,
-      status: "Live",
-      year: "2024",
-      timeline: "12 weeks",
-      team: "4 members",
-      impact: "Complete travel service platform",
-      features: [
-        "Flight search and booking",
-        "Hotel reservation system",
-        "Tour package management",
-        "Customer portal",
-        "Payment processing",
-        "Travel documentation"
-      ],
-      color: "from-blue-600 to-cyan-600",
-      image: "✈️",
-      link: "https://red-apple-three.vercel.app/"
-    },
+    
     {
       id: 9,
       title: "AgriLink Smart Farming",

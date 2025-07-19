@@ -7,6 +7,7 @@ import QuoteForm from '../../components/QuoteForm';
 import EmailJSInit from '../../components/EmailJSInit';
 import { 
   Calculator, 
+  CalendarCheck,
   CheckCircle, 
   Globe, 
   Mail, 
@@ -123,11 +124,11 @@ const WebDevelopmentPage = () => {
 
   const packages = [
     { 
-      name: 'STARTER', 
+      name: 'LITE', 
       price: 300, 
       pages: 1, 
       description: 'Perfect for Hustlers and Small Startups', 
-      domain: '.tanshidigitalsolutions.site subdomain', 
+      domain: 'subdomain or addon for .com', 
       hosting: 'Free (Static)', 
       time: 'Same-day to 2 days',
       color: 'from-blue-500 to-cyan-500',
@@ -136,7 +137,7 @@ const WebDevelopmentPage = () => {
         'Single-page website',
         'Mobile responsive design',
         'WhatsApp chat button',
-        'Tanshi Digital Solutions footer credit',
+        'Basic Email integration',
         'Basic contact information',
         'Social media links'
       ],
@@ -150,22 +151,22 @@ const WebDevelopmentPage = () => {
       businesses: ['Small entrepreneurs', 'Students', 'Side hustlers', 'Personal brands']
     },
     { 
-      name: 'STARTER+', 
+      name: 'STARTER', 
       price: 700, 
-      pages: 1, 
-      description: 'Enhanced Starter with Blog', 
-      domain: '.tanshidigitalsolutions.site subdomain', 
+      pages: 5, 
+      description: 'Great for small Businesses', 
+      domain: 'subdomain or addon for .com', 
       hosting: 'Free (Static)', 
       time: 'Same-day to 2 days',
       color: 'from-green-500 to-emerald-500',
       popular: false,
       features: [
         'All Starter features',
-        'JSON-based blog (easy self-updates)',
+        'Blog system',
         'Contact form',
         'WhatsApp button',
-        'Business Gmail email guidance',
-        'Tanshi footer credit remains'
+        'Responsive design',
+        'Basic Email integration',
       ],
       useCases: [
         'Bloggers',
@@ -190,12 +191,14 @@ const WebDevelopmentPage = () => {
         'Up to 5 pages',
         'Custom design matching your brand',
         'Smooth animations',
-        'Firebase-powered blog (likes/comments)',
+        'Advanced blog (likes/comments)',
         'WhatsApp chat',
         '.com domain included',
         'No footer credit',
         'Professional appearance',
-        'SEO optimization'
+        'SEO optimization',
+        'Email integration',
+        'Customer management',
       ],
       useCases: [
         'Startups',
@@ -207,7 +210,7 @@ const WebDevelopmentPage = () => {
       businesses: ['Startups', 'SMEs', 'Professional services', 'Growing businesses']
     },
     { 
-      name: 'BUSINESS+', 
+      name: 'BUSINESS PLUS', 
       price: 2500, 
       pages: 10, 
       description: 'Advanced Features & Tracking', 
@@ -237,7 +240,7 @@ const WebDevelopmentPage = () => {
       businesses: ['Service companies', 'E-commerce', 'Content businesses', 'Agencies']
     },
     { 
-      name: 'PRO BUSINESS', 
+      name: 'BUSINESS PRO', 
       price: 5000, 
       pages: 20, 
       description: 'Digital Business Operations', 
@@ -252,7 +255,7 @@ const WebDevelopmentPage = () => {
         'CRM features',
         'Order management',
         'Basic ERP (staff management, basic payroll)',
-        'Social media integration (live feeds)',
+        'Social media integration',
         'Payment integrations (MTN MoMo, Airtel, Payfast)',
         'Automated email responders',
         'Advanced analytics',
@@ -306,7 +309,7 @@ const WebDevelopmentPage = () => {
       name: 'Professional Email', 
       price: 40, 
       monthly: true, 
-      description: 'Custom email setup (contact@yourdomain.com)', 
+      description: 'Custom email setup (contact@yourdomain.com) (FREE with BUSINESS PRO)', 
       icon: Mail,
       details: {
         whatItIs: 'Custom email addresses using your domain name',
@@ -319,7 +322,7 @@ const WebDevelopmentPage = () => {
       id: 'seo', 
       name: 'Advanced SEO', 
       price: 150, 
-      description: 'Search engine optimization + analytics', 
+      description: 'Search engine optimization + analytics (FREE with BUSINESS+)', 
       icon: TrendingUp,
       details: {
         whatItIs: 'Optimization to help customers find you on Google',
@@ -331,8 +334,8 @@ const WebDevelopmentPage = () => {
     { 
       id: 'whatsapp', 
       name: 'WhatsApp Integration', 
-      price: 0, 
-      description: 'Live chat button (FREE with K600+ packages)', 
+      price: 50, 
+      description: 'Live chat button (FREE with STARTER packages)', 
       icon: MessageCircle,
       details: {
         whatItIs: 'Direct WhatsApp chat button on your website',
@@ -344,8 +347,8 @@ const WebDevelopmentPage = () => {
     { 
       id: 'ecommerce', 
       name: 'E-commerce Setup', 
-      price: 500, 
-      description: 'Online store functionality (FREE for K2500+ packages)', 
+      price: 1500, 
+      description: 'Online store functionality (FREE for BUSINESS PRO)', 
       icon: ShoppingCart,
       details: {
         whatItIs: 'Complete online store with product catalog and checkout',
@@ -355,10 +358,10 @@ const WebDevelopmentPage = () => {
       }
     },
     { 
-      id: 'blog', 
-      name: 'Blog System', 
-      price: 100, 
-      description: 'Content management for regular updates (FREE for K600+ packages)', 
+      id: 'blog-system', 
+      name: 'Advanced Blog System', 
+      price: 300, 
+      description: 'Content management for regular updates (FREE with BUSINESS )', 
       icon: BookOpen,
       details: {
         whatItIs: 'Easy-to-use system for publishing articles and updates',
@@ -370,8 +373,8 @@ const WebDevelopmentPage = () => {
     { 
       id: 'social', 
       name: 'Social Media Feed', 
-      price: 150, 
-      description: 'Live social media integration', 
+      price: 300, 
+      description: 'Live social media integration (FREE with BUSINESS PRO)', 
       icon: Share2,
       details: {
         whatItIs: 'Display your latest social media posts on your website',
@@ -383,8 +386,8 @@ const WebDevelopmentPage = () => {
     { 
       id: 'forms', 
       name: 'Custom Forms', 
-      price: 100, 
-      description: 'Advanced contact/booking forms', 
+      price: 150, 
+      description: 'Advanced contact/booking forms (FREE with BUSINESS)', 
       icon: FileText,
       details: {
         whatItIs: 'Customized forms for specific business needs',
@@ -393,10 +396,29 @@ const WebDevelopmentPage = () => {
         benefits: ['Better lead qualification', 'Streamlined processes', 'Data collection', 'Professional appearance']
       }
     },
+    {
+  id: 'booking-system',
+  name: 'Advanced Booking System',
+  price: 350,
+  description: 'Simple and efficient booking system integration (FREE with BUSINESS+)',
+  icon: CalendarCheck,
+  details: {
+    whatItIs: 'A streamlined booking system for appointments or reservations directly on your website',
+    whyNeedIt: 'Make it easy for customers to book appointments or reserve services without calling or messaging manually',
+    howItWorks: 'We set up an easy-to-use booking system tailored to your business, with calendar integration, automated confirmations, and optional payment collection',
+    benefits: [
+      'Reduce missed appointments with reminders',
+      'Improve customer convenience',
+      'Manage bookings in one place',
+      'Increase efficiency and reduce no-shows',
+      'Professional and modern client experience'
+    ]
+  }
+},
     { 
       id: 'multilang', 
       name: 'Multi-language', 
-      price: 300, 
+      price: 400, 
       description: 'Bilingual website setup', 
       icon: Languages,
       details: {
@@ -410,7 +432,7 @@ const WebDevelopmentPage = () => {
       id: 'payment', 
       name: 'Payment Integration', 
       price: 500, 
-      description: 'Set up billing with cards and mobile money (FREE for K2500+ packages)', 
+      description: 'Set up billing with cards and mobile money (FREE for K5000+ packages)', 
       icon: CreditCard,
       details: {
         whatItIs: 'Secure payment processing for online transactions',
@@ -423,7 +445,7 @@ const WebDevelopmentPage = () => {
       id: 'domain', 
       name: 'Premium Domain', 
       price: 150, 
-      description: 'Domains exceeding package allowance', 
+      description: 'Domains exceeding package allowance (FREE with BUSINESS)', 
       icon: Award,
       details: {
         whatItIs: 'Premium domain names (.com, .org, .net, .co, etc.)',
@@ -496,10 +518,15 @@ const WebDevelopmentPage = () => {
         const feature = features.find(f => f.id === featureId);
         let featurePrice = feature.price;
         
+        if (featureId === 'domain' && selectedPackage >= 1600) featurePrice = 0;
+        if (featureId === 'booking-system' && selectedPackage >= 2500) featurePrice = 0;
+        if (featureId === 'email' && selectedPackage >= 4000) featurePrice = 0;
+        if (featureId === 'forms' && selectedPackage >= 1600) featurePrice = 0;
+        if (featureId === 'seo' && selectedPackage >= 2400) featurePrice = 0;
         if (featureId === 'whatsapp' && selectedPackage >= 600) featurePrice = 0;
-        if (featureId === 'ecommerce' && selectedPackage >= 2500) featurePrice = 0;
-        if (featureId === 'blog' && selectedPackage >= 600) featurePrice = 0;
-        if (featureId === 'payment' && selectedPackage >= 2500) featurePrice = 0;
+        if (featureId === 'ecommerce' && selectedPackage >= 2400) featurePrice = 0;
+        if (featureId === 'blog-system' && selectedPackage >= 2400) featurePrice = 0;
+        if (featureId === 'payment' && selectedPackage >= 4000) featurePrice = 0;
         
         total += featurePrice;
         newBreakdown.push({ 
