@@ -125,7 +125,7 @@ const WebDevelopmentPage = () => {
   const packages = [
     { 
       name: 'LITE', 
-      price: 300, 
+      price: 400, 
       pages: 1, 
       description: 'Perfect for Hustlers and Small Startups', 
       domain: 'subdomain or addon for .com', 
@@ -152,7 +152,7 @@ const WebDevelopmentPage = () => {
     },
     { 
       name: 'STARTER', 
-      price: 700, 
+      price: 800, 
       pages: 5, 
       description: 'Great for small Businesses', 
       domain: 'subdomain or addon for .com', 
@@ -179,7 +179,7 @@ const WebDevelopmentPage = () => {
     },
     { 
       name: 'BUSINESS', 
-      price: 1650, 
+      price: 1800, 
       pages: 5, 
       description: 'Branding & Functional Business Websites', 
       domain: '.com domain included', 
@@ -211,7 +211,7 @@ const WebDevelopmentPage = () => {
     },
     { 
       name: 'BUSINESS PLUS', 
-      price: 2500, 
+      price: 2800, 
       pages: 10, 
       description: 'Advanced Features & Tracking', 
       domain: '.com domain included', 
@@ -231,7 +231,7 @@ const WebDevelopmentPage = () => {
         'Contact forms'
       ],
       useCases: [
-        'E-commerce ready',
+        
         'Service businesses',
         'Customer management',
         'Content marketing',
@@ -347,7 +347,7 @@ const WebDevelopmentPage = () => {
     { 
       id: 'ecommerce', 
       name: 'E-commerce Setup', 
-      price: 1500, 
+      price: 2000, 
       description: 'Online store functionality (FREE for BUSINESS PRO)', 
       icon: ShoppingCart,
       details: {
@@ -459,7 +459,7 @@ const WebDevelopmentPage = () => {
   const maintenancePlans = [
     { 
       name: 'Basic Maintenance', 
-      price: 100, 
+      price: 250, 
       features: ['Regular updates', 'Minor content changes', 'Plugin/theme updates', 'Email support'],
       color: 'from-blue-500 to-cyan-500',
       icon: Shield,
@@ -472,7 +472,20 @@ const WebDevelopmentPage = () => {
     },
     { 
       name: 'Professional Maintenance', 
-      price: 250, 
+      price: 500, 
+      features: ['Everything in Basic', 'Priority support', 'Monthly performance reports', 'Security monitoring', 'Phone support'],
+      color: 'from-green-500 to-emerald-500',
+      icon: Zap,
+      details: {
+        whatItIs: 'Comprehensive website maintenance with priority support',
+        whyNeedIt: 'Ensure optimal performance and quick issue resolution',
+        includes: ['All Basic features', 'Priority support', 'Performance monitoring', 'Monthly reports', 'Phone support'],
+        responseTime: '24 hours'
+      }
+    },
+    { 
+      name: 'Comprehensive Maintenance', 
+      price: 1000, 
       features: ['Everything in Basic', 'Priority support', 'Monthly performance reports', 'Security monitoring', 'Phone support'],
       color: 'from-green-500 to-emerald-500',
       icon: Zap,
@@ -485,7 +498,7 @@ const WebDevelopmentPage = () => {
     },
     { 
       name: 'Enterprise Maintenance', 
-      price: 500, 
+      price: 2500, 
       features: ['Everything in Professional', 'Feature additions', 'Advanced bug fixes', 'Custom development hours', 'Dedicated support'],
       color: 'from-purple-500 to-pink-500',
       icon: Star,
@@ -518,13 +531,13 @@ const WebDevelopmentPage = () => {
         const feature = features.find(f => f.id === featureId);
         let featurePrice = feature.price;
         
-        if (featureId === 'domain' && selectedPackage >= 1600) featurePrice = 0;
+        if (featureId === 'domain' && selectedPackage >= 1800) featurePrice = 0;
         if (featureId === 'booking-system' && selectedPackage >= 2500) featurePrice = 0;
         if (featureId === 'email' && selectedPackage >= 4000) featurePrice = 0;
-        if (featureId === 'forms' && selectedPackage >= 1600) featurePrice = 0;
+        if (featureId === 'forms' && selectedPackage >= 1800) featurePrice = 0;
         if (featureId === 'seo' && selectedPackage >= 2400) featurePrice = 0;
         if (featureId === 'whatsapp' && selectedPackage >= 600) featurePrice = 0;
-        if (featureId === 'ecommerce' && selectedPackage >= 2400) featurePrice = 0;
+        if (featureId === 'ecommerce' && selectedPackage >= 5000) featurePrice = 0;
         if (featureId === 'blog-system' && selectedPackage >= 2400) featurePrice = 0;
         if (featureId === 'payment' && selectedPackage >= 4000) featurePrice = 0;
         
