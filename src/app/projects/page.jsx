@@ -42,7 +42,7 @@ const ProjectsPage = () => {
 
   const projects = [
     {
-      id: 2,
+      id: 1,
       title: "YouEngage Foundation",
       description: "Youth empowerment organization website with leadership development programs and community initiatives.",
       longDescription: "A modern, responsive website for a youth empowerment organization focused on leadership development and community engagement. Features program information, event management, and volunteer coordination.",
@@ -67,7 +67,7 @@ const ProjectsPage = () => {
       link: "https://www.youengagefoundation.org/"
     },
     {
-      id: 1,
+      id: 2,
       title: "HideAway Apartments",
       description: "Premium serviced apartments website for US Embassy guests and corporate travelers in Lusaka & Kitwe.",
       longDescription: "A luxury hospitality website featuring premium serviced apartments for diplomatic and corporate guests. Includes booking system, virtual tours, and comprehensive amenity information.",
@@ -92,7 +92,7 @@ const ProjectsPage = () => {
       link: "https://hide-away-apartments.tanshidigitalsolutions.site/"
     },
     {
-    "id": 12,
+    "id": 3,
     "title": "Jubilee Center",
     "description": "Website for a Christian NGO equipping pastors, professionals, and youth to grow and flourish.",
     "longDescription": "Jubilee Center is a Christian non-governmental organization website that highlights its mission of equipping pastors, professionals, and young people to grow spiritually, flourish physically, and have a voice in the nation. The site showcases programs, initiatives, and organizational values.",
@@ -115,7 +115,7 @@ const ProjectsPage = () => {
     "link": "https://jubilee.tanshidigitalsolutions.site/"
   },
     {
-      id: 3,
+      id: 4,
       title: "Katly Designs",
       description: "Modern African fashion house website with gallery, consultation booking, and vibrant interactive UI.",
       longDescription: "Katly Designs is a contemporary web platform for a Zambian fashion house, celebrating African heritage through elegant, handcrafted garments. The site features a dynamic gallery, service highlights, and a seamless consultation booking experience, all wrapped in a visually rich, culturally inspired design.",
@@ -140,7 +140,7 @@ const ProjectsPage = () => {
       link: "https://katlydesigns.tanshidigitalsolutions.site/"
     },
     {
-    "id": 13,
+    "id": 5,
     "title": "LHI Zambia",
     "description": "Landing page and LMS demo for Lusaka Health Institute.",
     "longDescription": "LHI Zambia project provides a modern landing page and a demo Learning Management System (LMS) for Lusaka Health Institute. It was designed to showcase how digital tools can improve education accessibility and management in the health sector.",
@@ -163,7 +163,7 @@ const ProjectsPage = () => {
     "link": "https://lhi-zambia.tanshidigitalsolutions.site/"
   },
   {
-    "id": 14,
+    "id": 6,
     "title": "Motor Insurance System",
     "description": "Demo motor insurance platform with landing page, backend server, and database integration.",
     "longDescription": "The Motor Insurance System is a functional demo developed for a developer challenge. It simulates a real insurance platform with a landing page, quote generation, policy management, and server-side database integration. The project demonstrates backend and frontend synergy in insurance tech.",
@@ -187,7 +187,7 @@ const ProjectsPage = () => {
     "link": "https://motor-insurance.tanshidigitalsolutions.site/"
   },
    {
-    "id": 11,
+    "id": 7,
     "title": "AgriSmart 360",
     "description": "IoT-powered control center for managing smart greenhouses and monitoring real-time analytics.",
     "longDescription": "AgriSmart 360 is an IoT-based web application designed to help farmers and greenhouse owners manage and monitor their agricultural environments. The system provides real-time data visualization, device control, and analytics for better decision-making in precision farming.",
@@ -211,7 +211,7 @@ const ProjectsPage = () => {
     "link": "https://agrismart.tanshidigitalsolutions.site/"
   },
   {
-      id: 6,
+      id: 8,
       title: "MineGuard 360",
       description: "Complete AI + IoT intelligence platform for mining safety with helmet detection, gas sensors, and blockchain logging. Built for MineTech Hackathon.",
       longDescription: "MineGuard 360 is a comprehensive mining safety system that leverages computer vision, IoT sensors, and blockchain technology to create a smart safety monitoring ecosystem. The system automatically detects helmet usage, monitors air quality, and logs all data on blockchain for immutable compliance records.",
@@ -236,7 +236,7 @@ const ProjectsPage = () => {
       link: "/mineguard360"
     },
     {
-      id: 7,
+      id: 9,
       title: "Red Apple Travel & Tours",
       description: "Travel agency website offering international flights, hotel bookings, and comprehensive travel services.",
       longDescription: "A full-service travel agency platform providing flight bookings, hotel reservations, tour packages, and travel advisory services. Features integrated payment processing and customer management.",
@@ -263,7 +263,7 @@ const ProjectsPage = () => {
     
     
     {
-      id: 8,
+      id: 10,
       title: "Smart Cane for the Blind",
       description: "Arduino-powered mobility tool with ultrasonic sensors, voice assistance, audiobooks, and tactile feedback.",
       longDescription: "An innovative assistive technology device that enhances mobility and independence for visually impaired individuals. The smart cane integrates multiple sensors, voice guidance, and connectivity features to provide comprehensive navigation support.",
@@ -288,7 +288,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 4,
+      id: 11,
       title: "Real Estate Platform",
       description: "Airbnb-style property management system with rent tracking, expense management, and landlord-tenant features.",
       longDescription: "A comprehensive property management platform that simplifies rental property operations for landlords and provides a seamless experience for tenants. Features include automated rent collection, maintenance tracking, and financial reporting.",
@@ -313,7 +313,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 5,
+      id: 12,
       title: "Inventory & POS Systems",
       description: "Custom ERP and point-of-sale solutions with product tracking, staff accounts, sales reports, and mobile compatibility.",
       longDescription: "A comprehensive business management system that combines inventory management, point-of-sale functionality, and enterprise resource planning in one integrated platform. Designed for retail and wholesale businesses.",
@@ -339,7 +339,7 @@ const ProjectsPage = () => {
     },
     
     {
-      id: 9,
+      id: 13,
       title: "AgriLink Smart Farming",
       description: "Smart agriculture monitoring with environmental sensors and potential Web3 land ownership system (paused due to regulations).",
       longDescription: "An innovative agricultural technology platform combining IoT sensors for crop monitoring with a Web3-based land ownership verification system. Currently paused due to regulatory considerations.",
@@ -364,7 +364,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 10,
+      id: 14,
       title: "WayFare Bus System",
       description: "Web3-powered bus ticketing system using Motoko for secure and verifiable ticket purchases (discontinued).",
       longDescription: "A blockchain-based public transportation ticketing system designed to provide secure, transparent, and efficient ticket purchasing for bus services. Built on Internet Computer Protocol using Motoko.",
