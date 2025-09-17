@@ -752,6 +752,7 @@ const ProjectsPage = () => {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <motion.button
+                href='/web-development'
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-2xl border border-blue-500/30"
