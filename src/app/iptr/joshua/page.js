@@ -128,7 +128,7 @@ const slides = [
           <FloatingCard delay={0.2}>
             <div className="mb-8">
               <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Building className="w-12 h-12 text-white" />
+                <img src="/dmiLogo.png" alt="DMI Logo" className="h-22 w-auto" />
               </div>
               <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
                 DMI ST.EUGENE UNIVERSITY
@@ -833,9 +833,66 @@ const slides = [
     )
   },
 
-  // Slide 14: Thank You
+  // Slide 14: Recomendations
   {
     id: 14,
+    component: () => (
+      <PresentationSlide>
+        <FloatingCard>
+          <h2 className="text-5xl font-bold text-center mb-12 text-white">Recomendations</h2>
+        </FloatingCard>
+        
+        <div className="max-w-5xl mx-auto">
+          <FloatingCard delay={0.3}>
+            <div className="backdrop-blur-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl p-12 border border-purple-300/30">
+              <div className="text-center mb-8">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Star className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-6">Points to note</h3>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <h4 className="text-xl font-semibold text-purple-300 mb-3">Updated Syllabus</h4>
+                    <p className="text-purple-100">The DMI and other stake holders should update the Syllabus as current information being taught is out of date</p>
+                  </div>
+                  
+                  <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <h4 className="text-xl font-semibold text-purple-300 mb-3">Getting with the Times</h4>
+                    <p className="text-purple-100">Most frameworks, tools and technologies we are told to use are deprecated or obsolete and needs updating</p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <h4 className="text-xl font-semibold text-pink-300 mb-3">Adoption of industry standards</h4>
+                    <p className="text-pink-100">The use of industry standard practices, tools and frameworks such as ASP.NET, Next.js, and Devops should be encouraged</p>
+                  </div>
+                  
+                  <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <h4 className="text-xl font-semibold text-pink-300 mb-3">Need for practice</h4>
+                    <p className="text-pink-100">DMI needs to learn towards more practical knowledge of theory as student leave school and don't know how to apply themselves</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <p className="text-lg text-white italic">
+                  "This internship experience has not only provided technical and professional development but has also reinforced the exciting potential of a career in software development."
+                </p>
+              </div>
+            </div>
+          </FloatingCard>
+        </div>
+      </PresentationSlide>
+    )
+  },
+
+  // Slide 15: Thank You
+  {
+    id: 15,
     component: () => (
       <PresentationSlide className="text-center">
         <div className="space-y-8">

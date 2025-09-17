@@ -92,31 +92,125 @@ const ProjectsPage = () => {
       link: "https://hide-away-apartments.tanshidigitalsolutions.site/"
     },
     {
+    "id": 12,
+    "title": "Jubilee Center",
+    "description": "Website for a Christian NGO equipping pastors, professionals, and youth to grow and flourish.",
+    "longDescription": "Jubilee Center is a Christian non-governmental organization website that highlights its mission of equipping pastors, professionals, and young people to grow spiritually, flourish physically, and have a voice in the nation. The site showcases programs, initiatives, and organizational values.",
+    "tech": ["Next.js", "Tailwind CSS", "Responsive Design"],
+    "category": "Website",
+    "icon": "Globe",
+    "status": "Live",
+    "year": "2024",
+    "timeline": "4 weeks",
+    "team": "2 members",
+    "impact": "Increased visibility and outreach for a Christian NGO.",
+    "features": [
+      "Organizational profile",
+      "Programs and initiatives overview",
+      "Contact and outreach forms",
+      "Responsive design"
+    ],
+    "color": "from-purple-600 to-pink-500",
+    "image": "✝️",
+    "link": "https://jubilee.tanshidigitalsolutions.site/"
+  },
+    {
       id: 3,
-      title: "Red Apple Travel & Tours",
-      description: "Travel agency website offering international flights, hotel bookings, and comprehensive travel services.",
-      longDescription: "A full-service travel agency platform providing flight bookings, hotel reservations, tour packages, and travel advisory services. Features integrated payment processing and customer management.",
-      tech: ["React", "Travel APIs", "Payment Gateway", "Responsive Design", "Node.js"],
-      category: "Web",
-      icon: Globe,
+      title: "Katly Designs",
+      description: "Modern African fashion house website with gallery, consultation booking, and vibrant interactive UI.",
+      longDescription: "Katly Designs is a contemporary web platform for a Zambian fashion house, celebrating African heritage through elegant, handcrafted garments. The site features a dynamic gallery, service highlights, and a seamless consultation booking experience, all wrapped in a visually rich, culturally inspired design.",
+      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Resend API", "Lucide Icons"],
+      category: "Web/App",
+      icon: Star,
       status: "Live",
       year: "2024",
-      timeline: "12 weeks",
-      team: "4 members",
-      impact: "Complete travel service platform",
+      timeline: "10 weeks",
+      team: "2 members",
+      impact: "Empowering local fashion with global reach and digital elegance",
       features: [
-        "Flight search and booking",
-        "Hotel reservation system",
-        "Tour package management",
-        "Customer portal",
-        "Payment processing",
-        "Travel documentation"
+        "Animated hero and gallery sections",
+        "Consultation booking with email notifications",
+        "Responsive, mobile-friendly design",
+        "Custom SVG backgrounds and gradients",
+        "Service and collection highlights",
+        "Unsubscribe and email compliance features"
       ],
-      color: "from-blue-600 to-cyan-600",
-      image: "✈️",
-      link: "https://redapple.tanshidigitalsolutions.site/"
+      color: "from-orange-500 to-yellow-500",
+      image: "🧵",
+      link: "https://katlydesigns.tanshidigitalsolutions.site/"
     },
     {
+    "id": 13,
+    "title": "LHI Zambia",
+    "description": "Landing page and LMS demo for Lusaka Health Institute.",
+    "longDescription": "LHI Zambia project provides a modern landing page and a demo Learning Management System (LMS) for Lusaka Health Institute. It was designed to showcase how digital tools can improve education accessibility and management in the health sector.",
+    "tech": ["React", "Tailwind CSS", "LMS Demo", "Responsive Design"],
+    "category": "Website",
+    "icon": "GraduationCap",
+    "status": "Live",
+    "year": "2024",
+    "timeline": "5 weeks",
+    "team": "2 members",
+    "impact": "Demonstrates digital learning possibilities for healthcare education.",
+    "features": [
+      "Landing page design",
+      "LMS demo integration",
+      "Program highlights",
+      "Responsive design"
+    ],
+    "color": "from-blue-600 to-indigo-500",
+    "image": "🏥",
+    "link": "https://lhi-zambia.tanshidigitalsolutions.site/"
+  },
+  {
+    "id": 14,
+    "title": "Motor Insurance System",
+    "description": "Demo motor insurance platform with landing page, backend server, and database integration.",
+    "longDescription": "The Motor Insurance System is a functional demo developed for a developer challenge. It simulates a real insurance platform with a landing page, quote generation, policy management, and server-side database integration. The project demonstrates backend and frontend synergy in insurance tech.",
+    "tech": ["Next.js", "Node.js", "Firebase", "API Integration", "Responsive Design"],
+    "category": "Information System",
+    "icon": "Shield",
+    "status": "Live",
+    "year": "2024",
+    "timeline": "6 weeks",
+    "team": "3 members",
+    "impact": "Provides a working prototype of a digital insurance platform.",
+    "features": [
+      "Landing page for insurance services",
+      "Quote generation",
+      "Policy management demo",
+      "Database integration",
+      "Responsive design"
+    ],
+    "color": "from-yellow-500 to-orange-600",
+    "image": "🚗",
+    "link": "https://motor-insurance.tanshidigitalsolutions.site/"
+  },
+   {
+    "id": 11,
+    "title": "AgriSmart 360",
+    "description": "IoT-powered control center for managing smart greenhouses and monitoring real-time analytics.",
+    "longDescription": "AgriSmart 360 is an IoT-based web application designed to help farmers and greenhouse owners manage and monitor their agricultural environments. The system provides real-time data visualization, device control, and analytics for better decision-making in precision farming.",
+    "tech": ["React", "Node.js", "IoT Integration", "WebSockets", "Charts.js", "Responsive Design"],
+    "category": "Information System",
+    "icon": "Activity",
+    "status": "Live",
+    "year": "2024",
+    "timeline": "8 weeks",
+    "team": "3 members",
+    "impact": "Enables smart farming and data-driven agricultural management.",
+    "features": [
+      "Real-time IoT data monitoring",
+      "Greenhouse device control",
+      "Analytics dashboard",
+      "Data visualization with charts",
+      "Responsive design"
+    ],
+    "color": "from-green-600 to-emerald-500",
+    "image": "🌱",
+    "link": "https://agrismart.tanshidigitalsolutions.site/"
+  },
+  {
       id: 6,
       title: "MineGuard 360",
       description: "Complete AI + IoT intelligence platform for mining safety with helmet detection, gas sensors, and blockchain logging. Built for MineTech Hackathon.",
@@ -143,29 +237,31 @@ const ProjectsPage = () => {
     },
     {
       id: 7,
-      title: "Katly Designs",
-      description: "Modern African fashion house website with gallery, consultation booking, and vibrant interactive UI.",
-      longDescription: "Katly Designs is a contemporary web platform for a Zambian fashion house, celebrating African heritage through elegant, handcrafted garments. The site features a dynamic gallery, service highlights, and a seamless consultation booking experience, all wrapped in a visually rich, culturally inspired design.",
-      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Resend API", "Lucide Icons"],
-      category: "Web/App",
-      icon: Star,
+      title: "Red Apple Travel & Tours",
+      description: "Travel agency website offering international flights, hotel bookings, and comprehensive travel services.",
+      longDescription: "A full-service travel agency platform providing flight bookings, hotel reservations, tour packages, and travel advisory services. Features integrated payment processing and customer management.",
+      tech: ["React", "Travel APIs", "Payment Gateway", "Responsive Design", "Node.js"],
+      category: "Web",
+      icon: Globe,
       status: "Live",
       year: "2024",
-      timeline: "10 weeks",
-      team: "2 members",
-      impact: "Empowering local fashion with global reach and digital elegance",
+      timeline: "12 weeks",
+      team: "4 members",
+      impact: "Complete travel service platform",
       features: [
-        "Animated hero and gallery sections",
-        "Consultation booking with email notifications",
-        "Responsive, mobile-friendly design",
-        "Custom SVG backgrounds and gradients",
-        "Service and collection highlights",
-        "Unsubscribe and email compliance features"
+        "Flight search and booking",
+        "Hotel reservation system",
+        "Tour package management",
+        "Customer portal",
+        "Payment processing",
+        "Travel documentation"
       ],
-      color: "from-orange-500 to-yellow-500",
-      image: "🧵",
-      link: "https://katlydesigns.tanshidigitalsolutions.site/"
+      color: "from-blue-600 to-cyan-600",
+      image: "✈️",
+      link: "https://redapple.tanshidigitalsolutions.site/"
     },
+    
+    
     {
       id: 8,
       title: "Smart Cane for the Blind",
@@ -292,6 +388,7 @@ const ProjectsPage = () => {
       image: "🚌",
       link: "#"
     }
+
   ];
 
   const filteredProjects = projects.filter(project => {
