@@ -586,9 +586,9 @@ const TanshiHomepage = () => {
 
             <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
               {[
-                { icon: Mail, text: "info@tanshidigitalsolutions.site", label: "Email Us" },
-                { icon: Phone, text: "+260 761 583 901", label: "Call or WhatsApp" },
-                { icon: Globe, text: "tanshidigitalsolutions.site", label: "Visit Website" }
+                { icon: Mail, text: "info@tanshidigital.com", label: "Email Us" },
+                { icon: Phone, text: "+260 571 442 097", label: "Call or WhatsApp" },
+                { icon: Globe, text: "tanshidigital.com", label: "Visit Website" }
               ].map((contact, index) => (
                 <motion.div
                   key={index}

@@ -89,7 +89,7 @@ const ProjectsPage = () => {
       ],
       color: "from-purple-600 to-pink-600",
       image: "🏢",
-      link: "https://hide-away-apartments.tanshidigitalsolutions.site/"
+      link: "https://hide-away-apartments.tanshidigital.com/"
     },
     {
     "id": 3,
@@ -112,7 +112,7 @@ const ProjectsPage = () => {
     ],
     "color": "from-purple-600 to-pink-500",
     "image": "✝️",
-    "link": "https://jubilee.tanshidigitalsolutions.site/"
+    "link": "https://jubilee.tanshidigital.com/"
   },
     {
       id: 4,
@@ -137,7 +137,7 @@ const ProjectsPage = () => {
       ],
       color: "from-orange-500 to-yellow-500",
       image: "🧵",
-      link: "https://katlydesigns.tanshidigitalsolutions.site/"
+      link: "https://katlydesigns.tanshidigital.com/"
     },
     {
     "id": 5,
@@ -160,7 +160,7 @@ const ProjectsPage = () => {
     ],
     "color": "from-blue-600 to-indigo-500",
     "image": "🏥",
-    "link": "https://lhi-zambia.tanshidigitalsolutions.site/"
+    "link": "https://lhi-zambia.tanshidigital.com/"
   },
   {
     "id": 6,
@@ -184,7 +184,7 @@ const ProjectsPage = () => {
     ],
     "color": "from-yellow-500 to-orange-600",
     "image": "🚗",
-    "link": "https://motor-insurance.tanshidigitalsolutions.site/"
+    "link": "https://motor-insurance.tanshidigital.com/"
   },
    {
     "id": 7,
@@ -208,7 +208,7 @@ const ProjectsPage = () => {
     ],
     "color": "from-green-600 to-emerald-500",
     "image": "🌱",
-    "link": "https://agrismart.tanshidigitalsolutions.site/"
+    "link": "https://agrismart.tanshidigital.com/"
   },
   {
       id: 8,
@@ -258,7 +258,7 @@ const ProjectsPage = () => {
       ],
       color: "from-blue-600 to-cyan-600",
       image: "✈️",
-      link: "https://redapple.tanshidigitalsolutions.site/"
+      link: "https://redapple.tanshidigital.com/"
     },
     
     

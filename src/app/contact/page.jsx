@@ -85,17 +85,17 @@ const ContactPage = () => {
     {
       icon: Mail,
       title: "Email Us",
-      primary: "info@tanshidigitalsolutions.site",
+      primary: "info@tanshidigital.com",
       secondary: "Get a response within 24 hours",
-      action: "mailto:info@tanshidigitalsolutions.site",
+      action: "mailto:info@tanshidigital.com",
       color: "from-blue-600 to-cyan-600"
     },
     {
       icon: Phone,
       title: "Call or WhatsApp",
-      primary: "+260 761 583 901",
+      primary: "+260 571 442 097",
       secondary: "Available Mon-Fri, 8AM-6PM CAT",
-      action: "https://wa.me/260761583901",
+      action: "https://wa.me/260571442097",
       color: "from-green-600 to-emerald-600"
     },
     {
@@ -109,9 +109,9 @@ const ContactPage = () => {
     {
       icon: Globe,
       title: "Website",
-      primary: "tanshidigitalsolutions.site",
+      primary: "tanshidigital.com",
       secondary: "Explore our full portfolio",
-      action: "https://tanshidigitalsolutions.site",
+      action: "https://tanshidigital.com",
       color: "from-orange-600 to-red-600"
     }
   ];
@@ -650,7 +650,7 @@ const ContactPage = () => {
                 <ArrowRight size={20} />
               </motion.a>
               <motion.a
-                href="https://wa.me/260761583901"
+                href="https://wa.me/260571442097"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.1)" }}

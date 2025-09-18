@@ -682,9 +682,9 @@ const WebDevelopmentPage = () => {
     }
     
     text += `\n\nContact Information:\n`;
-    text += `Email: info@tanshidigitalsolutions.site\n`;
-    text += `Phone: +260 761 583 901\n`;
-    text += `Website: tanshidigitalsolutions.site\n`;
+    text += `Email: info@tanshidigital.com\n`;
+    text += `Phone: +260 571 442 097\n`;
+    text += `Website: tanshidigital.com\n`;
     
     return text;
   };
@@ -745,7 +745,7 @@ const WebDevelopmentPage = () => {
 
   const handleWhatsAppContact = () => {
     const selectedPkg = packages.find(p => p.price === selectedPackage);
-    const phoneNumber = '260761583901'; // Remove + and spaces
+    const phoneNumber = '260571442097'; // Remove + and spaces
     
     let message = `Hi Tanshi Digital Solutions! 👋\n\n`;
     message += `I'm interested in your web development services.\n\n`;
@@ -1489,15 +1489,15 @@ const WebDevelopmentPage = () => {
                 <div className="space-y-3 text-slate-300">
                   <div className="flex items-center gap-3 justify-center md:justify-start">
                     <Mail size={20} className="text-blue-400" />
-                    <span>info@tanshidigitalsolutions.site</span>
+                    <span>info@tanshidigital.com</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center md:justify-start">
                     <Phone size={20} className="text-blue-400" />
-                    <span>+260 761 583 901</span>
+                    <span>+260 571 442 097</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center md:justify-start">
                     <Globe size={20} className="text-blue-400" />
-                    <span>tanshidigitalsolutions.site</span>
+                    <span>tanshidigital.com</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center md:justify-start">
                     <MapPin size={20} className="text-blue-400" />

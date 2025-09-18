@@ -637,7 +637,7 @@ function TrackOrderPageContent() {
               <div className="text-center border-b border-blue-500/20 pb-6">
                 <h2 className="text-3xl font-bold text-white mb-2">Tanshi Digital Solutions</h2>
                 <p className="text-blue-200/70">Web Development & Digital Services</p>
-                <p className="text-blue-200/70 text-sm">info@tanshidigitalsolutions.site | +260 761 583 901</p>
+                <p className="text-blue-200/70 text-sm">info@tanshidigital.com | +260 571 442 097</p>
               </div>
 
               {/* Invoice Details */}

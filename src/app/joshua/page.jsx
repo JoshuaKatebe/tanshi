@@ -245,7 +245,7 @@ const Portfolio = () => {
     {
       title: "Tanshi Digital Solutions",
       description: "Our company website showcasing digital solutions and student startup services.",
-      url: "https://tanshidigitalsolutions.site/",
+      url: "https://tanshidigital.com/",
       tech: ["React", "Business Site", "Portfolio"],
       image: "💻"
     }
@@ -941,7 +941,7 @@ const Portfolio = () => {
             <div className="flex flex-wrap justify-center gap-6 text-slate-400">
               <span>📧 joshuakatebe15@gmail.com</span>
               <span>📞 +260 977 487 852</span>
-              <span>🌍 tanshidigitalsolutions.site</span>
+              <span>🌍 tanshidigital.com</span>
             </div>
           </motion.div>
         </div>
@@ -980,7 +980,7 @@ const Portfolio = () => {
               {[
                 { icon: Github, href: "https://github.com/joshuakatebe", label: "GitHub" },
                 { icon: Mail, href: "mailto:joshuakatebe15@gmail.com", label: "Email" },
-                { icon: Globe, href: "https://tanshidigitalsolutions.site", label: "Website" }
+                { icon: Globe, href: "https://tanshidigital.com", label: "Website" }
               ].map((social, index) => (
                 <motion.a
                   key={social.label}

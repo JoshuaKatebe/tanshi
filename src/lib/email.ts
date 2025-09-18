@@ -41,9 +41,9 @@ export async function sendQuoteConfirmationEmail(data: EmailData) {
       
       // Additional fields for the email template
       company_name: 'Tanshi Digital Solutions',
-      company_email: 'info@tanshidigitalsolutions.site',
-      company_phone: '+260 761 583 901',
-      tracking_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://tanshidigitalsolutions.site'}/track-order?orderId=${data.orderID}`,
+      company_email: 'info@tanshidigital.com',
+      company_phone: '+260 571 442 097',
+      tracking_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://tanshidigital.com'}/track-order?orderId=${data.orderID}`,
       
       // Current date
       quote_date: new Date().toLocaleDateString('en-ZM', {
