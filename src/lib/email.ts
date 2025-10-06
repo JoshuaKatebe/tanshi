@@ -1,7 +1,82 @@
-import emailjs from '@emailjs/browser';
+// Send quote email using Resend API
+export const sendQuoteEmail = async (formData: {
+  name: string;
+  email: string;
+  phone?: string;
+  packageData: any;
+  businessSummary?: string;
+  projectGoals?: string;
+  contactMethod: string;
+  referralCode?: string;
+}) => {
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'quote',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        packageData: formData.packageData,
+        businessSummary: formData.businessSummary,
+        projectGoals: formData.projectGoals,
+        contactMethod: formData.contactMethod,
+        referralCode: formData.referralCode
+      })
+    });
 
-// EmailJS initialization is handled in the EmailJSInit component
+    const result = await response.json();
 
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to send email');
+    }
+
+    return { success: true, result };
+  } catch (error) {
+    console.error('Email sending failed:', error);
+    return { success: false, error };
+  }
+};
+
+// Send contact email using Resend API
+export const sendContactEmail = async (formData: {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+}) => {
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'contact',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to send email');
+    }
+
+    return { success: true, result };
+  } catch (error) {
+    console.error('Email sending failed:', error);
+    return { success: false, error };
+  }
+};
+
+// Backwards compatibility - keep the old interface for existing code
 interface EmailData {
   orderID: string;
   clientName: string;
@@ -18,91 +93,37 @@ interface EmailData {
 }
 
 export async function sendQuoteConfirmationEmail(data: EmailData) {
-  try {
-    // Prepare the email template parameters
-    const templateParams = {
-      // Required EmailJS fields
-      from_email: data.clientEmail,
-      from_name: data.clientName,
-      
-      // Template-specific fields
-      to_email: data.clientEmail,
-      to_name: data.clientName,
-      order_id: data.orderID,
-      package_name: data.packageName,
-      total_price: `K${data.totalPrice.toLocaleString()}`,
-      extra_pages: data.extraPages || 0,
-      addons: data.addons?.join(', ') || 'None',
-      maintenance: data.maintenance ? `K${data.maintenance}/month` : 'None',
-      business_summary: data.businessSummary || 'Not provided',
-      project_goals: data.projectGoals || 'Not provided',
-      contact_method: data.contactMethod || 'Email',
-      referrer: data.referrerName || 'Direct',
-      
-      // Additional fields for the email template
-      company_name: 'Tanshi Digital Solutions',
-      company_email: 'info@tanshidigital.com',
-      company_phone: '+260 571 442 097',
-      tracking_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://tanshidigital.com'}/track-order?orderId=${data.orderID}`,
-      
-      // Current date
-      quote_date: new Date().toLocaleDateString('en-ZM', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    };
-
-    // Send email using EmailJS (using the auto-reply template for client confirmation)
-    const response = await emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_nmjkn79',
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_jy6xtqc',
-      templateParams
-    );
-
-    console.log('Email sent successfully:', response);
-    return { success: true, response };
-  } catch (error) {
-    console.error('Failed to send email:', error);
-    return { success: false, error };
-  }
+  return sendQuoteEmail({
+    name: data.clientName,
+    email: data.clientEmail,
+    packageData: {
+      name: data.packageName,
+      price: data.totalPrice,
+      extraPages: data.extraPages,
+      addons: data.addons,
+      maintenance: data.maintenance
+    },
+    businessSummary: data.businessSummary,
+    projectGoals: data.projectGoals,
+    contactMethod: data.contactMethod || 'Email',
+    referralCode: data.referrerName
+  });
 }
 
-// Function to send admin notification
 export async function sendAdminNotificationEmail(data: EmailData) {
-  try {
-    const templateParams = {
-      // Required EmailJS fields
-      from_name: data.clientName,
-      from_email: data.clientEmail,
-      
-      // Template-specific fields
-      order_id: data.orderID,
-      client_name: data.clientName,
-      client_email: data.clientEmail,
-      package_name: data.packageName,
-      total_price: `K${data.totalPrice.toLocaleString()}`,
-      business_summary: data.businessSummary || 'Not provided',
-      project_goals: data.projectGoals || 'Not provided',
-      referrer: data.referrerName || 'Direct',
-      
-      // Admin email
-      to_email: process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'mineboyobf@gmail.com',
-      
-      // Date and time
-      submission_date: new Date().toLocaleString('en-ZM')
-    };
-
-    const response = await emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_nmjkn79',
-      process.env.NEXT_PUBLIC_EMAILJS_ADMIN_TEMPLATE_ID || 'template_ha0atla',
-      templateParams
-    );
-
-    console.log('Admin notification sent:', response);
-    return { success: true, response };
-  } catch (error) {
-    console.error('Failed to send admin notification:', error);
-    return { success: false, error };
-  }
+  return sendQuoteEmail({
+    name: data.clientName,
+    email: data.clientEmail,
+    packageData: {
+      name: data.packageName,
+      price: data.totalPrice,
+      extraPages: data.extraPages,
+      addons: data.addons,
+      maintenance: data.maintenance
+    },
+    businessSummary: data.businessSummary,
+    projectGoals: data.projectGoals,
+    contactMethod: data.contactMethod || 'Email',
+    referralCode: data.referrerName
+  });
 }

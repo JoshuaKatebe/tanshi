@@ -16,7 +16,7 @@ import {
   Users,
   MessageCircle
 } from 'lucide-react';
-import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from '@/lib/email';
+import { sendQuoteEmail } from '@/lib/email';
 
 interface QuoteFormProps {
   packageData: {
@@ -134,40 +134,28 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ packageData }) => {
           return;
         }
         
-        // Send email notifications
-        console.log('[QuoteForm] Sending email notifications...');
-        
-        const emailData = {
-          orderID: result.order_id,
-          clientName: formData.name,
-          clientEmail: formData.email,
-          packageName: packageData.name,
-          totalPrice: packageData.totalPrice,
-          extraPages: packageData.extraPages,
-          addons: packageData.addons.map((addon: any) => addon.name),
-          maintenance: packageData.maintenance,
-          businessSummary: formData.businessSummary,
-          projectGoals: formData.projectGoals,
-          contactMethod: formData.contactMethod,
-          referrerName: formData.referrerName,
-        };
-        
-        // Send client confirmation email
+        // Send email notification using new Resend system
         try {
-          console.log('[QuoteForm] Sending client confirmation email...');
-          const clientEmailResult = await sendQuoteConfirmationEmail(emailData);
-          console.log('[QuoteForm] Client email result:', clientEmailResult);
+          console.log('[QuoteForm] Sending email notifications...');
+          const emailResult = await sendQuoteEmail({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            packageData: {
+              name: packageData.name,
+              price: packageData.totalPrice,
+              extraPages: packageData.extraPages,
+              breakdown: packageData.breakdown,
+              maintenance: packageData.maintenance
+            },
+            businessSummary: formData.businessSummary,
+            projectGoals: formData.projectGoals,
+            contactMethod: formData.contactMethod,
+            referralCode: formData.referralCode || formData.referrerName
+          });
+          console.log('[QuoteForm] Email result:', emailResult);
         } catch (error) {
-          console.error('[QuoteForm] Failed to send client email:', error);
-        }
-        
-        // Send admin notification email
-        try {
-          console.log('[QuoteForm] Sending admin notification email...');
-          const adminEmailResult = await sendAdminNotificationEmail(emailData);
-          console.log('[QuoteForm] Admin email result:', adminEmailResult);
-        } catch (error) {
-          console.error('[QuoteForm] Failed to send admin email:', error);
+          console.error('[QuoteForm] Failed to send emails:', error);
         }
         
         // Mark emails as sent

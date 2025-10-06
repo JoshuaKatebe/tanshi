@@ -31,8 +31,11 @@ import {
   Rocket,
   Lightbulb,
   Shield,
-  TrendingUp
+  TrendingUp,
+  Loader2,
+  X
 } from 'lucide-react';
+import { sendContactEmail } from '@/lib/email';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -47,7 +50,7 @@ const ContactPage = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [submitResult, setSubmitResult] = useState(null);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -59,14 +62,32 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitResult(null);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setSubmitted(false);
+    try {
+      // Create message with all form data
+      const message = `Service Interested In: ${formData.service}
+Budget: ${formData.budget}
+Timeline: ${formData.timeline}
+${formData.company ? `Company: ${formData.company}` : ''}
+
+Message:
+${formData.message}`;
+
+      const result = await sendContactEmail({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: message.trim()
+      });
+
+      if (result.success) {
+        setSubmitResult({
+          success: true,
+          message: 'Message sent successfully! We\'ll get back to you within 24 hours.'
+        });
+        
+        // Reset form
         setFormData({
           name: '',
           email: '',
@@ -77,8 +98,17 @@ const ContactPage = () => {
           message: '',
           timeline: ''
         });
-      }, 3000);
-    }, 2000);
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      setSubmitResult({
+        success: false,
+        message: 'Failed to send message. Please try again or contact us directly.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactMethods = [
@@ -365,7 +395,7 @@ const ContactPage = () => {
                 Start Your Project
               </h3>
 
-              {!submitted ? (
+              {!submitResult?.success ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -536,17 +566,30 @@ const ContactPage = () => {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6"
+                    className={`w-20 h-20 ${submitResult?.success ? 'bg-green-500' : 'bg-red-500'} rounded-full flex items-center justify-center mx-auto mb-6`}
                   >
-                    <CheckCircle size={40} className="text-white" />
+                    {submitResult?.success ? (
+                      <CheckCircle size={40} className="text-white" />
+                    ) : (
+                      <X size={40} className="text-white" />
+                    )}
                   </motion.div>
-                  <h4 className="text-2xl font-bold text-white mb-4">Message Sent Successfully!</h4>
+                  <h4 className="text-2xl font-bold text-white mb-4">
+                    {submitResult?.success ? 'Message Sent Successfully!' : 'Error Sending Message'}
+                  </h4>
                   <p className="text-blue-200/80 mb-6">
-                    Thank you for reaching out. We'll get back to you within 24 hours with a detailed response.
+                    {submitResult?.message}
                   </p>
-                  <div className="text-sm text-blue-300">
-                    Form will reset automatically...
-                  </div>
+                  {!submitResult?.success && (
+                    <motion.button
+                      onClick={() => setSubmitResult(null)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold"
+                    >
+                      Try Again
+                    </motion.button>
+                  )}
                 </motion.div>
               )}
             </motion.div>

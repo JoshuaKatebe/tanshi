@@ -44,7 +44,6 @@ import {
   Lock,
   Rocket,
   Eye,
-  EyeOff,
   MousePointer,
   CreditCard,
   Wifi,
@@ -83,7 +82,6 @@ const WebDevelopmentPage = () => {
   const [showConfirmationGuide, setShowConfirmationGuide] = useState(false);
   const [guideStep, setGuideStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [tutorialEnabled, setTutorialEnabled] = useState(true);
 
   const websiteBenefits = [
     {
@@ -129,9 +127,9 @@ const WebDevelopmentPage = () => {
       name: 'LITE', 
       price: 400, 
       pages: 1, 
-      description: 'Perfect for Hustlers, Students & Side Businesses', 
-      domain: 'Subdomain included', 
-      hosting: 'Free Hosting', 
+      description: 'Perfect for Hustlers and Small Startups', 
+      domain: 'subdomain or addon for .com', 
+      hosting: 'Free (Static)', 
       time: 'Same-day to 2 days',
       color: 'from-blue-500 to-cyan-500',
       popular: false,
@@ -139,9 +137,9 @@ const WebDevelopmentPage = () => {
         'Single-page website',
         'Mobile responsive design',
         'WhatsApp chat button',
-        'Social media links',
-        'Quick online presence',
-        'Perfect for portfolios'
+        'Basic Email integration',
+        'Basic contact information',
+        'Social media links'
       ],
       useCases: [
         'Personal portfolios',
@@ -150,54 +148,57 @@ const WebDevelopmentPage = () => {
         'Side hustlers',
         'Quick online presence'
       ],
-      businesses: ['Hustlers', 'Students', 'Side businesses', 'Personal brands']
+      businesses: ['Small entrepreneurs', 'Students', 'Side hustlers', 'Personal brands']
     },
     { 
       name: 'STARTER', 
       price: 800, 
       pages: 5, 
-      description: 'For Freelancers, Bloggers & Content Creators', 
-      domain: 'Subdomain included', 
-      hosting: 'Free Hosting', 
-      time: '2-3 days',
+      description: 'Great for small Businesses', 
+      domain: 'subdomain or addon for .com', 
+      hosting: 'Free (Static)', 
+      time: 'Same-day to 2 days',
       color: 'from-green-500 to-emerald-500',
       popular: false,
       features: [
-        'Up to 5 pages',
+        'All Starter features',
         'Blog system',
         'Contact form',
-        'Basic email integration',
+        'WhatsApp button',
         'Responsive design',
-        'Content management'
+        'Basic Email integration',
       ],
       useCases: [
         'Bloggers',
         'Content creators',
-        'Freelancers',
         'Small businesses',
+        'Freelancers',
         'Service providers'
       ],
-      businesses: ['Freelancers', 'Bloggers', 'Content creators', 'Small services']
+      businesses: ['Content creators', 'Freelancers', 'Small service providers']
     },
     { 
       name: 'BUSINESS', 
       price: 1800, 
       pages: 5, 
-      description: 'Professional SME & Startup Solutions', 
+      description: 'Branding & Functional Business Websites', 
       domain: '.com domain included', 
-      hosting: 'Free Hosting', 
-      time: '3-5 days',
+      hosting: 'Free (Static)', 
+      time: '3-7 days',
       color: 'from-purple-500 to-pink-500',
       popular: true,
       features: [
         'Up to 5 pages',
+        'Custom design matching your brand',
+        'Smooth animations',
+        'Advanced blog (likes/comments)',
+        'WhatsApp chat',
         '.com domain included',
-        'Custom design',
+        'No footer credit',
+        'Professional appearance',
         'SEO optimization',
-        'CRM basics',
-        'Professional branding',
         'Email integration',
-        'Analytics setup'
+        'Customer management',
       ],
       useCases: [
         'Startups',
@@ -206,79 +207,81 @@ const WebDevelopmentPage = () => {
         'Brand showcase',
         'Lead generation'
       ],
-      businesses: ['Startups', 'SMEs', 'Professional services', 'Agencies']
+      businesses: ['Startups', 'SMEs', 'Professional services', 'Growing businesses']
     },
     { 
       name: 'BUSINESS PLUS', 
       price: 2800, 
       pages: 10, 
-      description: 'Advanced Features for Growing Businesses', 
+      description: 'Advanced Features & Tracking', 
       domain: '.com domain included', 
-      hosting: 'Free Hosting', 
-      time: '5-7 days',
+      hosting: 'Free (Static)', 
+      time: '3-7 days',
       color: 'from-orange-500 to-red-500',
       popular: false,
       features: [
         'Up to 10 pages',
-        'Order tracking system',
-        'Customer dashboards',
-        'Analytics dashboard',
-        'Advanced forms',
+        'Advanced order tracking',
+        'Simple customer profiles',
+        'Dashboards',
+        'Business emails',
+        'Expanded Firebase blog with interactivity',
         'Social media integration',
-        'Email automation',
-        'Basic e-commerce setup'
+        'Analytics setup',
+        'Contact forms'
       ],
       useCases: [
+        
         'Service businesses',
-        'E-commerce starters',
         'Customer management',
-        'Digital marketing',
-        'Online operations'
+        'Content marketing',
+        'Professional presence'
       ],
-      businesses: ['Service companies', 'E-commerce starters', 'Agencies', 'Digital businesses']
+      businesses: ['Service companies', 'E-commerce', 'Content businesses', 'Agencies']
     },
     { 
       name: 'BUSINESS PRO', 
       price: 5000, 
       pages: 20, 
-      description: 'Complete Digital Operations Suite', 
+      description: 'Digital Business Operations', 
       domain: '.com domain included', 
-      hosting: 'Premium Hosting', 
+      hosting: 'Client Paid', 
       time: '7-14 days',
       color: 'from-indigo-500 to-purple-500',
       popular: false,
       features: [
         'Up to 20 pages',
         'Customer dashboards',
-        'Basic CRM features',
-        'Basic ERP (staff mgmt & payroll)',
-        'Basic E-commerce',
-        'Payment integrations',
-        'Automation tools',
+        'CRM features',
+        'Order management',
+        'Basic ERP (staff management, basic payroll)',
+        'Social media integration',
+        'Payment integrations (MTN MoMo, Airtel, Payfast)',
+        'Automated email responders',
         'Advanced analytics',
         'Multi-user access'
       ],
       useCases: [
-        'Growing businesses',
-        'Mid-size e-commerce',
         'Digital operations',
+        'Customer management',
+        'E-commerce',
         'Service automation',
         'Team collaboration'
       ],
-      businesses: ['Growing businesses', 'Mid-size companies', 'Digital operations', 'E-commerce']
+      businesses: ['Established businesses', 'E-commerce', 'Service companies', 'Digital operations']
     },
     { 
-      name: 'SCALE', 
+      name: 'ENTERPRISE', 
       price: 10000, 
       pages: 'Unlimited', 
-      description: 'Advanced Custom Business Systems', 
+      description: 'Fully Custom Business Systems', 
       domain: 'Any domain', 
-      hosting: 'Premium Hosting', 
-      time: '2-3 weeks',
-      color: 'from-indigo-500 to-purple-500',
+      hosting: 'Negotiable', 
+      time: 'From 2 weeks',
+      color: 'from-gradient-to-r from-yellow-500 to-orange-500',
       popular: false,
       features: [
-        'Unlimited pages',
+        'Tailored multi-page websites',
         'Custom business systems',
         'Advanced dashboards',
         'AI chatbots',
@@ -296,63 +299,17 @@ const WebDevelopmentPage = () => {
         'Enterprise operations',
         'Multi-branch businesses'
       ],
-      businesses: ['Large businesses', 'Organizations', 'Multi-branch companies', 'Complex requirements']
-    },
-    { 
-      name: 'ENTERPRISE', 
-      price: 'Contact', 
-      pages: 'Unlimited', 
-      description: 'Premium Solutions for Corporates & Government', 
-      domain: 'Multiple domains', 
-      hosting: 'Dedicated hosting', 
-      time: 'Custom timeline',
-      color: 'from-gradient-to-r from-yellow-500 to-orange-500',
-      popular: false,
-      isEnterprise: true,
-      features: [
-        'Tailored enterprise systems',
-        'Advanced ERP + CRM Bundle',
-        'Advanced E-commerce platform',
-        'AI chatbots & automation',
-        'Multi-language support',
-        'Enterprise integrations',
-        'Dedicated support team',
-        'SLA guarantees',
-        'Priority development',
-        'Custom training programs'
-      ],
-      useCases: [
-        'NGOs & Corporates',
-        'Government projects',
-        'Large organizations',
-        'Multi-national operations',
-        'Enterprise-grade solutions'
-      ],
-      businesses: ['NGOs', 'Corporates', 'Government', 'Large enterprises']
+      businesses: ['Large businesses', 'Organizations', 'Enterprises', 'Custom requirements']
     }
   ];
 
   const features = [
     { 
-      id: 'extra-pages', 
-      name: 'Extra Pages', 
-      price: 100, 
-      perUnit: true,
-      description: 'Additional pages beyond package limit', 
-      icon: FileText,
-      details: {
-        whatItIs: 'Add more pages to your website',
-        whyNeedIt: 'Expand your content and services',
-        howItWorks: 'We create additional pages as needed',
-        benefits: ['More content', 'Better organization', 'Improved SEO', 'Service expansion']
-      }
-    },
-    { 
       id: 'email', 
       name: 'Professional Email', 
       price: 40, 
       monthly: true, 
-      description: 'Custom business email addresses', 
+      description: 'Custom email setup (contact@yourdomain.com) (FREE with BUSINESS PRO)', 
       icon: Mail,
       details: {
         whatItIs: 'Custom email addresses using your domain name',
@@ -365,7 +322,7 @@ const WebDevelopmentPage = () => {
       id: 'seo', 
       name: 'Advanced SEO', 
       price: 150, 
-      description: 'Search engine optimization for better rankings', 
+      description: 'Search engine optimization + analytics (FREE with BUSINESS+)', 
       icon: TrendingUp,
       details: {
         whatItIs: 'Optimization to help customers find you on Google',
@@ -375,10 +332,49 @@ const WebDevelopmentPage = () => {
       }
     },
     { 
-      id: 'social', 
-      name: 'Social Media Integration', 
+      id: 'whatsapp', 
+      name: 'WhatsApp Integration', 
+      price: 50, 
+      description: 'Live chat button (FREE with STARTER packages)', 
+      icon: MessageCircle,
+      details: {
+        whatItIs: 'Direct WhatsApp chat button on your website',
+        whyNeedIt: 'Customers prefer WhatsApp for quick communication',
+        howItWorks: 'Visitors click the button to start WhatsApp chat with you',
+        benefits: ['Instant customer communication', 'Higher conversion rates', 'Better customer service', 'Local preference']
+      }
+    },
+    { 
+      id: 'ecommerce', 
+      name: 'E-commerce Setup', 
+      price: 2000, 
+      description: 'Online store functionality (FREE for BUSINESS PRO)', 
+      icon: ShoppingCart,
+      details: {
+        whatItIs: 'Complete online store with product catalog and checkout',
+        whyNeedIt: 'Sell products 24/7 without physical store limitations',
+        howItWorks: 'We build a secure online store with payment processing',
+        benefits: ['Sell online 24/7', 'Reach more customers', 'Reduce overhead costs', 'Track inventory']
+      }
+    },
+    { 
+      id: 'blog-system', 
+      name: 'Advanced Blog System', 
       price: 300, 
-      description: 'Connect your social media feeds', 
+      description: 'Content management for regular updates (FREE with BUSINESS )', 
+      icon: BookOpen,
+      details: {
+        whatItIs: 'Easy-to-use system for publishing articles and updates',
+        whyNeedIt: 'Fresh content improves Google rankings and customer engagement',
+        howItWorks: 'Simple editor to add new posts, images, and updates',
+        benefits: ['Better SEO rankings', 'Customer engagement', 'Share expertise', 'Build authority']
+      }
+    },
+    { 
+      id: 'social', 
+      name: 'Social Media Feed', 
+      price: 300, 
+      description: 'Live social media integration (FREE with BUSINESS PRO)', 
       icon: Share2,
       details: {
         whatItIs: 'Display your latest social media posts on your website',
@@ -391,7 +387,7 @@ const WebDevelopmentPage = () => {
       id: 'forms', 
       name: 'Custom Forms', 
       price: 150, 
-      description: 'Advanced contact and booking forms', 
+      description: 'Advanced contact/booking forms (FREE with BUSINESS)', 
       icon: FileText,
       details: {
         whatItIs: 'Customized forms for specific business needs',
@@ -400,11 +396,30 @@ const WebDevelopmentPage = () => {
         benefits: ['Better lead qualification', 'Streamlined processes', 'Data collection', 'Professional appearance']
       }
     },
+    {
+  id: 'booking-system',
+  name: 'Advanced Booking System',
+  price: 350,
+  description: 'Simple and efficient booking system integration (FREE with BUSINESS+)',
+  icon: CalendarCheck,
+  details: {
+    whatItIs: 'A streamlined booking system for appointments or reservations directly on your website',
+    whyNeedIt: 'Make it easy for customers to book appointments or reserve services without calling or messaging manually',
+    howItWorks: 'We set up an easy-to-use booking system tailored to your business, with calendar integration, automated confirmations, and optional payment collection',
+    benefits: [
+      'Reduce missed appointments with reminders',
+      'Improve customer convenience',
+      'Manage bookings in one place',
+      'Increase efficiency and reduce no-shows',
+      'Professional and modern client experience'
+    ]
+  }
+},
     { 
       id: 'multilang', 
-      name: 'Multi-language Setup', 
+      name: 'Multi-language', 
       price: 400, 
-      description: 'Add multiple languages to your site', 
+      description: 'Bilingual website setup', 
       icon: Languages,
       details: {
         whatItIs: 'Website available in multiple languages',
@@ -417,7 +432,7 @@ const WebDevelopmentPage = () => {
       id: 'payment', 
       name: 'Payment Integration', 
       price: 500, 
-      description: 'Accept online payments (cards & mobile money)', 
+      description: 'Set up billing with cards and mobile money (FREE for K5000+ packages)', 
       icon: CreditCard,
       details: {
         whatItIs: 'Secure payment processing for online transactions',
@@ -427,29 +442,16 @@ const WebDevelopmentPage = () => {
       }
     },
     { 
-      id: 'advanced-ecommerce', 
-      name: 'Advanced E-commerce', 
-      price: 3500, 
-      description: 'Full e-commerce with customer accounts, reviews & support', 
-      icon: ShoppingCart,
+      id: 'domain', 
+      name: 'Premium Domain', 
+      price: 150, 
+      description: 'Domains exceeding package allowance (FREE with BUSINESS)', 
+      icon: Award,
       details: {
-        whatItIs: 'Complete online store with advanced features',
-        whyNeedIt: 'Professional e-commerce solution for serious online selling',
-        howItWorks: 'Full store with customer logins, carts, reviews, and support system',
-        benefits: ['Customer accounts', 'Product reviews', 'Advanced cart', 'Customer support system']
-      }
-    },
-    { 
-      id: 'erp-crm', 
-      name: 'Advanced ERP + CRM Bundle', 
-      price: 3500, 
-      description: 'Expanded business management system', 
-      icon: Settings,
-      details: {
-        whatItIs: 'Complete business management solution',
-        whyNeedIt: 'Manage all business operations in one system',
-        howItWorks: 'Integrated ERP and CRM for complete business management',
-        benefits: ['Staff management', 'Advanced CRM', 'Inventory control', 'Business analytics']
+        whatItIs: 'Premium domain names (.com, .org, .net, .co, etc.)',
+        whyNeedIt: 'Better branding and easier to remember',
+        howItWorks: 'We help you choose and register the perfect domain',
+        benefits: ['Better branding', 'Easier to remember', 'Professional appearance', 'Better SEO']
       }
     }
   ];
@@ -582,40 +584,12 @@ const WebDevelopmentPage = () => {
     }
   };
 
-  const handlePackageSelect = (packagePrice, isEnterprise = false, packageName = '') => {
-    if (packagePrice === 'Contact' || isEnterprise) {
-      handleEnterpriseContact();
-      return;
-    }
+  const handlePackageSelect = (packagePrice) => {
     setSelectedPackage(packagePrice);
     setShowInitialGuide(false);
     setShowCustomizationGuide(true);
     setTimeout(() => {
       scrollToSection('customization');
-    }, 300);
-  };
-
-  const handleEnterpriseContact = () => {
-    setShowQuoteForm(true);
-    setSelectedPackage('Enterprise');
-    // Set enterprise-specific data
-    setExtraPages(0);
-    setSelectedFeatures({
-      'advanced-ecommerce': true,
-      'erp-crm': true,
-      'multilang': true,
-      'payment': true
-    });
-    setTotalPrice(0); // Custom pricing
-    setBreakdown([
-      { name: 'Enterprise Custom Package', price: 0 },
-      { name: 'Advanced ERP + CRM Bundle', price: 0 },
-      { name: 'Advanced E-commerce', price: 0 },
-      { name: 'Multi-language Setup', price: 0 },
-      { name: 'Payment Integration', price: 0 }
-    ]);
-    setTimeout(() => {
-      scrollToSection('quote-form');
     }, 300);
   };
 
@@ -808,7 +782,7 @@ const WebDevelopmentPage = () => {
   };
   // Tutorial Guide Component
   const TutorialGuide = ({ show, position, children, onDismiss }) => {
-    if (!show || !tutorialEnabled) return null;
+    if (!show) return null;
     
     return (
       <motion.div
@@ -832,7 +806,7 @@ const WebDevelopmentPage = () => {
 
   // Floating Arrow Component
   const FloatingArrow = ({ show, position, direction = 'down' }) => {
-    if (!show || !tutorialEnabled) return null;
+    if (!show) return null;
     
     const rotations = {
       down: 'rotate-0',
@@ -882,23 +856,6 @@ const WebDevelopmentPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white overflow-hidden">
-      {/* Tutorial Toggle Button */}
-      <motion.button
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setTutorialEnabled(!tutorialEnabled)}
-        className="fixed top-24 right-4 z-50 bg-blue-600/80 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg backdrop-blur-sm transition-colors"
-        title={tutorialEnabled ? 'Hide Tutorial' : 'Show Tutorial'}
-      >
-        {tutorialEnabled ? (
-          <Eye size={20} />
-        ) : (
-          <EyeOff size={20} />
-        )}
-      </motion.button>
-      
       {/* Tutorial Guides */}
       <AnimatePresence>
         {/* Initial Package Selection Guide */}
@@ -909,7 +866,7 @@ const WebDevelopmentPage = () => {
         >
           <div className="text-white">
             <div className="flex items-center gap-2 mb-2">
-              <Pointer className="text-white" size={24} />
+              <Pointer className="text-yellow-300" size={24} />
               <h3 className="font-bold text-lg">Welcome! Let's get started</h3>
             </div>
             <p className="text-sm mb-3">
@@ -936,7 +893,7 @@ const WebDevelopmentPage = () => {
         >
           <div className="text-white">
             <div className="flex items-center gap-2 mb-2">
-              <Settings className="text-white" size={24} />
+              <Settings className="text-yellow-300" size={24} />
               <h3 className="font-bold text-lg">Customize Your Package</h3>
             </div>
             <p className="text-sm mb-3">
@@ -956,7 +913,7 @@ const WebDevelopmentPage = () => {
         >
           <div className="text-white">
             <div className="flex items-center gap-2 mb-2">
-              <MousePointer className="text-white" size={24} />
+              <MousePointer className="text-yellow-300" size={24} />
               <h3 className="font-bold text-lg">Ready for Your Quote?</h3>
             </div>
             <p className="text-sm mb-3">
@@ -987,7 +944,7 @@ const WebDevelopmentPage = () => {
         >
           <div className="text-white">
             <div className="flex items-center gap-2 mb-2">
-              <FileText className="text-white" size={24} />
+              <FileText className="text-yellow-300" size={24} />
               <h3 className="font-bold text-lg">Almost There!</h3>
             </div>
             <p className="text-sm mb-3">
@@ -1114,7 +1071,7 @@ const WebDevelopmentPage = () => {
             </p>
           </motion.div>
   
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {packages.map((pkg, index) => (
               <motion.div
                 key={pkg.name}
@@ -1123,15 +1080,13 @@ const WebDevelopmentPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -10, scale: 1.02 }}
-                onClick={() => handlePackageSelect(pkg.price, pkg.isEnterprise, pkg.name)}
+                onClick={() => handlePackageSelect(pkg.price)}
                 className={`relative cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
                   selectedPackage === pkg.price
                     ? 'border-blue-400 bg-gradient-to-br from-blue-900/60 to-blue-800/40'
-                    : pkg.isEnterprise 
-                    ? 'border-yellow-500/30 bg-gradient-to-br from-yellow-900/20 to-orange-900/10 hover:border-yellow-500/50'
                     : 'border-blue-500/20 bg-gradient-to-br from-blue-900/20 to-blue-800/10 hover:border-blue-500/40'
                 } backdrop-blur-xl group ${
-                  showInitialGuide && tutorialEnabled && index === 2 ? 'ring-4 ring-blue-400 ring-offset-4 ring-offset-slate-900' : ''
+                  showInitialGuide && index === 1 ? 'ring-4 ring-yellow-400 ring-offset-4 ring-offset-slate-900' : ''
                 }`}
               >
                 {pkg.popular && (
@@ -1144,27 +1099,9 @@ const WebDevelopmentPage = () => {
                 
                 <div className="text-center">
                   <h3 className="text-xl font-bold mb-2">{pkg.name}</h3>
-                  {pkg.isEnterprise ? (
-                    <div>
-                      <div className="text-2xl font-bold mb-2 text-yellow-400">
-                        Contact Us
-                      </div>
-                      
-                    </div>
-                  ) : pkg.price === 'Contact' ? (
-                    <div>
-                      <div className="text-2xl font-bold mb-2 text-yellow-400">
-                        Contact Us
-                      </div>
-                      <p className="text-xs text-yellow-300/80 mb-2">
-                        K15,000 - K25,000+
-                      </p>
-                    </div>
-                  ) : (
-                    <div className={`text-3xl font-bold mb-2 bg-gradient-to-r ${pkg.color} bg-clip-text text-transparent`}>
-                      K{pkg.price.toLocaleString()}
-                    </div>
-                  )}
+                  <div className={`text-3xl font-bold mb-2 bg-gradient-to-r ${pkg.color} bg-clip-text text-transparent`}>
+                    K{pkg.price.toLocaleString()}
+                  </div>
                   <p className="text-sm text-slate-300 mb-4">{pkg.description}</p>
                   
                   <div className="space-y-2 text-sm">
@@ -1189,24 +1126,10 @@ const WebDevelopmentPage = () => {
                         <span className="truncate">{feature}</span>
                       </div>
                     ))}
-                  {pkg.features.length > 3 && (
+                    {pkg.features.length > 3 && (
                       <p className="text-xs text-blue-400">+{pkg.features.length - 3} more features</p>
                     )}
                   </div>
-                  
-                  {pkg.isEnterprise && (
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEnterpriseContact();
-                      }}
-                      className="mt-4 w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-2 rounded-lg font-semibold text-sm"
-                    >
-                      Get Enterprise Quote
-                    </motion.button>
-                  )}
                 </div>
               </motion.div>
             ))}
@@ -1452,7 +1375,7 @@ const WebDevelopmentPage = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleGetQuote}
                   className={`flex-1 bg-blue-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg ${
-                    showQuoteGuide && tutorialEnabled ? 'ring-4 ring-blue-400 ring-offset-4 ring-offset-slate-900' : ''
+                    showQuoteGuide ? 'ring-4 ring-yellow-400 ring-offset-4 ring-offset-slate-900' : ''
                   }`}
                 >
                   <Mail size={20} />
@@ -1468,14 +1391,13 @@ const WebDevelopmentPage = () => {
         <section id="quote-form" className="relative z-10 py-20 px-6 snap-section">
           <div className="container mx-auto max-w-4xl">
             <QuoteForm packageData={{
-              name: selectedPackage === 'Enterprise' ? 'Enterprise Custom' : (packages.find(p => p.price === selectedPackage)?.name || 'Custom'),
-              price: selectedPackage === 'Enterprise' ? 'Contact for Pricing' : selectedPackage,
+              name: packages.find(p => p.price === selectedPackage)?.name || 'Custom',
+              price: selectedPackage,
               extraPages,
               addons: breakdown,
               maintenance,
-              totalPrice: selectedPackage === 'Enterprise' ? 'Custom Pricing' : totalPrice,
+              totalPrice,
               breakdown,
-              isEnterprise: selectedPackage === 'Enterprise'
             }} />
           </div>
         </section>
@@ -1507,9 +1429,7 @@ const WebDevelopmentPage = () => {
                   {packages.map(pkg => (
                     <th key={pkg.name} className="text-center p-4">
                       <div className="text-white font-bold">{pkg.name}</div>
-                      <div className="text-blue-400 text-sm">
-                        {pkg.price === 'Contact' || pkg.isEnterprise ? 'Contact' : `K${pkg.price.toLocaleString()}`}
-                      </div>
+                      <div className="text-blue-400 text-sm">K{pkg.price}</div>
                     </th>
                   ))}
                 </tr>
@@ -1517,15 +1437,13 @@ const WebDevelopmentPage = () => {
               <tbody>
                 {[
                   { feature: 'Number of Pages', values: packages.map(p => p.pages) },
-                  { feature: 'Responsive Design', values: ['✓', '✓', '✓', '✓', '✓', '✓', '✓'] },
-                  { feature: 'SEO Optimization', values: ['Basic', 'Basic', 'Advanced', 'Advanced', 'Premium', 'Premium', 'Enterprise'] },
-                  { feature: 'Custom Domain', values: ['Subdomain', 'Subdomain', '.com', '.com', '.com', 'Any', 'Multiple'] },
-                  { feature: 'SSL Certificate', values: ['✓', '✓', '✓', '✓', '✓', '✓', '✓'] },
-                  { feature: 'CRM Features', values: ['−', '−', '−', '−', 'Basic', 'Basic', 'Advanced'] },
-                  { feature: 'E-commerce', values: ['−', '−', '−', '−', 'Basic', 'Basic', 'Advanced'] },
-                  { feature: 'Payment Gateway', values: ['−', '−', '−', '−', '✓', '✓', '✓'] },
-                  { feature: 'AI Features', values: ['−', '−', '−', '−', '−', '✓', '✓'] },
-                  { feature: 'Support Period', values: ['1 week', '2 weeks', '1 months', '1 months', '2 months', '6 months', '6 months'] },
+                  { feature: 'Responsive Design', values: ['✓', '✓', '✓', '✓', '✓'] },
+                  { feature: 'SEO Optimization', values: ['Basic', 'Basic', 'Advanced', 'Advanced', 'Premium'] },
+                  { feature: 'Custom Domain', values: ['Subdomain', '✓', '✓', '✓', '✓'] },
+                  { feature: 'SSL Certificate', values: ['✓', '✓', '✓', '✓', '✓'] },
+                  { feature: 'Admin Panel', values: ['−', '✓', '✓', '✓', '✓'] },
+                  { feature: 'E-commerce', values: ['−', '−', 'Add-on', '✓', '✓'] },
+                  { feature: 'Support Period', values: ['1 month', '2 months', '3 months', '6 months', '12 months'] },
                 ].map((row, index) => (
                   <tr key={index} className="border-t border-slate-700">
                     <td className="p-4 text-slate-300">{row.feature}</td>

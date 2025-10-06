@@ -61,7 +61,7 @@ const Navigation = () => {
             >
               <Link href="/" className="flex items-center gap-3">
                 <motion.div
-                  className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl"
+                  className="p-2 rounded-xl"
                   whileHover={{ rotate: 180 }}
                   transition={{ duration: 0.6 }}
                 >
