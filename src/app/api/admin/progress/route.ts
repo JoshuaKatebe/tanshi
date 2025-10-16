@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { validateAuthToken } from '@/lib/auth';
+import { sendOrderUpdateEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -77,6 +78,56 @@ export async function POST(request: Request) {
         console.error('[Admin Progress API] Database update error:', updateError);
         throw updateError;
       }
+    }
+
+    // Get quote and customer information for email notification
+    const { data: quoteData, error: quoteError } = await supabase
+      .from('quotes')
+      .select(`
+        id,
+        order_id,
+        package_name,
+        total_price,
+        status,
+        contacts (
+          name,
+          email
+        )
+      `)
+      .eq('id', quote_id)
+      .single();
+
+    console.log('[Admin Progress API] Quote data for email:', { quoteData, quoteError });
+
+    // Send email notification to customer
+    if (quoteData && quoteData.contacts && quoteData.contacts[0]) {
+      const customerData = quoteData.contacts[0];
+      
+      console.log('[Admin Progress API] Sending email notification to:', customerData.email);
+      
+      try {
+        const emailResult = await sendOrderUpdateEmail({
+          customerName: customerData.name,
+          customerEmail: customerData.email,
+          order_id: quoteData.order_id,
+          package_name: quoteData.package_name,
+          total_price: quoteData.total_price,
+          status: update_quote_status || quoteData.status,
+          message: message,
+          updateType: status as 'info' | 'success' | 'warning' | 'payment'
+        });
+        
+        console.log('[Admin Progress API] Email notification result:', emailResult);
+        
+        if (!emailResult.success) {
+          console.warn('[Admin Progress API] Email notification failed, but continuing with response:', emailResult.error);
+        }
+      } catch (emailError) {
+        console.error('[Admin Progress API] Email notification error:', emailError);
+        // Don't fail the entire request if email fails
+      }
+    } else {
+      console.warn('[Admin Progress API] No customer contact information found for email notification');
     }
 
     return NextResponse.json({

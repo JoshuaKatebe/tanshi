@@ -16,10 +16,74 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tanshi Digital Solutions",
-  description: "Tanshi Digital Solutions is a software development company that specializes in creating innovative and efficient digital solutions for businesses.",
+  metadataBase: new URL("https://tanshidigital.com"),
+  title: {
+    default: "Tanshi Digital Solutions",
+    template: "%s | Tanshi Digital Solutions",
+  },
+  description:
+    "Tanshi Digital Solutions builds modern web and mobile applications — web development, Android apps, AI & IoT solutions — to help Zambian businesses scale with reliable, performant software.",
+  keywords: [
+    "Tanshi Digital Solutions",
+    "web development",
+    "mobile app development",
+    "android apps",
+    "react",
+    "next.js",
+    "iot",
+    "ai",
+    "software development",
+    "zambia",
+    "tanshidigital"
+  ],
+  authors: [{ name: "Tanshi Digital Solutions", url: "https://tanshidigital.com" }],
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" }
+  ],
+  icons: {
+    icon: "/TanshiLogo.png",
+    apple: "/TanshiLogo.png",
+    other: [{ rel: "apple-touch-icon", url: "/TanshiLogo.png" }]
+  },
+  openGraph: {
+    title: "Tanshi Digital Solutions — Web & App Development",
+    description:
+      "Modern web and mobile app development, AI & IoT solutions from a Zambian-rooted team. Build fast, secure, and scalable products with Tanshi Digital.",
+    url: "https://tanshidigital.com",
+    siteName: "Tanshi Digital Solutions",
+    images: [
+      {
+        url: "https://tanshidigital.com/TanshiLogo.png",
+        width: 1200,
+        height: 630,
+        alt: "Tanshi Digital Solutions logo / preview"
+      }
+    ],
+    locale: "en_ZM",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tanshi Digital Solutions — Web & App Development",
+    description:
+      "Modern web and mobile app development, AI & IoT solutions from a Zambian-rooted team.",
+    creator: "@tanshidigital",
+    images: ["https://tanshidigital.com/TanshiLogo.png"]
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1
+    }
+  },
+  // optional: point to a manifest if you add one later
+  // manifest: '/site.webmanifest'
 };
-
 
 export default function RootLayout({
   children,

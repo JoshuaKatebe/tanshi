@@ -627,6 +627,10 @@ const AdminDashboardPage = () => {
                   placeholder="Enter progress update message..."
                   className="w-full px-3 py-2 bg-slate-700/50 text-white rounded-lg border border-blue-500/30 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 h-24 resize-none"
                 />
+                <p className="text-xs text-blue-300/70 mt-2 flex items-center gap-1">
+                  <Mail size={12} />
+                  Customer will be automatically notified via email
+                </p>
               </div>
 
               <div>

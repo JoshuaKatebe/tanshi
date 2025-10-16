@@ -16,7 +16,12 @@ export async function POST(request: NextRequest) {
       businessSummary, 
       projectGoals,
       contactMethod,
-      referralCode
+      referralCode,
+      // Order update fields
+      orderData,
+      updateMessage,
+      updateType,
+      orderStatus
     } = body;
 
     let emailData;
@@ -96,6 +101,28 @@ export async function POST(request: NextRequest) {
         success: true, 
         businessEmailId: businessEmail.data?.id,
         clientEmailId: clientEmail.data?.id
+      });
+
+    } else if (type === 'order_update') {
+      // Order update email
+      const customerEmail = {
+        from: 'Tanshi Digital Solutions <noreply@tanshidigital.com>',
+        to: [email],
+        subject: generateOrderUpdateSubject(orderData, updateType),
+        html: generateOrderUpdateEmailHTML({
+          name,
+          orderData,
+          updateMessage,
+          updateType,
+          orderStatus
+        })
+      };
+
+      const result = await resend.emails.send(customerEmail);
+
+      return NextResponse.json({ 
+        success: true, 
+        emailId: result.data?.id
       });
     }
 
@@ -208,6 +235,216 @@ function generateQuoteEmailHTML({ name, email, phone, packageData, businessSumma
                 <a href="mailto:${email}" style="background: #3B82F6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin: 0 5px;">Reply via Email</a>
                 ${phone ? `<a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="background: #10B981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin: 0 5px;">WhatsApp</a>` : ''}
             </div>
+        </div>
+    </body>
+    </html>
+  `;
+}
+
+// Helper function to generate subject for order updates
+function generateOrderUpdateSubject(orderData: any, updateType: string) {
+  const orderNumber = orderData?.order_id || orderData?.id || 'Your Order';
+  
+  switch (updateType) {
+    case 'success':
+      return `🎉 Great News About Order ${orderNumber} - Tanshi Digital`;
+    case 'warning':
+      return `⚠️ Important Update for Order ${orderNumber} - Tanshi Digital`;
+    case 'payment':
+      return `💳 Payment Update for Order ${orderNumber} - Tanshi Digital`;
+    case 'completed':
+      return `✅ Order ${orderNumber} Complete - Tanshi Digital`;
+    default:
+      return `📋 Update on Order ${orderNumber} - Tanshi Digital`;
+  }
+}
+
+// Order update email template
+function generateOrderUpdateEmailHTML({ name, orderData, updateMessage, updateType, orderStatus }: any) {
+  const getUpdateIcon = (type: string) => {
+    switch (type) {
+      case 'success': return '✅';
+      case 'warning': return '⚠️';
+      case 'payment': return '💳';
+      case 'completed': return '🎉';
+      default: return '📋';
+    }
+  };
+
+  const getUpdateColor = (type: string) => {
+    switch (type) {
+      case 'success': return { bg: '#10B981', light: '#ECFDF5', border: '#059669' };
+      case 'warning': return { bg: '#F59E0B', light: '#FEF3C7', border: '#D97706' };
+      case 'payment': return { bg: '#8B5CF6', light: '#F3E8FF', border: '#7C3AED' };
+      case 'completed': return { bg: '#059669', light: '#D1FAE5', border: '#047857' };
+      default: return { bg: '#3B82F6', light: '#EFF6FF', border: '#2563EB' };
+    }
+  };
+
+  const getStatusBadgeStyle = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'completed':
+        return { bg: '#ECFDF5', color: '#065F46', border: '#10B981' };
+      case 'in_progress':
+        return { bg: '#EFF6FF', color: '#1E40AF', border: '#3B82F6' };
+      case 'submitted':
+        return { bg: '#FEF3C7', color: '#92400E', border: '#F59E0B' };
+      case 'cancelled':
+        return { bg: '#FEE2E2', color: '#991B1B', border: '#EF4444' };
+      default:
+        return { bg: '#F1F5F9', color: '#475569', border: '#64748B' };
+    }
+  };
+
+  const colors = getUpdateColor(updateType);
+  const statusStyle = getStatusBadgeStyle(orderStatus);
+  const icon = getUpdateIcon(updateType);
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Update - Tanshi Digital Solutions</title>
+    </head>
+    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1F2937; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F9FAFB;">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, ${colors.bg}, #06B6D4); padding: 40px 30px; border-radius: 16px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            <div style="font-size: 48px; margin-bottom: 10px;">${icon}</div>
+            <h1 style="color: white; margin: 0 0 10px 0; font-size: 28px; font-weight: 700;">Order Update</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 16px;">We have news about your project</p>
+        </div>
+        
+        <!-- Greeting -->
+        <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #E5E7EB;">
+            <h2 style="color: #1F2937; margin: 0 0 15px 0; font-size: 24px;">Hi ${name} 👋</h2>
+            <p style="color: #4B5563; margin: 0; font-size: 16px; line-height: 1.6;">
+                We have an important update regarding your project with Tanshi Digital Solutions. Here's what's happening with your order:
+            </p>
+        </div>
+
+        <!-- Order Information -->
+        <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #E5E7EB;">
+            <h3 style="color: #1F2937; margin: 0 0 20px 0; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+                📋 Order Details
+            </h3>
+            
+            <div style="display: grid; gap: 15px;">
+                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F3F4F6;">
+                    <span style="font-weight: 600; color: #374151;">Order ID:</span>
+                    <span style="color: #1F2937; font-family: monospace; background: #F3F4F6; padding: 4px 8px; border-radius: 4px; font-size: 14px;">#${orderData?.order_id || orderData?.id}</span>
+                </div>
+                
+                ${orderData?.package_name ? `
+                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F3F4F6;">
+                    <span style="font-weight: 600; color: #374151;">Package:</span>
+                    <span style="color: #1F2937;">${orderData.package_name}</span>
+                </div>
+                ` : ''}
+                
+                ${orderData?.total_price ? `
+                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F3F4F6;">
+                    <span style="font-weight: 600; color: #374151;">Total:</span>
+                    <span style="color: #059669; font-weight: 700;">K${orderData.total_price.toLocaleString()}</span>
+                </div>
+                ` : ''}
+                
+                ${orderStatus ? `
+                <div style="display: flex; justify-content: space-between; padding: 12px 0; align-items: center;">
+                    <span style="font-weight: 600; color: #374151;">Status:</span>
+                    <span style="background: ${statusStyle.bg}; color: ${statusStyle.color}; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; border: 1px solid ${statusStyle.border};">
+                        ${orderStatus.replace('_', ' ').toUpperCase()}
+                    </span>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+
+        <!-- Update Message -->
+        <div style="background: ${colors.light}; padding: 30px; border-radius: 12px; margin-bottom: 25px; border: 2px solid ${colors.border}; position: relative;">
+            <div style="position: absolute; top: -15px; left: 20px; background: ${colors.bg}; color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600;">
+                ${updateType.charAt(0).toUpperCase() + updateType.slice(1)} Update
+            </div>
+            <div style="margin-top: 15px;">
+                <h3 style="color: #1F2937; margin: 0 0 15px 0; font-size: 18px;">Latest Update</h3>
+                <p style="color: #374151; margin: 0; font-size: 16px; line-height: 1.7; white-space: pre-wrap;">${updateMessage}</p>
+            </div>
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(0,0,0,0.1);">
+                <p style="color: #6B7280; margin: 0; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                    🕐 Updated: ${new Date().toLocaleDateString('en-US', { 
+                      weekday: 'long', 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                </p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #E5E7EB; text-align: center;">
+            <h3 style="color: #1F2937; margin: 0 0 20px 0; font-size: 18px;">Need to get in touch?</h3>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://wa.me/260571442097" 
+                   style="background: linear-gradient(135deg, #10B981, #059669); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); transition: all 0.3s ease;">
+                    📱 WhatsApp Us
+                </a>
+                <a href="mailto:info@tanshidigital.com" 
+                   style="background: linear-gradient(135deg, #3B82F6, #2563EB); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                    📧 Email Us
+                </a>
+            </div>
+        </div>
+
+        <!-- Track Order -->
+        ${orderData?.order_id ? `
+        <div style="background: #F8FAFC; padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #E2E8F0; text-align: center;">
+            <h4 style="color: #475569; margin: 0 0 15px 0; font-size: 16px;">Want to track your order progress?</h4>
+            <a href="https://tanshidigital.com/track-order?id=${orderData.order_id}" 
+               style="background: white; color: #475569; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; border: 2px solid #E2E8F0; transition: all 0.3s ease;">
+                🔍 Track Order #${orderData.order_id}
+            </a>
+        </div>
+        ` : ''}
+
+        <!-- Footer -->
+        <div style="background: linear-gradient(135deg, #1F2937, #374151); color: white; padding: 30px; border-radius: 12px; text-align: center;">
+            <div style="margin-bottom: 20px;">
+                <h3 style="margin: 0 0 15px 0; color: #60A5FA; font-size: 22px;">Tanshi Digital Solutions</h3>
+                <p style="margin: 0; color: #D1D5DB; font-size: 16px; font-weight: 500;">Empowering Innovation Through Technology</p>
+            </div>
+            
+            <div style="display: grid; gap: 8px; margin: 20px 0;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #D1D5DB;">
+                    <span>📧</span>
+                    <a href="mailto:info@tanshidigital.com" style="color: #60A5FA; text-decoration: none;">info@tanshidigital.com</a>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #D1D5DB;">
+                    <span>📱</span>
+                    <a href="tel:+260571442097" style="color: #60A5FA; text-decoration: none;">+260 571 442 097</a>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #D1D5DB;">
+                    <span>🌐</span>
+                    <a href="https://tanshidigital.com" style="color: #60A5FA; text-decoration: none;">tanshidigital.com</a>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #D1D5DB;">
+                    <span>📍</span>
+                    <span>Lusaka, Zambia</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #374151;">
+                <p style="margin: 0; color: #9CA3AF; font-size: 14px;">Thank you for choosing Tanshi Digital Solutions</p>
+            </div>
+        </div>
+
+        <!-- Social Media & Trust Indicators -->
+        <div style="text-align: center; margin-top: 20px; padding: 15px;">
+            <p style="color: #6B7280; font-size: 12px; margin: 0;">This email was sent regarding your active project with Tanshi Digital Solutions.</p>
+            <p style="color: #9CA3AF; font-size: 11px; margin: 5px 0 0 0;">© 2024 Tanshi Digital Solutions. All rights reserved.</p>
         </div>
     </body>
     </html>

@@ -127,3 +127,48 @@ export async function sendAdminNotificationEmail(data: EmailData) {
     referralCode: data.referrerName
   });
 }
+
+// Send order update email to customer
+export const sendOrderUpdateEmail = async (orderData: {
+  customerName: string;
+  customerEmail: string;
+  order_id: string;
+  package_name?: string;
+  total_price?: number;
+  status?: string;
+  message: string;
+  updateType: 'info' | 'success' | 'warning' | 'payment';
+}) => {
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'order_update',
+        name: orderData.customerName,
+        email: orderData.customerEmail,
+        orderData: {
+          order_id: orderData.order_id,
+          package_name: orderData.package_name,
+          total_price: orderData.total_price
+        },
+        updateMessage: orderData.message,
+        updateType: orderData.updateType,
+        orderStatus: orderData.status
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to send order update email');
+    }
+
+    return { success: true, result };
+  } catch (error) {
+    console.error('Order update email sending failed:', error);
+    return { success: false, error };
+  }
+};
