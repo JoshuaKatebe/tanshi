@@ -68,6 +68,56 @@ const ProjectsPage = () => {
     },
     {
       id: 2,
+      title: "Leslupa General Suppliers",
+      description: "Agricultural equipment and irrigation systems supplier with product catalog, installations and support.",
+      longDescription: "Leslupa General Suppliers provides farmers and commercial growers with irrigation systems, pumps, agricultural machinery, and spare parts. The site showcases products, installation services, manuals, and contact/ordering flows to simplify procurement and field setup.",
+      tech: ["Next.js", "React", "Tailwind CSS", "E‑commerce", "Payment Integration"],
+      category: "Web",
+      icon: Globe,
+      status: "Live",
+      year: "2025",
+      timeline: "3 weeks",
+      team: "2 members",
+      impact: "Improved access to irrigation equipment and services for farmers",
+      features: [
+        "Product catalog with filters",
+        "Irrigation system packages and installation booking",
+        "Online inquiry and ordering",
+        "Technical specs and manuals",
+        "Spare parts and accessories",
+        "Mobile-friendly product browsing"
+      ],
+      color: "from-emerald-600 to-green-500",
+      image: "🚜",
+      link: "https://leslupa.com"
+    },
+    {
+      id: 3,
+      title: "Katly Designs",
+      description: "Modern African fashion house website with gallery, consultation booking, and vibrant interactive UI.",
+      longDescription: "Katly Designs is a contemporary web platform for a Zambian fashion house, celebrating African heritage through elegant, handcrafted garments. The site features a dynamic gallery, service highlights, and a seamless consultation booking experience, all wrapped in a visually rich, culturally inspired design.",
+      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Resend API", "Lucide Icons"],
+      category: "Web/App",
+      icon: Star,
+      status: "Live",
+      year: "2025",
+      timeline: "1 weeks",
+      team: "1 members",
+      impact: "Empowering local fashion with global reach and digital elegance",
+      features: [
+        "Animated hero and gallery sections",
+        "Consultation booking with email notifications",
+        "Responsive, mobile-friendly design",
+        "Custom SVG backgrounds and gradients",
+        "Service and collection highlights",
+        "Unsubscribe and email compliance features"
+      ],
+      color: "from-orange-500 to-yellow-500",
+      image: "🧵",
+      link: "https://katlydesigns.com/"
+    },
+    {
+      id: 4,
       title: "HideAway Apartments",
       description: "Premium serviced apartments website for US Embassy guests and corporate travelers in Lusaka & Kitwe.",
       longDescription: "A luxury hospitality website featuring premium serviced apartments for diplomatic and corporate guests. Includes booking system, virtual tours, and comprehensive amenity information.",
@@ -92,7 +142,7 @@ const ProjectsPage = () => {
       link: "https://hide-away-apartments.tanshidigital.com/"
     },
     {
-    "id": 3,
+    "id": 5,
     "title": "Jubilee Center",
     "description": "Website for a Christian NGO equipping pastors, professionals, and youth to grow and flourish.",
     "longDescription": "Jubilee Center is a Christian non-governmental organization website that highlights its mission of equipping pastors, professionals, and young people to grow spiritually, flourish physically, and have a voice in the nation. The site showcases programs, initiatives, and organizational values.",
@@ -114,33 +164,9 @@ const ProjectsPage = () => {
     "image": "✝️",
     "link": "https://jubilee.tanshidigital.com/"
   },
+    
     {
-      id: 4,
-      title: "Katly Designs",
-      description: "Modern African fashion house website with gallery, consultation booking, and vibrant interactive UI.",
-      longDescription: "Katly Designs is a contemporary web platform for a Zambian fashion house, celebrating African heritage through elegant, handcrafted garments. The site features a dynamic gallery, service highlights, and a seamless consultation booking experience, all wrapped in a visually rich, culturally inspired design.",
-      tech: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Resend API", "Lucide Icons"],
-      category: "Web/App",
-      icon: Star,
-      status: "Live",
-      year: "2025",
-      timeline: "1 weeks",
-      team: "1 members",
-      impact: "Empowering local fashion with global reach and digital elegance",
-      features: [
-        "Animated hero and gallery sections",
-        "Consultation booking with email notifications",
-        "Responsive, mobile-friendly design",
-        "Custom SVG backgrounds and gradients",
-        "Service and collection highlights",
-        "Unsubscribe and email compliance features"
-      ],
-      color: "from-orange-500 to-yellow-500",
-      image: "🧵",
-      link: "https://katlydesigns.tanshidigital.com/"
-    },
-    {
-    "id": 5,
+    "id": 6,
     "title": "LHI Zambia",
     "description": "Landing page and LMS demo for Lusaka Health Institute.",
     "longDescription": "LHI Zambia project provides a modern landing page and a demo Learning Management System (LMS) for Lusaka Health Institute. It was designed to showcase how digital tools can improve education accessibility and management in the health sector.",
@@ -163,7 +189,7 @@ const ProjectsPage = () => {
     "link": "https://lhi-zambia.tanshidigital.com/"
   },
   {
-    "id": 6,
+    "id": 7,
     "title": "Motor Insurance System",
     "description": "Demo motor insurance platform with landing page, backend server, and database integration.",
     "longDescription": "The Motor Insurance System is a functional demo developed for a developer challenge. It simulates a real insurance platform with a landing page, quote generation, policy management, and server-side database integration. The project demonstrates backend and frontend synergy in insurance tech.",
@@ -187,7 +213,7 @@ const ProjectsPage = () => {
     "link": "https://motor-insurance.tanshidigital.com/"
   },
    {
-    "id": 7,
+    "id": 8,
     "title": "AgriSmart 360",
     "description": "IoT-powered control center for managing smart greenhouses and monitoring real-time analytics.",
     "longDescription": "AgriSmart 360 is an IoT-based web application designed to help farmers and greenhouse owners manage and monitor their agricultural environments. The system provides real-time data visualization, device control, and analytics for better decision-making in precision farming.",
@@ -211,7 +237,7 @@ const ProjectsPage = () => {
     "link": "https://agrismart.tanshidigital.com/"
   },
   {
-      id: 8,
+      id: 9,
       title: "MineGuard 360",
       description: "Complete AI + IoT intelligence platform for mining safety with helmet detection, gas sensors, and blockchain logging. Built for MineTech Hackathon.",
       longDescription: "MineGuard 360 is a comprehensive mining safety system that leverages computer vision, IoT sensors, and blockchain technology to create a smart safety monitoring ecosystem. The system automatically detects helmet usage, monitors air quality, and logs all data on blockchain for immutable compliance records.",
@@ -236,7 +262,7 @@ const ProjectsPage = () => {
       link: "/mineguard360"
     },
     {
-      id: 9,
+      id: 10,
       title: "Red Apple Travel & Tours",
       description: "Travel agency website offering international flights, hotel bookings, and comprehensive travel services.",
       longDescription: "A full-service travel agency platform providing flight bookings, hotel reservations, tour packages, and travel advisory services. Features integrated payment processing and customer management.",
@@ -263,7 +289,7 @@ const ProjectsPage = () => {
     
     
     {
-      id: 10,
+      id: 11,
       title: "Smart Cane for the Blind",
       description: "Arduino-powered mobility tool with ultrasonic sensors, voice assistance, audiobooks, and tactile feedback.",
       longDescription: "An innovative assistive technology device that enhances mobility and independence for visually impaired individuals. The smart cane integrates multiple sensors, voice guidance, and connectivity features to provide comprehensive navigation support.",
@@ -288,7 +314,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 11,
+      id: 12,
       title: "Real Estate Platform",
       description: "Airbnb-style property management system with rent tracking, expense management, and landlord-tenant features.",
       longDescription: "A comprehensive property management platform that simplifies rental property operations for landlords and provides a seamless experience for tenants. Features include automated rent collection, maintenance tracking, and financial reporting.",
@@ -313,7 +339,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 12,
+      id: 13,
       title: "Inventory & POS Systems",
       description: "Custom ERP and point-of-sale solutions with product tracking, staff accounts, sales reports, and mobile compatibility.",
       longDescription: "A comprehensive business management system that combines inventory management, point-of-sale functionality, and enterprise resource planning in one integrated platform. Designed for retail and wholesale businesses.",
@@ -339,7 +365,7 @@ const ProjectsPage = () => {
     },
     
     {
-      id: 13,
+      id: 14,
       title: "AgriLink Smart Farming",
       description: "Smart agriculture monitoring with environmental sensors and potential Web3 land ownership system (paused due to regulations).",
       longDescription: "An innovative agricultural technology platform combining IoT sensors for crop monitoring with a Web3-based land ownership verification system. Currently paused due to regulatory considerations.",
@@ -364,7 +390,7 @@ const ProjectsPage = () => {
       link: "#"
     },
     {
-      id: 14,
+      id: 15,
       title: "WayFare Bus System",
       description: "Web3-powered bus ticketing system using Motoko for secure and verifiable ticket purchases (discontinued).",
       longDescription: "A blockchain-based public transportation ticketing system designed to provide secure, transparent, and efficient ticket purchasing for bus services. Built on Internet Computer Protocol using Motoko.",
