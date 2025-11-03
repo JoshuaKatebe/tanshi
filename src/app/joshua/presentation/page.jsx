@@ -1237,7 +1237,22 @@ export default function EnhancedMultimediaPresentation() {
           <p className="text-2xl md:text-3xl opacity-80 mb-12 font-light animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
             From HyperCard to AI-Generated Worlds
           </p>
-          
+
+          <div className="flex justify-center animate-fadeInUp" style={{ animationDelay: '0.8s' }}>
+  
+            <a href="/Joshua Katebe 23211055004 The Evolution of Multimedia Authoring Systems.pptx"
+    download
+    className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-purple-500/50"
+    aria-label="Download presentation"
+  >
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+    Download Presentation
+  </a>
+</div>
+
+
           <div className="flex justify-center gap-6 mb-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
             <div className="text-center">
               <div className="text-4xl font-bold text-cyan-400">60+</div>
@@ -1252,6 +1267,9 @@ export default function EnhancedMultimediaPresentation() {
               <div className="text-sm opacity-60">Creative Possibilities</div>
             </div>
           </div>
+
+          
+
           
           <div className="animate-bounce">
             <ChevronDown size={48} className="mx-auto text-white/60" />
