@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit2, Trash2, Check, X, MessageCircle, Calendar, TestTube, Users, Eye, Clock, FileText, Loader2, Heart, DollarSign, Droplet, TrendingUp, Activity } from 'lucide-react'
+import Link from 'next/link'
 
 interface Update {
   id: string
@@ -80,22 +81,27 @@ export default function AdminDonatePage() {
   const fetchData = async () => {
     setLoading(true)
     try {
-      // Simulated data for demo
-      setUpdates([
-        { id: '1', title: 'Treatment Update', content: 'Panashe has completed another round of treatment successfully.', author: 'Support Team', timestamp: new Date().toISOString() }
+      const [updatesRes, commentsRes, registrationsRes, donorsRes] = await Promise.all([
+        fetch('/api/updates'),
+        fetch('/api/admin/comments'),
+        fetch('/api/bloodtest'),
+        fetch('/api/donors')
       ])
-      setComments([
-        { id: '1', name: 'John Doe', message: 'Praying for Panashe!', timestamp: new Date().toISOString(), approved: true },
-        { id: '2', name: 'Jane Smith', message: 'How can we help more?', timestamp: new Date().toISOString(), approved: false }
+
+      const [updatesData, commentsData, registrationsData, donorsData] = await Promise.all([
+        updatesRes.json(),
+        commentsRes.json(),
+        registrationsRes.json(),
+        donorsRes.json()
       ])
-      setRegistrations([
-        { id: '1', name: 'Alice Brown', email: 'alice@email.com', phone: '+260977123456', age: '28', location: 'Lusaka', previouslyTested: false, knownBloodType: '', medicalConditions: '', timestamp: new Date().toISOString(), status: 'pending' }
-      ])
-      setDonors([
-        { id: '1', name: 'Anonymous', bloodType: 'O+', amount: '1 pint', donationType: 'blood', timestamp: new Date().toISOString(), location: 'UTH Blood Bank', status: 'completed' }
-      ])
+
+      setUpdates(updatesData)
+      setComments(commentsData)
+      setRegistrations(registrationsData)
+      setDonors(donorsData)
     } catch (error) {
       console.error('Error fetching data:', error)
+      alert('Error loading data. Please refresh the page.')
     } finally {
       setLoading(false)
     }
@@ -106,47 +112,109 @@ export default function AdminDonatePage() {
     if (!newUpdate.title.trim() || !newUpdate.content.trim()) return
 
     setActionLoading('create-update')
-    // Simulate API call
-    setTimeout(() => {
-      setNewUpdate({ title: '', content: '', author: 'Support Team' })
-      setShowNewUpdateForm(false)
+    try {
+      const response = await fetch('/api/updates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUpdate)
+      })
+
+      if (response.ok) {
+        setNewUpdate({ title: '', content: '', author: 'Support Team' })
+        setShowNewUpdateForm(false)
+        await fetchData()
+      } else {
+        alert('Failed to create update')
+      }
+    } catch (error) {
+      alert('Failed to create update')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const handleDeleteUpdate = async (id: string) => {
     if (!confirm('Are you sure you want to delete this update?')) return
+
     setActionLoading(`delete-update-${id}`)
-    setTimeout(() => {
+    try {
+      const response = await fetch(`/api/updates?id=${id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        await fetchData()
+      } else {
+        alert('Failed to delete update')
+      }
+    } catch (error) {
+      alert('Failed to delete update')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const handleApproveComment = async (id: string, approved: boolean) => {
     setActionLoading(`comment-${id}`)
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/admin/comments', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, approved })
+      })
+
+      if (response.ok) {
+        await fetchData()
+      } else {
+        alert('Failed to update comment')
+      }
+    } catch (error) {
+      alert('Failed to update comment')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const handleDeleteComment = async (id: string) => {
     if (!confirm('Are you sure you want to delete this comment?')) return
+
     setActionLoading(`delete-comment-${id}`)
-    setTimeout(() => {
+    try {
+      const response = await fetch(`/api/admin/comments?id=${id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        await fetchData()
+      } else {
+        alert('Failed to delete comment')
+      }
+    } catch (error) {
+      alert('Failed to delete comment')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const handleUpdateRegistrationStatus = async (id: string, status: string) => {
     setActionLoading(`registration-${id}`)
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/bloodtest', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status })
+      })
+
+      if (response.ok) {
+        await fetchData()
+      } else {
+        alert('Failed to update registration status')
+      }
+    } catch (error) {
+      alert('Failed to update registration status')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const handleCreateDonor = async (e: React.FormEvent) => {
@@ -154,28 +222,53 @@ export default function AdminDonatePage() {
     if (!newDonor.name.trim() || !newDonor.amount.trim() || !newDonor.donationType) return
 
     setActionLoading('create-donor')
-    setTimeout(() => {
-      setNewDonor({
-        name: '',
-        bloodType: '',
-        amount: '',
-        donationType: 'blood',
-        location: '',
-        method: ''
+    try {
+      const response = await fetch('/api/donors', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newDonor)
       })
-      setShowNewDonorForm(false)
+
+      if (response.ok) {
+        setNewDonor({
+          name: '',
+          bloodType: '',
+          amount: '',
+          donationType: 'blood',
+          location: '',
+          method: ''
+        })
+        setShowNewDonorForm(false)
+        await fetchData()
+      } else {
+        alert('Failed to add donor record')
+      }
+    } catch (error) {
+      alert('Failed to add donor record')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const handleDeleteDonor = async (id: string) => {
     if (!confirm('Are you sure you want to delete this donor record?')) return
+
     setActionLoading(`delete-donor-${id}`)
-    setTimeout(() => {
+    try {
+      const response = await fetch(`/api/donors?id=${id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        await fetchData()
+      } else {
+        alert('Failed to delete donor record')
+      }
+    } catch (error) {
+      alert('Failed to delete donor record')
+    } finally {
       setActionLoading(null)
-      fetchData()
-    }, 1000)
+    }
   }
 
   const formatDate = (timestamp: string) => {
@@ -214,67 +307,70 @@ export default function AdminDonatePage() {
               </h1>
               <p className="text-gray-600 mt-1">Manage Panashe's donation campaign</p>
             </div>
-            <button className="px-6 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl hover:from-red-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 font-semibold">
+            <Link href="/donate" className="px-6 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl hover:from-red-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 font-semibold">
               <Eye className="w-5 h-5" />
               View Public Page
-            </button>
+            </Link>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-5 gap-6 mb-8">
-          <div className="group bg-white/90 backdrop-blur rounded-3xl p-6 shadow-xl border border-blue-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <Calendar className="w-7 h-7 text-white" />
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6 mb-8">
+          <div className="group bg-white/90 backdrop-blur rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-xl border border-blue-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4">
+              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <Calendar className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
               </div>
-              <div>
-                <div className="text-3xl font-black text-gray-900">{updates.length}</div>
-                <div className="text-gray-600 text-sm font-medium">Updates</div>
-              </div>
-            </div>
-            <div className="mt-4 pt-4 border-t border-blue-100">
-              <div className="flex items-center text-xs text-blue-600 font-semibold">
-                <TrendingUp className="w-4 h-4 mr-1" />
-                Active
+              <div className="text-center lg:text-left">
+                <div className="text-2xl lg:text-3xl font-black text-gray-900">{updates.length}</div>
+                <div className="text-gray-600 text-xs lg:text-sm font-medium">Updates</div>
               </div>
             </div>
-          </div>
-
-          <div className="group bg-white/90 backdrop-blur rounded-3xl p-6 shadow-xl border border-green-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <MessageCircle className="w-7 h-7 text-white" />
-              </div>
-              <div>
-                <div className="text-3xl font-black text-gray-900">{comments.filter(c => c.approved).length}</div>
-                <div className="text-gray-600 text-sm font-medium">Approved</div>
-              </div>
-            </div>
-            <div className="mt-4 pt-4 border-t border-green-100">
-              <div className="flex items-center text-xs text-green-600 font-semibold">
-                <Check className="w-4 h-4 mr-1" />
-                Verified
+            <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-blue-100">
+              <div className="flex items-center justify-center lg:justify-start text-xs text-blue-600 font-semibold">
+                <TrendingUp className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+                <span className="hidden sm:inline">Active</span>
+                <span className="sm:hidden">✓</span>
               </div>
             </div>
           </div>
 
-          <div className="group bg-white/90 backdrop-blur rounded-3xl p-6 shadow-xl border border-purple-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <TestTube className="w-7 h-7 text-white" />
+          <div className="group bg-white/90 backdrop-blur rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-xl border border-green-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4">
+              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <MessageCircle className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
               </div>
-              <div>
-                <div className="text-3xl font-black text-gray-900">{registrations.length}</div>
-                <div className="text-gray-600 text-sm font-medium">Tests</div>
+              <div className="text-center lg:text-left">
+                <div className="text-2xl lg:text-3xl font-black text-gray-900">{comments.filter(c => c.approved).length}</div>
+                <div className="text-gray-600 text-xs lg:text-sm font-medium">Approved</div>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-purple-100">
-              <div className="flex items-center text-xs text-purple-600 font-semibold">
-                <Activity className="w-4 h-4 mr-1" />
-                Pending
+            <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-green-100">
+              <div className="flex items-center justify-center lg:justify-start text-xs text-green-600 font-semibold">
+                <Check className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+                <span className="hidden sm:inline">Verified</span>
+                <span className="sm:hidden">✓</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="group bg-white/90 backdrop-blur rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-xl border border-purple-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4">
+              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <TestTube className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+              </div>
+              <div className="text-center lg:text-left">
+                <div className="text-2xl lg:text-3xl font-black text-gray-900">{registrations.length}</div>
+                <div className="text-gray-600 text-xs lg:text-sm font-medium">Tests</div>
+              </div>
+            </div>
+            <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-purple-100">
+              <div className="flex items-center justify-center lg:justify-start text-xs text-purple-600 font-semibold">
+                <Activity className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+                <span className="hidden sm:inline">Pending</span>
+                <span className="sm:hidden">···</span>
               </div>
             </div>
           </div>
@@ -318,72 +414,77 @@ export default function AdminDonatePage() {
 
         {/* Navigation Tabs */}
         <div className="bg-white/90 backdrop-blur rounded-3xl shadow-2xl border border-gray-200/50 overflow-hidden mb-8">
-          <div className="flex border-b border-gray-200 bg-gray-50/50">
-            <button
-              onClick={() => setActiveTab('updates')}
-              className={`flex-1 px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative ${
-                activeTab === 'updates'
-                  ? 'bg-white text-blue-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-              }`}
-            >
+          <div className="overflow-x-auto">
+            <div className="flex border-b border-gray-200 bg-gray-50/50 min-w-max">
+              <button
+                onClick={() => setActiveTab('updates')}
+                className={`flex-shrink-0 px-4 lg:px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative whitespace-nowrap ${
+                  activeTab === 'updates'
+                    ? 'bg-white text-blue-600'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                }`}
+              >
               {activeTab === 'updates' && (
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600"></div>
               )}
-              <Calendar className="w-5 h-5" />
-              <span>Updates</span>
-              <span className="bg-blue-100 text-blue-700 text-xs px-2.5 py-1 rounded-full font-bold">{updates.length}</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('comments')}
-              className={`flex-1 px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative ${
-                activeTab === 'comments'
-                  ? 'bg-white text-green-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-              }`}
-            >
+                <Calendar className="w-5 h-5" />
+                <span className="hidden sm:inline">Updates</span>
+                <span className="sm:hidden">News</span>
+                <span className="bg-blue-100 text-blue-700 text-xs px-2.5 py-1 rounded-full font-bold">{updates.length}</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('comments')}
+                className={`flex-shrink-0 px-4 lg:px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative whitespace-nowrap ${
+                  activeTab === 'comments'
+                    ? 'bg-white text-green-600'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                }`}
+              >
               {activeTab === 'comments' && (
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600"></div>
               )}
-              <MessageCircle className="w-5 h-5" />
-              <span>Comments</span>
-              <span className="bg-green-100 text-green-700 text-xs px-2.5 py-1 rounded-full font-bold">{comments.length}</span>
-              {comments.filter(c => !c.approved).length > 0 && (
-                <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">
-                  {comments.filter(c => !c.approved).length}
-                </span>
-              )}
-            </button>
-            <button
-              onClick={() => setActiveTab('registrations')}
-              className={`flex-1 px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative ${
-                activeTab === 'registrations'
-                  ? 'bg-white text-purple-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-              }`}
-            >
-              {activeTab === 'registrations' && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-purple-600"></div>
-              )}
-              <TestTube className="w-5 h-5" />
-              <span>Testing</span>
-              <span className="bg-purple-100 text-purple-700 text-xs px-2.5 py-1 rounded-full font-bold">{registrations.length}</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('donors')}
-              className={`flex-1 px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative ${
-                activeTab === 'donors'
-                  ? 'bg-white text-red-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-              }`}
-            >
-              {activeTab === 'donors' && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-pink-500"></div>
-              )}
-              <Heart className="w-5 h-5" />
-              <span>Donors</span>
-              <span className="bg-red-100 text-red-700 text-xs px-2.5 py-1 rounded-full font-bold">{donors.length}</span>
-            </button>
+                <MessageCircle className="w-5 h-5" />
+                <span>Comments</span>
+                <span className="bg-green-100 text-green-700 text-xs px-2.5 py-1 rounded-full font-bold">{comments.length}</span>
+                {comments.filter(c => !c.approved).length > 0 && (
+                  <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">
+                    {comments.filter(c => !c.approved).length}
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() => setActiveTab('registrations')}
+                className={`flex-shrink-0 px-4 lg:px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative whitespace-nowrap ${
+                  activeTab === 'registrations'
+                    ? 'bg-white text-purple-600'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                }`}
+              >
+                {activeTab === 'registrations' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-purple-600"></div>
+                )}
+                <TestTube className="w-5 h-5" />
+                <span className="hidden sm:inline">Testing</span>
+                <span className="sm:hidden">Tests</span>
+                <span className="bg-purple-100 text-purple-700 text-xs px-2.5 py-1 rounded-full font-bold">{registrations.length}</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('donors')}
+                className={`flex-shrink-0 px-4 lg:px-6 py-5 font-bold transition-all flex items-center justify-center gap-2 relative whitespace-nowrap ${
+                  activeTab === 'donors'
+                    ? 'bg-white text-red-600'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                }`}
+              >
+                {activeTab === 'donors' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-pink-500"></div>
+                )}
+                <Heart className="w-5 h-5" />
+                <span>Donors</span>
+                <span className="bg-red-100 text-red-700 text-xs px-2.5 py-1 rounded-full font-bold">{donors.length}</span>
+              </button>
+            </div>
+          </div>
           </div>
 
           <div className="p-8">
