@@ -75,7 +75,7 @@ const Navigation = () => {
                   />
                 </motion.div>
                 <span className="text-xl font-bold text-white hidden sm:block">
-                  Tanshi Digital Solution
+                  Tanshi Digital Solutions
                 </span>
               </Link>
             </motion.div>

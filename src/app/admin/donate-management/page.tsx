@@ -64,6 +64,17 @@ export default function AdminDonatePage() {
   })
   const [showNewUpdateForm, setShowNewUpdateForm] = useState(false)
 
+  // New donor form
+  const [newDonor, setNewDonor] = useState({
+    name: '',
+    bloodType: '',
+    amount: '',
+    donationType: 'blood' as 'blood' | 'financial',
+    location: '',
+    method: ''
+  })
+  const [showNewDonorForm, setShowNewDonorForm] = useState(false)
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -71,21 +82,24 @@ export default function AdminDonatePage() {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const [updatesRes, commentsRes, registrationsRes] = await Promise.all([
+      const [updatesRes, commentsRes, registrationsRes, donorsRes] = await Promise.all([
         fetch('/api/updates'),
         fetch('/api/admin/comments'),
-        fetch('/api/bloodtest')
+        fetch('/api/bloodtest'),
+        fetch('/api/donors')
       ])
 
-      const [updatesData, commentsData, registrationsData] = await Promise.all([
+      const [updatesData, commentsData, registrationsData, donorsData] = await Promise.all([
         updatesRes.json(),
         commentsRes.json(),
-        registrationsRes.json()
+        registrationsRes.json(),
+        donorsRes.json()
       ])
 
       setUpdates(updatesData)
       setComments(commentsData)
       setRegistrations(registrationsData)
+      setDonors(donorsData)
     } catch (error) {
       console.error('Error fetching data:', error)
       alert('Error loading data. Please refresh the page.')
@@ -204,6 +218,60 @@ export default function AdminDonatePage() {
     }
   }
 
+  const handleCreateDonor = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newDonor.name.trim() || !newDonor.amount.trim() || !newDonor.donationType) return
+
+    setActionLoading('create-donor')
+    try {
+      const response = await fetch('/api/donors', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newDonor)
+      })
+
+      if (response.ok) {
+        setNewDonor({
+          name: '',
+          bloodType: '',
+          amount: '',
+          donationType: 'blood',
+          location: '',
+          method: ''
+        })
+        setShowNewDonorForm(false)
+        await fetchData()
+      } else {
+        alert('Failed to add donor record')
+      }
+    } catch (error) {
+      alert('Failed to add donor record')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  const handleDeleteDonor = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this donor record?')) return
+
+    setActionLoading(`delete-donor-${id}`)
+    try {
+      const response = await fetch(`/api/donors?id=${id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        await fetchData()
+      } else {
+        alert('Failed to delete donor record')
+      }
+    } catch (error) {
+      alert('Failed to delete donor record')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
   const formatDate = (timestamp: string) => {
     return new Date(timestamp).toLocaleString('en-US', {
       year: 'numeric',
@@ -248,7 +316,7 @@ export default function AdminDonatePage() {
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-5 gap-6 mb-8">
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -281,6 +349,18 @@ export default function AdminDonatePage() {
               <div>
                 <div className="text-2xl font-bold text-gray-900">{registrations.length}</div>
                 <div className="text-gray-600">Blood Test Registrations</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-100">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                <Heart className="w-6 h-6 text-red-600" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-gray-900">{donors.length}</div>
+                <div className="text-gray-600">Total Donors</div>
               </div>
             </div>
           </div>
@@ -338,6 +418,17 @@ export default function AdminDonatePage() {
             >
               <TestTube className="w-5 h-5" />
               Blood Testing ({registrations.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('donors')}
+              className={`flex-1 px-6 py-4 font-semibold transition-colors flex items-center justify-center gap-2 ${
+                activeTab === 'donors'
+                  ? 'bg-red-50 text-red-600 border-b-2 border-red-600'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Heart className="w-5 h-5" />
+              Donors ({donors.length})
             </button>
           </div>
 
@@ -614,6 +705,205 @@ export default function AdminDonatePage() {
                               <Loader2 className="w-4 h-4 animate-spin text-purple-600" />
                             )}
                           </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Donors Tab */}
+            {activeTab === 'donors' && (
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Donor Records</h2>
+                  <button
+                    onClick={() => setShowNewDonorForm(!showNewDonorForm)}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Donor
+                  </button>
+                </div>
+
+                {/* New Donor Form */}
+                {showNewDonorForm && (
+                  <div className="bg-red-50 rounded-2xl p-6 mb-6 border border-red-200">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">Add New Donor Record</h3>
+                    <form onSubmit={handleCreateDonor} className="space-y-4">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-bold text-gray-700 mb-2">Donor Name *</label>
+                          <input
+                            type="text"
+                            value={newDonor.name}
+                            onChange={(e) => setNewDonor({...newDonor, name: e.target.value})}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
+                            placeholder="Enter donor name or 'Anonymous'"
+                            maxLength={100}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-gray-700 mb-2">Donation Type *</label>
+                          <select
+                            value={newDonor.donationType}
+                            onChange={(e) => setNewDonor({...newDonor, donationType: e.target.value as 'blood' | 'financial'})}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
+                            required
+                          >
+                            <option value="blood">Blood Donation</option>
+                            <option value="financial">Financial Donation</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-bold text-gray-700 mb-2">
+                            {newDonor.donationType === 'blood' ? 'Blood Amount *' : 'Amount *'}
+                          </label>
+                          <input
+                            type="text"
+                            value={newDonor.amount}
+                            onChange={(e) => setNewDonor({...newDonor, amount: e.target.value})}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
+                            placeholder={newDonor.donationType === 'blood' ? '1 pint' : 'K500'}
+                            maxLength={50}
+                            required
+                          />
+                        </div>
+                        {newDonor.donationType === 'blood' && (
+                          <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Blood Type</label>
+                            <select
+                              value={newDonor.bloodType}
+                              onChange={(e) => setNewDonor({...newDonor, bloodType: e.target.value})}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
+                            >
+                              <option value="">Select blood type</option>
+                              <option value="A+">A+</option>
+                              <option value="A-">A-</option>
+                              <option value="B+">B+</option>
+                              <option value="B-">B-</option>
+                              <option value="AB+">AB+</option>
+                              <option value="AB-">AB-</option>
+                              <option value="O+">O+</option>
+                              <option value="O-">O-</option>
+                            </select>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-bold text-gray-700 mb-2">
+                            {newDonor.donationType === 'blood' ? 'Hospital/Location' : 'Payment Method'}
+                          </label>
+                          <input
+                            type="text"
+                            value={newDonor.donationType === 'blood' ? newDonor.location : newDonor.method}
+                            onChange={(e) => {
+                              if (newDonor.donationType === 'blood') {
+                                setNewDonor({...newDonor, location: e.target.value})
+                              } else {
+                                setNewDonor({...newDonor, method: e.target.value})
+                              }
+                            }}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
+                            placeholder={newDonor.donationType === 'blood' ? 'UTH Blood Bank' : 'Airtel Money'}
+                            maxLength={100}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <button
+                          type="submit"
+                          disabled={actionLoading === 'create-donor'}
+                          className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:bg-gray-400 flex items-center gap-2"
+                        >
+                          {actionLoading === 'create-donor' && <Loader2 className="w-4 h-4 animate-spin" />}
+                          Add Donor Record
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowNewDonorForm(false)}
+                          className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
+
+                {/* Donors List */}
+                <div className="space-y-4">
+                  {donors.length === 0 ? (
+                    <div className="text-center py-8 text-gray-500">
+                      <Heart className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                      <p>No donor records yet.</p>
+                    </div>
+                  ) : (
+                    donors.map((donor) => (
+                      <div key={donor.id} className={`border rounded-2xl p-6 ${
+                        donor.donationType === 'blood' 
+                          ? 'bg-red-50 border-red-200' 
+                          : 'bg-green-50 border-green-200'
+                      }`}>
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                              donor.donationType === 'blood'
+                                ? 'bg-red-100 text-red-600'
+                                : 'bg-green-100 text-green-600'
+                            }`}>
+                              {donor.donationType === 'blood' ? <Droplet className="w-6 h-6" /> : <DollarSign className="w-6 h-6" />}
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-gray-900">{donor.name}</h4>
+                              <div className="text-sm text-gray-600">
+                                {donor.donationType === 'blood' ? 'Blood Donation' : 'Financial Support'}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-500">{formatDate(donor.timestamp)}</span>
+                            <button
+                              onClick={() => handleDeleteDonor(donor.id)}
+                              disabled={actionLoading === `delete-donor-${donor.id}`}
+                              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                            >
+                              {actionLoading === `delete-donor-${donor.id}` ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                              ) : (
+                                <Trash2 className="w-4 h-4" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
+                          <div>
+                            <span className="font-semibold">Amount:</span> {donor.amount}
+                          </div>
+                          {donor.donationType === 'blood' && donor.bloodType && (
+                            <div>
+                              <span className="font-semibold">Blood Type:</span> {donor.bloodType}
+                            </div>
+                          )}
+                          {donor.donationType === 'blood' && donor.location && (
+                            <div>
+                              <span className="font-semibold">Location:</span> {donor.location}
+                            </div>
+                          )}
+                          {donor.donationType === 'financial' && donor.method && (
+                            <div>
+                              <span className="font-semibold">Method:</span> {donor.method}
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))

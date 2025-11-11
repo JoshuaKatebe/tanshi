@@ -10,6 +10,7 @@ export default function DonatePage() {
   const [activeTab, setActiveTab] = useState('airtel')
   const [updates, setUpdates] = useState<any[]>([])
   const [comments, setComments] = useState<any[]>([])
+  const [donors, setDonors] = useState<any[]>([])
   const [newComment, setNewComment] = useState({ name: '', message: '' })
   const [submittingComment, setSubmittingComment] = useState(false)
 
@@ -32,6 +33,12 @@ export default function DonatePage() {
       .then(res => res.json())
       .then(data => setComments(data))
       .catch(err => console.error('Error fetching comments:', err))
+
+    // Fetch donors
+    fetch('/api/donors')
+      .then(res => res.json())
+      .then(data => setDonors(data))
+      .catch(err => console.error('Error fetching donors:', err))
   }, [])
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
@@ -146,19 +153,28 @@ export default function DonatePage() {
           <div className="flex items-center justify-center gap-6 flex-wrap">
             <div className="bg-white rounded-2xl shadow-lg px-6 py-4 border-2 border-red-100">
               <div className="flex items-center gap-3">
-                <Users className="w-6 h-6 text-red-600" />
+                <Heart className="w-6 h-6 text-red-600 fill-current" />
                 <div className="text-left">
-                  <div className="text-2xl font-bold text-red-600">247</div>
-                  <div className="text-sm text-gray-600">People Reached</div>
+                  <div className="text-2xl font-bold text-red-600">{donors.filter(d => d.donationType === 'blood').length}</div>
+                  <div className="text-sm text-gray-600">Blood Donors</div>
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-2xl shadow-lg px-6 py-4 border-2 border-red-100">
+            <div className="bg-white rounded-2xl shadow-lg px-6 py-4 border-2 border-green-100">
               <div className="flex items-center gap-3">
-                <Heart className="w-6 h-6 text-red-600 fill-current" />
+                <Users className="w-6 h-6 text-green-600" />
                 <div className="text-left">
-                  <div className="text-2xl font-bold text-red-600">18</div>
-                  <div className="text-sm text-gray-600">Donors So Far</div>
+                  <div className="text-2xl font-bold text-green-600">{donors.filter(d => d.donationType === 'financial').length}</div>
+                  <div className="text-sm text-gray-600">Financial Supporters</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-lg px-6 py-4 border-2 border-blue-100">
+              <div className="flex items-center gap-3">
+                <MessageCircle className="w-6 h-6 text-blue-600" />
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-blue-600">{comments.length}</div>
+                  <div className="text-sm text-gray-600">Messages of Support</div>
                 </div>
               </div>
             </div>
@@ -470,21 +486,21 @@ export default function DonatePage() {
               {/* Comment Form */}
               <form onSubmit={handleCommentSubmit} className="mb-8">
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    value={newComment.name}
-                    onChange={(e) => setNewComment({...newComment, name: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    maxLength={50}
-                    required
-                  />
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      value={newComment.name}
+                      onChange={(e) => setNewComment({...newComment, name: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
+                      maxLength={50}
+                      required
+                    />
                 </div>
                 <textarea
                   placeholder="Share your message of support, prayers, or encouragement..."
                   value={newComment.message}
                   onChange={(e) => setNewComment({...newComment, message: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent h-32 resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent h-32 resize-none text-gray-900"
                   maxLength={500}
                   required
                 />

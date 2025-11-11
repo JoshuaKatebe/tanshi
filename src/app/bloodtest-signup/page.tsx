@@ -203,7 +203,7 @@ export default function BloodTestSignupPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                   placeholder="Enter your full name"
                   maxLength={100}
                   required
@@ -220,7 +220,7 @@ export default function BloodTestSignupPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                   placeholder="your.email@example.com"
                   maxLength={100}
                 />
@@ -236,7 +236,7 @@ export default function BloodTestSignupPage() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                   placeholder="+260 xxx xxx xxx"
                   maxLength={20}
                   required
@@ -253,7 +253,7 @@ export default function BloodTestSignupPage() {
                   name="age"
                   value={formData.age}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                   placeholder="Age (18-65)"
                   min="18"
                   max="65"
@@ -271,7 +271,7 @@ export default function BloodTestSignupPage() {
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                   placeholder="City, District, or Area (e.g., Lusaka, Ndola)"
                   maxLength={100}
                   required
@@ -307,7 +307,7 @@ export default function BloodTestSignupPage() {
                       name="knownBloodType"
                       value={formData.knownBloodType}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                     >
                       <option value="">Select your blood type</option>
                       <option value="A+">A+</option>
@@ -334,7 +334,7 @@ export default function BloodTestSignupPage() {
                 name="medicalConditions"
                 value={formData.medicalConditions}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-none text-gray-900"
                 placeholder="Please list any medical conditions, medications, or other health information that might be relevant to blood donation (or write 'None')"
                 maxLength={500}
               />
@@ -348,7 +348,7 @@ export default function BloodTestSignupPage() {
                 <li>Results will be kept confidential and only shared with you</li>
                 <li>There is no obligation to donate blood after testing</li>
                 <li>You can withdraw from the donor database at any time</li>
-                <li>Testing is free of charge</li>
+                <li>Testing is only K50</li>
               </ul>
             </div>
 

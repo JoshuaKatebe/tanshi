@@ -10,41 +10,12 @@
     "status": "completed"
   },
   {
-    "id": "2",
-    "name": "Sarah M.",
-    "bloodType": "O-",
-    "amount": "1 pint",
-    "donationType": "blood",
-    "timestamp": "2025-11-11T10:30:00Z",
-    "location": "UTH Blood Bank",
-    "status": "completed"
-  },
-  {
-    "id": "3",
-    "name": "David K.",
-    "bloodType": "O-",
-    "amount": "1 pint",
-    "donationType": "blood",
-    "timestamp": "2025-11-11T11:15:00Z",
-    "location": "UTH Blood Bank",
-    "status": "completed"
-  },
-  {
-    "id": "4",
-    "name": "Anonymous Donor",
-    "amount": "K500",
-    "donationType": "financial",
-    "timestamp": "2025-11-11T08:45:00Z",
-    "method": "Airtel Money",
-    "status": "completed"
-  },
-  {
     "id": "5",
-    "name": "Mary B.",
-    "amount": "K200",
-    "donationType": "financial",
+    "name": "Tanshi Digital Solutions.",
+    "amount": "3 webpages",
+    "donationType": "Website Development Support",
     "timestamp": "2025-11-11T09:20:00Z",
-    "method": "MTN Mobile Money",
+    "method": "Development Services",
     "status": "completed"
   }
 ]
