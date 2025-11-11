@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, Edit2, Trash2, Check, X, MessageCircle, Calendar, TestTube, Users, Eye, Clock, FileText, Loader2 } from 'lucide-react'
+import { Plus, Edit2, Trash2, Check, X, MessageCircle, Calendar, TestTube, Users, Eye, Clock, FileText, Loader2, Heart, DollarSign, Droplet } from 'lucide-react'
 import Link from 'next/link'
 
 interface Update {
@@ -35,11 +35,24 @@ interface Registration {
   status: string
 }
 
+interface Donor {
+  id: string
+  name: string
+  bloodType: string
+  amount: string
+  donationType: 'blood' | 'financial'
+  timestamp: string
+  location?: string
+  method?: string
+  status: string
+}
+
 export default function AdminDonatePage() {
-  const [activeTab, setActiveTab] = useState<'updates' | 'comments' | 'registrations'>('updates')
+  const [activeTab, setActiveTab] = useState<'updates' | 'comments' | 'registrations' | 'donors'>('updates')
   const [updates, setUpdates] = useState<Update[]>([])
   const [comments, setComments] = useState<Comment[]>([])
   const [registrations, setRegistrations] = useState<Registration[]>([])
+  const [donors, setDonors] = useState<Donor[]>([])
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
 

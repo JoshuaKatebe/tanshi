@@ -98,7 +98,7 @@ export default function BloodTestSignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pt-20">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-6">
         <div className="container mx-auto px-4">
@@ -160,8 +160,8 @@ export default function BloodTestSignupPage() {
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
               <TestTube className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Free Testing</h3>
-            <p className="text-gray-600">Get your blood type tested at no cost and receive your results promptly.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Only K50</h3>
+            <p className="text-gray-600">Get your blood type tested at a discounted K50 we negotiated for and receive your results promptly.</p>
           </motion.div>
 
           <motion.div
