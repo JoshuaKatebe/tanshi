@@ -2,7 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
 
-const donorsPath = path.join(process.cwd(), 'src/data/donors.json')
+const dataDir = path.join(process.cwd(), 'src/data')
+const donorsPath = path.join(dataDir, 'donors.json')
+
+// Ensure data directory exists
+async function ensureDataDir() {
+  try {
+    await fs.access(dataDir)
+  } catch {
+    await fs.mkdir(dataDir, { recursive: true })
+  }
+}
 
 export async function GET() {
   try {
@@ -30,6 +40,7 @@ export async function POST(request: NextRequest) {
       donors = JSON.parse(fileContents)
     } catch (error) {
       // File doesn't exist, start with empty array
+      await ensureDataDir()
     }
 
     const newDonor = {
@@ -46,6 +57,7 @@ export async function POST(request: NextRequest) {
 
     donors.push(newDonor)
     
+    await ensureDataDir()
     await fs.writeFile(donorsPath, JSON.stringify(donors, null, 2))
     
     return NextResponse.json(newDonor, { status: 201 })

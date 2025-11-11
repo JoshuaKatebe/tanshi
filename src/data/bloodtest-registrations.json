@@ -6,10 +6,23 @@
     "phone": "+260977487852",
     "age": "22",
     "location": "Lusaka",
-    "previouslyTested": "True",
+    "previouslyTested": true,
     "knownBloodType": "O+",
     "medicalConditions": "Low blood pressure",
     "timestamp": "2025-11-11T09:30:00Z",
     "status": "contacted"
+  },
+  {
+    "id": "1762861037714",
+    "name": "Joshua Katebe Joshua Katebe",
+    "email": "joshuakatebe15@gmail.com",
+    "phone": "+260977755021",
+    "age": "22",
+    "location": "Lusaka",
+    "previouslyTested": false,
+    "knownBloodType": "",
+    "medicalConditions": "None",
+    "timestamp": "2025-11-11T11:37:17.714Z",
+    "status": "pending"
   }
 ]
