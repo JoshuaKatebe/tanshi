@@ -375,38 +375,40 @@ export default function AdminDonatePage() {
             </div>
           </div>
 
-          <div className="group bg-white/90 backdrop-blur rounded-3xl p-6 shadow-xl border border-red-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <Heart className="w-7 h-7 text-white" />
+          <div className="group bg-white/90 backdrop-blur rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-xl border border-red-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4">
+              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <Heart className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
               </div>
-              <div>
-                <div className="text-3xl font-black text-gray-900">{donors.length}</div>
-                <div className="text-gray-600 text-sm font-medium">Donors</div>
+              <div className="text-center lg:text-left">
+                <div className="text-2xl lg:text-3xl font-black text-gray-900">{donors.length}</div>
+                <div className="text-gray-600 text-xs lg:text-sm font-medium">Donors</div>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-red-100">
-              <div className="flex items-center text-xs text-red-600 font-semibold">
-                <Heart className="w-4 h-4 mr-1" />
-                Total
+            <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-red-100">
+              <div className="flex items-center justify-center lg:justify-start text-xs text-red-600 font-semibold">
+                <Heart className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+                <span className="hidden sm:inline">Total</span>
+                <span className="sm:hidden">♥</span>
               </div>
             </div>
           </div>
 
-          <div className="group bg-white/90 backdrop-blur rounded-3xl p-6 shadow-xl border border-orange-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <Clock className="w-7 h-7 text-white" />
+          <div className="group bg-white/90 backdrop-blur rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-xl border border-orange-100/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 lg:col-span-1 col-span-2">
+            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4">
+              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <Clock className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
               </div>
-              <div>
-                <div className="text-3xl font-black text-gray-900">{comments.filter(c => !c.approved).length}</div>
-                <div className="text-gray-600 text-sm font-medium">Pending</div>
+              <div className="text-center lg:text-left">
+                <div className="text-2xl lg:text-3xl font-black text-gray-900">{comments.filter(c => !c.approved).length}</div>
+                <div className="text-gray-600 text-xs lg:text-sm font-medium">Pending</div>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-orange-100">
-              <div className="flex items-center text-xs text-orange-600 font-semibold">
-                <Clock className="w-4 h-4 mr-1" />
-                Review
+            <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-orange-100">
+              <div className="flex items-center justify-center lg:justify-start text-xs text-orange-600 font-semibold">
+                <Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+                <span className="hidden sm:inline">Review</span>
+                <span className="sm:hidden">!</span>
               </div>
             </div>
           </div>
