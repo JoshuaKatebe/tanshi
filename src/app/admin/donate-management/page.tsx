@@ -487,7 +487,6 @@ export default function AdminDonatePage() {
               </button>
             </div>
           </div>
-          </div>
 
           <div className="p-8">
             {/* Updates Tab */}
