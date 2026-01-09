@@ -1,19 +1,31 @@
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend client lazily to avoid build-time errors
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
+  // Initialize Resend with fallback to EMAIL_API_KEY or a dummy key for build safety if needed
+  // In production, one of these must be valid
+  const apiKey = process.env.RESEND_API_KEY || process.env.EMAIL_API_KEY;
+
+  if (!apiKey) {
+    console.warn('Missing RESEND_API_KEY or EMAIL_API_KEY');
+    return NextResponse.json({ error: 'Server configuration error: Missing email API key' }, { status: 500 });
+  }
+
+  const resend = new Resend(apiKey);
+
   try {
     const body = await request.json();
-    const { 
-      type, 
-      name, 
-      email, 
-      phone, 
-      message, 
-      packageData, 
-      businessSummary, 
+    const {
+      type,
+      name,
+      email,
+      phone,
+      message,
+      packageData,
+      businessSummary,
       projectGoals,
       contactMethod,
       referralCode,
@@ -62,8 +74,8 @@ export async function POST(request: NextRequest) {
         resend.emails.send(confirmationEmail)
       ]);
 
-      return NextResponse.json({ 
-        success: true, 
+      return NextResponse.json({
+        success: true,
         businessEmailId: businessEmail.data?.id,
         clientEmailId: clientEmail.data?.id
       });
@@ -97,8 +109,8 @@ export async function POST(request: NextRequest) {
         resend.emails.send(confirmationEmail)
       ]);
 
-      return NextResponse.json({ 
-        success: true, 
+      return NextResponse.json({
+        success: true,
         businessEmailId: businessEmail.data?.id,
         clientEmailId: clientEmail.data?.id
       });
@@ -120,8 +132,8 @@ export async function POST(request: NextRequest) {
 
       const result = await resend.emails.send(customerEmail);
 
-      return NextResponse.json({ 
-        success: true, 
+      return NextResponse.json({
+        success: true,
         emailId: result.data?.id
       });
     }
@@ -181,10 +193,10 @@ function generateQuoteEmailHTML({ name, email, phone, packageData, businessSumma
             <h2 style="color: #1e40af; margin-top: 0;">Package Details</h2>
             <div style="background: linear-gradient(135deg, #EFF6FF, #DBEAFE); padding: 20px; border-radius: 6px;">
                 <h3 style="margin: 0 0 15px 0; color: #1e40af; font-size: 20px;">${packageData?.name || 'Custom'} Package</h3>
-                ${packageData?.price && packageData.price !== 'Contact for Pricing' && packageData.price !== 'Custom Pricing' ? 
-                  `<p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #059669;">Total: K${typeof packageData.price === 'number' ? packageData.price.toLocaleString() : packageData.price}</p>` : 
-                  '<p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #D97706;">Custom Pricing Required</p>'
-                }
+                ${packageData?.price && packageData.price !== 'Contact for Pricing' && packageData.price !== 'Custom Pricing' ?
+      `<p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #059669;">Total: K${typeof packageData.price === 'number' ? packageData.price.toLocaleString() : packageData.price}</p>` :
+      '<p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #D97706;">Custom Pricing Required</p>'
+    }
                 
                 ${packageData?.breakdown && packageData.breakdown.length > 0 ? `
                 <h4 style="margin: 15px 0 10px 0; color: #374151;">Cost Breakdown:</h4>
@@ -244,7 +256,7 @@ function generateQuoteEmailHTML({ name, email, phone, packageData, businessSumma
 // Helper function to generate subject for order updates
 function generateOrderUpdateSubject(orderData: any, updateType: string) {
   const orderNumber = orderData?.order_id || orderData?.id || 'Your Order';
-  
+
   switch (updateType) {
     case 'success':
       return `🎉 Great News About Order ${orderNumber} - Tanshi Digital`;
@@ -372,14 +384,14 @@ function generateOrderUpdateEmailHTML({ name, orderData, updateMessage, updateTy
             </div>
             <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(0,0,0,0.1);">
                 <p style="color: #6B7280; margin: 0; font-size: 14px; display: flex; align-items: center; gap: 8px;">
-                    🕐 Updated: ${new Date().toLocaleDateString('en-US', { 
-                      weekday: 'long', 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
+                    🕐 Updated: ${new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })}
                 </p>
             </div>
         </div>
