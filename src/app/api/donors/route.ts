@@ -1,28 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { promises as fs } from 'fs'
-import path from 'path'
-
-const dataDir = path.join(process.cwd(), 'src/data')
-const donorsPath = path.join(dataDir, 'donors.json')
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  try {
-    await fs.access(dataDir)
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true })
-  }
-}
+import { getAllDonors, createDonor, deleteDonor } from '@/lib/database'
 
 export async function GET() {
   try {
-    const fileContents = await fs.readFile(donorsPath, 'utf8')
-    const donors = JSON.parse(fileContents)
-    return NextResponse.json(donors.sort((a: any, b: any) => 
-      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    ))
+    const donors = await getAllDonors()
+    return NextResponse.json(donors)
   } catch (error) {
-    return NextResponse.json([], { status: 200 })
+    console.error('Error fetching donors:', error)
+    return NextResponse.json({ error: 'Failed to fetch donors' }, { status: 500 })
   }
 }
 
@@ -34,34 +19,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Required fields missing' }, { status: 400 })
     }
 
-    let donors = []
-    try {
-      const fileContents = await fs.readFile(donorsPath, 'utf8')
-      donors = JSON.parse(fileContents)
-    } catch (error) {
-      // File doesn't exist, start with empty array
-      await ensureDataDir()
-    }
-
-    const newDonor = {
-      id: Date.now().toString(),
+    const newDonor = await createDonor({
       name: name.slice(0, 100),
-      bloodType: bloodType?.slice(0, 10) || '',
+      blood_type: bloodType?.slice(0, 10) || undefined,
       amount: amount.slice(0, 50),
-      donationType: donationType, // 'blood' or 'financial'
-      timestamp: new Date().toISOString(),
-      location: location?.slice(0, 100) || '',
-      method: method?.slice(0, 50) || '',
+      donation_type: donationType, // 'blood' or 'financial'
+      location: location?.slice(0, 100) || undefined,
+      method: method?.slice(0, 50) || undefined,
       status: 'completed'
-    }
-
-    donors.push(newDonor)
-    
-    await ensureDataDir()
-    await fs.writeFile(donorsPath, JSON.stringify(donors, null, 2))
+    })
     
     return NextResponse.json(newDonor, { status: 201 })
   } catch (error) {
+    console.error('Error creating donor:', error)
     return NextResponse.json({ error: 'Failed to add donor record' }, { status: 500 })
   }
 }
