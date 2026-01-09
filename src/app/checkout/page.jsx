@@ -15,13 +15,14 @@ import {
     AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
-import { processPaymentAndSendEmail } from './actions';
+import { initiatePayment, checkPaymentStatus, sendReceiptEmail } from './actions';
 
 const CheckoutPage = () => {
     const [loading, setLoading] = useState(false);
     const [paymentStep, setPaymentStep] = useState('input'); // input, processing, authorizing, success
     const [selectedMethod, setSelectedMethod] = useState('');
     const [acceptedTerms, setAcceptedTerms] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     // Pre-selected package details
     const packageDetails = {
@@ -38,6 +39,7 @@ const CheckoutPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage('');
 
         if (!selectedMethod) {
             alert('Please select a payment method');
@@ -52,30 +54,70 @@ const CheckoutPage = () => {
         setLoading(true);
         setPaymentStep('processing');
 
-        // Simulate initial processing
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        setPaymentStep('authorizing');
-
-        // Simulate user checking phone and authorizing
-        await new Promise(resolve => setTimeout(resolve, 5000));
-
-        // Process "real" backend action
         const formData = new FormData(e.target);
         formData.append('package_name', packageDetails.name);
-        formData.append('amount', packageDetails.price);
+        // Note: Amount is handled in the server action for safety/testing (fixed to K1)
         formData.append('payment_method', selectedMethod);
 
-        const result = await processPaymentAndSendEmail(formData);
+        // 1. Initiate Payment
+        const initResult = await initiatePayment(formData);
 
-        setLoading(false);
-
-        if (result.success) {
-            setPaymentStep('success');
-        } else {
-            alert('Payment failed: ' + (result.error || 'Unknown error'));
+        if (!initResult.success) {
+            setErrorMessage(initResult.error);
             setPaymentStep('input');
+            setLoading(false);
+            return;
         }
+
+        const { depositId } = initResult;
+
+        // 2. Poll for status
+        setPaymentStep('authorizing');
+
+        let attempts = 0;
+        const maxAttempts = 24; // 2 minutes (approx 5s interval)
+        const pollInterval = 5000;
+
+        const poll = async () => {
+            if (attempts >= maxAttempts) {
+                setErrorMessage('Payment timed out. Please check your phone or try again.');
+                setPaymentStep('input');
+                setLoading(false);
+                return;
+            }
+
+            attempts++;
+            const statusResult = await checkPaymentStatus(depositId);
+
+            if (statusResult.success) {
+                if (statusResult.status === 'COMPLETED') {
+                    // Payment Success!
+                    // 3. Send Email
+                    await sendReceiptEmail(
+                        formData.get('email'),
+                        packageDetails.name,
+                        1, // Charged amount (K1)
+                        selectedMethod
+                    );
+
+                    setPaymentStep('success');
+                    setLoading(false);
+                } else if (statusResult.status === 'FAILED' || statusResult.status === 'CANCELLED') {
+                    setErrorMessage('Payment was failed or cancelled.');
+                    setPaymentStep('input');
+                    setLoading(false);
+                } else {
+                    // Still pending, wait and poll again
+                    setTimeout(poll, pollInterval);
+                }
+            } else {
+                // Error checking status, just retry
+                setTimeout(poll, pollInterval);
+            }
+        };
+
+        // Start polling
+        setTimeout(poll, pollInterval);
     };
 
     const paymentMethods = [
@@ -280,6 +322,14 @@ const CheckoutPage = () => {
                                             </label>
                                         </div>
                                     </div>
+
+                                    {/* Error Message */}
+                                    {errorMessage && (
+                                        <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-xl flex items-center gap-3">
+                                            <AlertCircle className="text-red-500" size={20} />
+                                            <p>{errorMessage}</p>
+                                        </div>
+                                    )}
 
                                     <button
                                         type="submit"
